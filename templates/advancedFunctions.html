@@ -1,27 +1,11 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <!--STYLESHEETS-->
-        <!-- <link rel="stylesheet" type="text/css" href='/static/style.css'/> -->
-        <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static',filename='style.css') }}"/> -->
-        <link rel="stylesheet" href='/static/style.css' />
-
-        <title>Advanced Functions</title>
-
-    </head>
-
+    {% extends "layout.html" %}
     <body>
-        <h1>Advanced Functions</h1>
-
-        <div class="sideNav">
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="basicFunctions.html">Basic Functions</a></li>
-                <li><a href="advancedFunctions.html">Advanced Functions</a></li>
-                <li><a href="musicSync.html">Music Sync</a></li>
-                <li><a href="info.html">Info</a></li>
-            </ul>
+        {% block content %}
+        <div class="advFunctions">
+            <h2>Advanced Functions</h2>
         </div>
-
+        {% endblock %}
     </body>
 </html>

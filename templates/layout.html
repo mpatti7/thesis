@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Flask app</title>
+        <title>Layout</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
     </head>
   <body>
@@ -12,6 +12,9 @@
           <ul class="menu">
             <li><a href="{{ url_for('index') }}">Home</a></li>
             <li><a href="{{ url_for('basicFunctions') }}">Basic Functions</a></li>
+            <li><a href="{{ url_for('advancedFunctions') }}">Advanced Functions</a></li>
+            <li><a href="{{ url_for('musicSync') }}">Music Sync</a></li>
+            <li><a href="{{ url_for('info') }}">Info</a></li>
           </ul>
         </nav></strong>
       </div>
