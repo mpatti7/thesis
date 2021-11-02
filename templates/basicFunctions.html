@@ -1,11 +1,22 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <title>Home</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/basic.css') }}">
+    </head>
     {% extends "layout.html" %}
 
     <body>
         {% block content %}
             <div class="basic">
                 <h2>Basic Functions</h2>
+            </div>
+
+            <div class="colorPicker">
+                <h4>Color</h4>
+                <label for="favcolor">Choose a color and hit "Apply" to change the color of your lights.</label>
+                <input type="color" id="favcolor" name="favcolor" value="#ff0000">
+                <button type="button">Apply</button>
             </div>
         {% endblock %}
     </body>
