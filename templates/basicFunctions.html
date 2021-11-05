@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Home</title>
+        <title>Basic Functions</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/basic.css') }}">
     </head>
     {% extends "layout.html" %}
@@ -18,8 +18,8 @@
                 <form action="{{url_for('colorChange')}}" method="post">
                     <input type="color" id="favcolor" name="favcolor" value="#ff0000">
                     <!-- <a href="/basicFunctions/{{color}}/{{apply}}" class="btn btn-block btn-lg btn-primary" role="button">Apply</a></div></div> -->
-                    <!-- <button type="button">Apply</button> -->
-                    <input type="submit">
+                    <button type="submit">Apply</button>
+                    <!-- <input type="submit"> -->
                 </form>
             </div>
         {% endblock %}

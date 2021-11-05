@@ -14,7 +14,9 @@ def color_fill(color):
 
 # while True:
 #     try:
+#         # pixels.fill(blue)
 #         color_fill(blue)
 #     except KeyboardInterrupt as error:
+#         # pixels.fill(black)
 #         color_fill(black)
 #         exit()
