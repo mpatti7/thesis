@@ -17,9 +17,18 @@
                 <label for="favcolor">Choose a color and hit "Apply" to change the color of your lights.</label>
                 <form action="{{url_for('colorChange')}}" method="post">
                     <input type="color" id="favcolor" name="favcolor" value="#ff0000">
-                    <!-- <a href="/basicFunctions/{{color}}/{{apply}}" class="btn btn-block btn-lg btn-primary" role="button">Apply</a></div></div> -->
                     <button type="submit">Apply</button>
                     <!-- <input type="submit"> -->
+                </form>
+            </div>
+
+            <div class="basicFunc">
+                <h4>Functions</h4>
+                <label for="function">Choose a simple function to play out on your LED strip.</label>
+                <form action="{{url_for('functionChange')}}" method="post">
+                    <input type="radio" id="favFunc" name="favFunc">
+                    <label for="favFunc">Color Wipe</label>
+                    <button type="submit">Apply</button>
                 </form>
             </div>
         {% endblock %}

@@ -9,12 +9,19 @@ def index():
 
 @app.route('/basicFunctions/')
 def basicFunctions():
+    #if color changed dont make new route, call function here and return this page
     return render_template('basicFunctions.html')
 
 @app.route('/colorChange', methods = ["POST"])
 def colorChange():
     color = request.form["favcolor"]
     lights.color_fill(color)
+    return render_template('basicFunctions.html')
+
+@app.route('/functionChange', methods = ["POST"])
+def functionChange():
+    color = request.form["function"]
+    lights.color_wipe(color)
     return render_template('basicFunctions.html')
 
 @app.route('/advancedFunctions/')

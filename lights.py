@@ -1,7 +1,9 @@
 import board
 import neopixel
 from PIL import ImageColor
-pixels = neopixel.NeoPixel(board.D18, 300)
+
+NUM_LEDS = 300
+pixels = neopixel.NeoPixel(board.D18, NUM_LEDS)
 
 blue = 0,0,255
 black = (0,0,0)
@@ -11,6 +13,18 @@ black = (0,0,0)
 def color_fill(color):
     print(ImageColor.getcolor(color, "RGB"))
     pixels.fill(ImageColor.getcolor(color, "RGB"))
+
+def color_wipe(color):
+    ImageColor.getcolor(color, "RGB")
+    print(f"Color wipe: {color}")
+
+    for i in range(0, NUM_LEDS):
+        pixels[i] = color
+
+def turn_off():
+    print("turning off lights")
+    pixels.fill(black)
+
 
 # while True:
 #     try:
