@@ -3,6 +3,8 @@ import lights
 
 app = Flask(__name__)
 
+blue = (0,0,255)
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -14,14 +16,26 @@ def basicFunctions():
 
 @app.route('/colorChange', methods = ["POST"])
 def colorChange():
+    # turn_off = request.form["btnOff"]
+    # print(turn_off)
     color = request.form["favcolor"]
     lights.color_fill(color)
+    # function = request.form["options"]
+    # print(function)
+    # if(function == "colorWipe"):
+    #     lights.color_wipe(color)
     return render_template('basicFunctions.html')
 
 @app.route('/functionChange', methods = ["POST"])
 def functionChange():
-    color = request.form["function"]
-    lights.color_wipe(color)
+    # color = request.form["favcolor"]
+    # print(color)
+    function = request.form["options"]
+    print(function)
+    if(function == "colorWipe"):
+        lights.color_wipe(blue)
+    if(function == "rColorWipe"):
+        lights.color_wipe(blue, True)
     return render_template('basicFunctions.html')
 
 @app.route('/advancedFunctions/')
