@@ -4,7 +4,7 @@ import lights
 app = Flask(__name__)
 
 blue = (0,0,255)
-
+ 
 @app.route('/')
 def index():
     return render_template('index.html')
