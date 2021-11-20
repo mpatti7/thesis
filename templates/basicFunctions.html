@@ -12,32 +12,26 @@
                 <h2>Basic Functions</h2>
             </div>
 
-            <div class="colorPicker">
+            <div class="basicChange">
                 <h4>Color</h4>
                 <label for="favcolor">Choose a color and hit "Apply" to change the color of your lights.</label>
-                <form action="{{url_for('colorChange')}}" method="post">
+                <form action="{{url_for('basicChange')}}" method="post">
+                    <!--Change solid color-->
                     <input type="color" id="favcolor" name="favcolor" value="#ff0000">
-                    <button type="submit">Apply</button>
-                    <!-- <input type="radio" id="favFunc" name="options" value="colorWipe">
-                    <label for="colorWipe">Color Wipe</label>
-                    <button type="submit">Apply</button> -->
-                    <!-- <input type="submit"> -->
-                </form>
-            </div>
-            <!--The solution to making color wipe work without a hardcoded color value is to put everything in one form tag.
-                Move functionChange into this one ^ and add ifs and checks to app.py to make sure the buttons are doing 
-                the right thing. Consider having one button that handles both fill solid and color wipe. Fire fill solid if 
-                no radio buttons are selected and fire color wipe if a radio button is selected. Will then need to add something
-                to un select any radio buttons that are selected if user wants to just do fill solid.-->
-            <div class="basicFunc">
-                <h4>Functions</h4>
-                <label for="function">Choose a simple function to play out on your LED strip.</label>
-                <form action="{{url_for('functionChange')}}" method="post">
+                    <!-- <button type="submit">Apply</button> -->
+                    
+                    <br>
+                    
+                    <!--Change Function-->
                     <input type="radio" id="favFunc" name="options" value="colorWipe">
                     <label for="colorWipe">Color Wipe</label>
 
+                    <br>
+
                     <input type="radio" id="favFunc" name="options" value="rColorWipe">
                     <label for="colorWipe">Reverse Color Wipe</label>
+
+                    <br>
 
                     <button type="submit">Apply</button>
                 </form>

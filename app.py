@@ -2,8 +2,6 @@ from flask import Flask, render_template, request
 import lights
 
 app = Flask(__name__)
-
-blue = (0,0,255)
  
 @app.route('/')
 def index():
@@ -11,31 +9,27 @@ def index():
 
 @app.route('/basicFunctions/')
 def basicFunctions():
-    #if color changed dont make new route, call function here and return this page
     return render_template('basicFunctions.html')
 
-@app.route('/colorChange', methods = ["POST"])
-def colorChange():
-    # turn_off = request.form["btnOff"]
-    # print(turn_off)
-    color = request.form["favcolor"]
-    lights.color_fill(color)
-    # function = request.form["options"]
-    # print(function)
-    # if(function == "colorWipe"):
-    #     lights.color_wipe(color)
-    return render_template('basicFunctions.html')
+@app.route('/basicFunctions/basicChange', methods = ["POST"])
+def basicChange():
+    form = request.form.to_dict()
+    print(f"form = {form}")
 
-@app.route('/functionChange', methods = ["POST"])
-def functionChange():
-    # color = request.form["favcolor"]
-    # print(color)
-    function = request.form["options"]
-    print(function)
-    if(function == "colorWipe"):
-        lights.color_wipe(blue)
-    if(function == "rColorWipe"):
-        lights.color_wipe(blue, True)
+    if(len(form) == 1 and "favcolor" in form):
+        color = form["favcolor"]
+        lights.color_fill(color)
+        print("color fill")
+    elif(len(form) == 1 and "btnOff" in form):
+        print("turn off")
+        lights.turn_off()
+    elif(len(form) > 1 and "options" in form):
+        color = form["favcolor"]
+        if(form["options"] == "colorWipe"):
+            lights.color_wipe(color)
+        if(form["options"] == "rColorWipe"):
+            lights.color_wipe(color, True)
+
     return render_template('basicFunctions.html')
 
 @app.route('/advancedFunctions/')
