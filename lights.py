@@ -3,11 +3,11 @@ import neopixel
 from PIL import ImageColor
 
 NUM_LEDS = 300
+brightness = 50
 pixels = neopixel.NeoPixel(board.D18, NUM_LEDS)
 
 blue = 0,0,255
 black = (0,0,0)
-# possibly have dictionary that will hold the names of the functions and whenever the user selects a function, use the dictionary to find the right one and call it
 
 '''Sets the light strip to a solid color.
     color: the color to set the lights to. fill()
@@ -33,7 +33,7 @@ def color_fill(color):
     reverse(boolean): default is false. If set to true, colorWipe
             will start from the end of the strip and work backwards.'''
 def color_wipe(color, reverse = False):
-    c = ImageColor.getcolor(color, "RGB") #uncomment this if passing in a hex value
+    c = ImageColor.getcolor(color, "RGB") 
     color_fill(black)
 
     if(reverse):
@@ -44,6 +44,10 @@ def color_wipe(color, reverse = False):
         print(f"Color wipe: {c}")
         for i in range(0, NUM_LEDS):
             pixels[i] = c
+
+def change_brightness(val):
+    brightness = val
+    print(brightness)
 
 '''Simply turns off the lights.'''
 def turn_off():

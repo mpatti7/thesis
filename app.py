@@ -16,19 +16,22 @@ def basicChange():
     form = request.form.to_dict()
     print(f"form = {form}")
 
-    if(len(form) == 1 and "favcolor" in form):
+    # if(len(form) == 1 and "favcolor" in form):
+    if("favcolor" in form and "options" not in form):
         color = form["favcolor"]
         lights.color_fill(color)
         print("color fill")
-    elif(len(form) == 1 and "btnOff" in form):
+    elif("btnOff" in form):
         print("turn off")
         lights.turn_off()
-    elif(len(form) > 1 and "options" in form):
+    elif(len(form) > 2 and "options" in form):
         color = form["favcolor"]
         if(form["options"] == "colorWipe"):
             lights.color_wipe(color)
         if(form["options"] == "rColorWipe"):
             lights.color_wipe(color, True)
+    if("slider" in form):
+        lights.change_brightness(form["slider"])
 
     return render_template('basicFunctions.html')
 

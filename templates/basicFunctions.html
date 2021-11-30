@@ -22,18 +22,38 @@
                     
                     <br>
                     
-                    <!--Change Function-->
-                    <input type="radio" id="favFunc" name="options" value="colorWipe">
-                    <label for="colorWipe">Color Wipe</label>
+                    <div class="functions">
+                        <!--Change Function-->
+                        <input type="radio" id="favFunc" name="options" value="colorWipe">
+                        <label for="colorWipe">Color Wipe</label>
 
-                    <br>
+                        <br>
 
-                    <input type="radio" id="favFunc" name="options" value="rColorWipe">
-                    <label for="colorWipe">Reverse Color Wipe</label>
+                        <input type="radio" id="favFunc" name="options" value="rColorWipe">
+                        <label for="colorWipe">Reverse Color Wipe</label>
 
-                    <br>
+                        <br>
+                    </div>
 
                     <button type="submit">Apply</button>
+
+                    <div class="sliderDiv">
+                        <label for="slider">Brightness</label>
+                        <input type="range" min="1" max="100" value="100" name="slider" id="brightness">
+                        <p>Value: <span id="value"></span></p>
+                    </div>
+
+                    <script>
+                        var slider = document.getElementById("brightness");
+                        var output = document.getElementById("value");
+                        output.innerHTML = slider.value; // Display the default slider value
+            
+                        // Update the current slider value (each time you drag the slider handle)
+                        slider.oninput = function() {
+                            output.innerHTML = this.value;
+                        }
+                    </script>
+
                 </form>
             </div>
         {% endblock %}
