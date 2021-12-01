@@ -19,7 +19,7 @@ def basicChange():
     # if(len(form) == 1 and "favcolor" in form):
     if("favcolor" in form and "options" not in form):
         color = form["favcolor"]
-        lights.color_fill(color)
+        lights.color_fill(color, form["slider"])
         print("color fill")
     elif("btnOff" in form):
         print("turn off")
@@ -30,8 +30,9 @@ def basicChange():
             lights.color_wipe(color)
         if(form["options"] == "rColorWipe"):
             lights.color_wipe(color, True)
-    if("slider" in form):
-        lights.change_brightness(form["slider"])
+    # if("slider" in form):
+    #     color = request.form["favcolor"]
+    #     lights.change_brightness(form["slider"], color)
 
     return render_template('basicFunctions.html')
 
