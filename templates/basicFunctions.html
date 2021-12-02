@@ -24,15 +24,22 @@
                     
                     <div class="functions">
                         <!--Change Function-->
-                        <input type="radio" id="favFunc" name="options" value="colorWipe">
+                        <input type="radio" id="colorWipe" name="functions" value="colorWipe">
                         <label for="colorWipe">Color Wipe</label>
 
                         <br>
 
-                        <input type="radio" id="favFunc" name="options" value="rColorWipe">
+                        <h4>Functions</h4>
+                        <p>Select one and hit "Apply"</p>
+                        <input type="radio" id="rColorWipe" name="functions" value="rColorWipe">
                         <label for="colorWipe">Reverse Color Wipe</label>
 
                         <br>
+
+                        <input type="checkbox" id="2Colors" name="options" value="2Colors">
+                        <input type="color" id="favColor2" name="favColor2" value="#ff0000">
+                        <label for="2Colors">2 Colors</label>
+
                     </div>
 
                     <button type="submit">Apply</button>
@@ -52,6 +59,19 @@
                         slider.oninput = function() {
                             output.innerHTML = this.value;
                         }
+
+                        var twoColors = document.getElementById("2Colors");
+                        var color2 = document.getElementById("favColor2")
+                        color2.style.display = "none"
+                        twoColors.oninput = function(){
+                            if(twoColors.checked == false){
+                                color2.style.display = "none";
+                            }
+                            if(twoColors.checked){
+                                color2.style.display = "block";                    
+                            }
+                        }
+
                     </script>
 
                 </form>
