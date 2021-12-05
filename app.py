@@ -16,27 +16,34 @@ def basicFunctions():
 
 @app.route('/basicFunctions/basicChange', methods = ["POST"])
 def basicChange():
-    form = request.form.to_dict()
+    form = request.form.to_dict()       #request the form data
     print(f"form = {form}")
+    options = dict()
 
-    # if(len(form) == 1 and "favcolor" in form):
-    if(len(form) == 3 and "favcolor" in form and "functions" not in form):
+    if("options" in form):              #if any options were selected, they are added to a separate dictionary
+        if(form["options"] == "2Colors"):
+            options["option1"] = dict()
+            options["option1"]["choice"] = "2Colors"
+            options["option1"]["color1"] = form["favcolor"]
+            options["option1"]["color2"] = form["favColor2"]
+    else:
+        options = None
+    print(f"options: {options}")
+
+    if("favcolor" in form and "functions" not in form):         #Regular color fill
         color = form["favcolor"]
-        lights.color_fill(color, form["slider"])
+        lights.color_fill(color, form["slider"], options)
         print("color fill")
-    elif("btnOff" in form):
+    elif("btnOff" in form):     #Turn off the lights
         print("turn off")
         lights.turn_off()
     elif(len(form) > 3):
         color = form["favcolor"]
         if("functions" in form):
             if(form["functions"] == "colorWipe"):
-                lights.color_wipe(color, form["slider"])
+                lights.color_wipe(color, form["slider"], False, options)
             if(form["functions"] == "rColorWipe"):
-                lights.color_wipe(color, form["slider"], True)
-        if("options" in form):
-            if(form["options"] == "2Colors"):
-                lights.two_colors(form["favcolor"], form["favColor2"])
+                lights.color_wipe(color, form["slider"], True, options)
 
     return render_template('basicFunctions.html')
 

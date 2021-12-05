@@ -16,17 +16,38 @@ black = (0,0,0)
             if the color value is hex and convert it to 
             RGB, so both types are allowed.
     brightness: the brightness value to set the lights to.
-                Default is 100 (full brightness)'''
-def color_fill(color, brightness = 100):
-    print(color)
-    if("#" in color):                           #check if this is a hex number or not. if it is, convert it to an RGB value
-        color = convert_hex_to_rgb(color)
-    print(color)
-    color = change_brightness(brightness, color)
-    print(color)
-    pixels.fill(color)
-    pixels.show()                               #required if auto_write is false
-    
+                Default is 100 (full brightness)
+    options: Default is None.  A dictionary of options to alter 
+            this animation'''
+def color_fill(color, brightness = 100, options = None):
+    if(options == None):
+        print(color)
+        if("#" in color):                           #check if this is a hex number or not. if it is, convert it to an RGB value
+            color = convert_hex_to_rgb(color)
+        print(color)
+        color = change_brightness(brightness, color)
+        print(color)
+        pixels.fill(color)
+        pixels.show()                               #required if auto_write is false
+    elif(options != None):
+        color1 = options["option1"]["color1"]
+        color2 = options["option1"]["color2"]
+
+        print(f"Double color fill: {color1}, {color2}")
+
+        if("#" in color1):
+            color1 = convert_hex_to_rgb(color1)
+        if("#" in color2):
+            color2 = convert_hex_to_rgb(color2)
+
+        color1 = change_brightness(brightness, color1)
+        color2 = change_brightness(brightness, color2)
+
+        for i in range(0, NUM_LEDS, 2):
+            pixels[i] = color1
+        for j in range(1, NUM_LEDS-1, 2):
+            pixels[j] = color2
+        pixels.show()
 
 '''Sets the lights to a solid color with a wiping effect.
     color: the color to set the lights to. The fill() method
@@ -37,42 +58,55 @@ def color_fill(color, brightness = 100):
     brightness: the brightness value to set the lights to.
                 Default is 100 (full brightness)
     reverse(boolean): default is false. If set to true, colorWipe
-            will start from the end of the strip and work backwards.'''
-def color_wipe(color, brightness = 100, reverse = False):
-    if("#" in color):
-        color = convert_hex_to_rgb(color) 
+            will start from the end of the strip and work backwards.
+    options: default is None. A dictionary of options to alter 
+            this animation'''
+def color_wipe(color, brightness = 100, reverse = False, options = None):
     color_fill(black)
-    pixels.show()
-    color = change_brightness(brightness, color)
-
-    if(reverse):
-        print(f"Reverse Color wipe: {color}")
-        for i in range(NUM_LEDS-1, -1, -1):      #technically counting down from 299, not 300 
-            pixels[i] = color
-            pixels.show()
-    else:
-        print(f"Color wipe: {color}")
-        for i in range(0, NUM_LEDS):
-            pixels[i] = color
-            pixels.show()
-
-def two_colors(color1, color2, brightness = 100, wipe = False):
-    print(f"2 colors: {color1} and {color2}")
-
-    if("#" in color1):
-        color1 = convert_hex_to_rgb(color1)
-    if("#" in color2):
-        color2 = convert_hex_to_rgb(color2)
-    #Add in brightness check
-    #Figure out how to do a color wipe with 2 colors
-    if(wipe == False):
-        for i in range(0, NUM_LEDS, 2):
-            pixels[i] = color1
-        for j in range(1, NUM_LEDS-1, 2):
-            pixels[j] = color2
+    if(options == None):
+        if("#" in color):
+            color = convert_hex_to_rgb(color) 
         pixels.show()
-    elif(wipe == True):
-        print("color wipe with 2 colors")
+        color = change_brightness(brightness, color)
+
+        if(reverse):
+            print(f"Reverse Color wipe: {color}")
+            for i in range(NUM_LEDS-1, -1, -1):      #technically counting down from 299, not 300 
+                pixels[i] = color
+                pixels.show()
+        else:
+            print(f"Color wipe: {color}")
+            for i in range(0, NUM_LEDS):
+                pixels[i] = color
+                pixels.show()
+    elif(options != None):
+        print(f"Double color wipe")
+
+        color1 = options["option1"]["color1"]
+        color2 = options["option1"]["color2"]
+
+        if("#" in color1):                           
+            color1 = convert_hex_to_rgb(color1)
+        if("#" in color2):                           
+            color2 = convert_hex_to_rgb(color2)
+        
+        color1 = change_brightness(brightness, color1)
+        color2 = change_brightness(brightness, color2)
+
+        if(reverse):
+            for i in range(NUM_LEDS-1, -1, -1):
+                if(i % 2 != 0):
+                    pixels[i] = color1
+                if(i % 2 == 0):
+                    pixels[i] = color2
+                pixels.show()
+        else:
+            for i in range(0, NUM_LEDS):
+                if(i % 2 != 0):
+                    pixels[i] = color1
+                if(i % 2 == 0):
+                    pixels[i] = color2
+                pixels.show()
 
 '''Adjusts the brightness of the lights. Multiplies the percentage 
     by the RGB values to get a less intense version of the same color.
@@ -86,18 +120,16 @@ def change_brightness(val, color):
     print(f"brightness = {brightness}")
     return brightness
 
-    
-
 '''Simply turns off the lights.'''
 def turn_off():
     print("turning off lights")
     pixels.fill(black)
     pixels.show()
 
+'''Converts a hexadecimal value to an RGB value.'''
 def convert_hex_to_rgb(hex):
     rgb = ImageColor.getcolor(hex, "RGB")
     return rgb
-
 
 # while True:
 #     try:
