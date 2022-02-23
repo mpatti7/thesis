@@ -4,7 +4,8 @@ from PIL import ImageColor
 
 NUM_LEDS = 300
 brightness = 50
-pixels = neopixel.NeoPixel(board.D18, NUM_LEDS, auto_write = False)
+pin = board.D18
+pixels = neopixel.NeoPixel(pin, NUM_LEDS, auto_write = False)
 
 blue = 0,0,255
 black = (0,0,0)
@@ -107,6 +108,20 @@ def color_wipe(color, brightness = 100, reverse = False, options = None):
                 if(i % 2 == 0):
                     pixels[i] = color2
                 pixels.show()
+
+'''Fades the strip of lights in and out'''
+def fade(color, options=None):
+    color_fill(black)
+
+    if(options == None):
+        if('#' in color):
+            color = convert_hex_to_rgb(color)
+        color = change_brightness(100, color)
+        color_fill(color)
+
+        #This is just a test
+        while True:
+            color_wipe(color)
 
 '''Adjusts the brightness of the lights. Multiplies the percentage 
     by the RGB values to get a less intense version of the same color.

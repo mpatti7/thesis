@@ -10,6 +10,60 @@
         <div class="advFunctions">
             <h2>Advanced Functions</h2>
         </div>
+        
+        <!-- <div class="basicChange"> -->
+            <div class="row">
+                <form action="{{url_for('advancedChange')}}" method="post">
+                    <!-- <div class="colorColumn"> -->
+                    <div class="column" id="colorColumn">
+                        <h4>Color</h4>
+                        <label for="favcolor">Choose a color and a function and hit "Apply"</label>
+                        <br>        
+                        <!--Change solid color-->
+                        <input type="color" id="favcolor" name="favcolor" value="#ff0000">
+                        <!-- <button type="submit">Apply</button> -->
+                        
+                        <br>
+                    </div>
+                    
+                    <!-- <div class="functionsColumn"> -->
+                    <div class="column" id="functionsColumn">
+                        <h4>Functions</h4>
+                        <p>Select one and hit "Apply"</p>
+
+                        <!--Change Function-->
+                        <input type="radio" id="fade" name="functions" value="fade">
+                        <label for="fade">Fade</label>
+
+                        <br>
+
+                        <!-- <input type="radio" id="rColorWipe" name="functions" value="rColorWipe">
+                        <label for="colorWipe">Reverse Color Wipe</label> -->
+
+                        <br>
+                    </div>
+                    <button type="submit">Apply</button>
+
+                    <!--Figure out how to handle options for a playlist of functions. Seems like 
+                    options will work the same for one function at a time like for basic ones-->
+                    <!-- <div class="optionsColumn"> -->
+                    <!-- <div class="column" id="optionsColumn">
+                        <h4>Options</h4>
+                        <input type="checkbox" id="2Colors" name="options" value="2Colors">
+                        <input type="color" id="favColor2" name="favColor2" value="#ff0000">
+                        <label for="2Colors">2 Colors</label>
+
+                        <div class="sliderDiv">
+                            <label for="slider">Brightness</label>
+                            <input type="range" min="1" max="100" value="100" name="slider" id="brightness">
+                            <p>Value: <span id="value"></span></p>
+                        </div>
+                        <button type="submit">Apply</button>
+
+                    </div> -->
+
+                </form>
+            </div>
         {% endblock %}
     </body>
 </html>
