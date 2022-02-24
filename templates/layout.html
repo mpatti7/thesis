@@ -17,12 +17,15 @@
             <li><a href="{{ url_for('info') }}">Info</a></li>
           </ul>
         </nav></strong>
-        <!--Move the last two btns to their own div and figure out how to set the url_for dynamically for 
-        whichever page you are on(Jinja?) Or, if can't figure it out, just add each btn manually to 
-        each page.-->
-        <div class="rpiOffBtn">
+        
+        <br>
+        
+        
+        <div class="rpiControls">
+          <strong><label for="rpiControls">Raspberry Pi Controls</label></strong>
           <form action="{{url_for('index')}}" method="post">
-            <button type="submit" name="rpiOff" value="rpiOff">Shut Down</button>
+            <button id="rpiOff" type="submit" name="rpiOff" value="rpiOff">Shut Down</button>
+            <button id="rpiReboot" type="submit" name="rpiReboot" value="rpiReboot">Reboot</button>
           </form>
         </div>
       </div>

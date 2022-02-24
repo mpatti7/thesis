@@ -3,10 +3,6 @@
 	margin-left: 40px;
 }
 
-/* .basicChange{
-    margin-left: 40px;
-} */
-
 .column{
 	float: left;
 	width: 30%;
@@ -17,4 +13,8 @@
 	content: "";
 	display: table;
 	clear: both;
+}
+
+.controlBtns {
+	margin-left: 35px;
 }
