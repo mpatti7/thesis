@@ -1,6 +1,7 @@
 import board
 import neopixel
 from PIL import ImageColor
+import time
 
 NUM_LEDS = 300
 brightness = 50
@@ -56,13 +57,14 @@ def color_fill(color, brightness = 100, options = None):
             values, but this function will check first 
             if the color value is hex and convert it to 
             RGB, so both types are allowed.
-    brightness: the brightness value to set the lights to.
+    brightness(int): the brightness value to set the lights to.
                 Default is 100 (full brightness)
     reverse(boolean): default is false. If set to true, colorWipe
             will start from the end of the strip and work backwards.
-    options: default is None. A dictionary of options to alter 
-            this animation'''
-def color_wipe(color, brightness = 100, reverse = False, options = None):
+    options(dict): default is None. A dictionary of options to alter 
+            this animation
+    delay(int): default is 0. The time between when each LED is lit up in seconds.'''
+def color_wipe(color, brightness = 100, reverse = False, options = None, delay=0):
     color_fill(black)
     if(options == None):
         if("#" in color):
@@ -75,11 +77,13 @@ def color_wipe(color, brightness = 100, reverse = False, options = None):
             for i in range(NUM_LEDS-1, -1, -1):      #technically counting down from 299, not 300 
                 pixels[i] = color
                 pixels.show()
+                time.sleep(delay)
         else:
             print(f"Color wipe: {color}")
             for i in range(0, NUM_LEDS):
                 pixels[i] = color
                 pixels.show()
+                time.sleep(delay)
     elif(options != None):
         print(f"Double color wipe")
 
@@ -101,6 +105,7 @@ def color_wipe(color, brightness = 100, reverse = False, options = None):
                 if(i % 2 == 0):
                     pixels[i] = color2
                 pixels.show()
+                time.sleep(delay)
         else:
             for i in range(0, NUM_LEDS):
                 if(i % 2 != 0):
@@ -108,20 +113,35 @@ def color_wipe(color, brightness = 100, reverse = False, options = None):
                 if(i % 2 == 0):
                     pixels[i] = color2
                 pixels.show()
+                time.sleep(delay)
 
 '''Fades the strip of lights in and out'''
-def fade(color, options=None):
-    color_fill(black)
+def fade(color, brightness, options=None, repeat=True):
+    turn_off()
+    max_brightness = brightness
 
     if(options == None):
         if('#' in color):
             color = convert_hex_to_rgb(color)
-        color = change_brightness(100, color)
+        color = change_brightness(brightness, color)
         color_fill(color)
 
         #This is just a test
-        while True:
+        while repeat:
+            #color is a tuple, this will not work
+            #change it r g b values and then make it into a tuple called new_color or something
+            #this wont work for anything but red green and blue or white 
+            # if(color[0] >= 255):
+            #     color[0] -= 1
+            #     color[1] -= 1
+            #     color[2] -= 1
+            # color[0] += 1
+            # color[1] += 1
+            # color[2] += 1
             color_wipe(color)
+            # for i in range(0, max_brightness):
+                
+
 
 '''Adjusts the brightness of the lights. Multiplies the percentage 
     by the RGB values to get a less intense version of the same color.

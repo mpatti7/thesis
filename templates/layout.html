@@ -11,7 +11,7 @@
         <strong><nav>
           <ul class="menu">
             <li><a href="{{ url_for('index') }}">Home</a></li>
-            <li><a href="{{ url_for('basicFunctions') }}">Basic Functions</a></li>
+            <li><a href="{{ url_for('controls') }}">Controls</a></li>
             <li><a href="{{ url_for('advancedFunctions') }}">Advanced Functions</a></li>
             <li><a href="{{ url_for('musicSync') }}">Music Sync</a></li>
             <li><a href="{{ url_for('info') }}">Info</a></li>
@@ -20,11 +20,9 @@
         <!--Move the last two btns to their own div and figure out how to set the url_for dynamically for 
         whichever page you are on(Jinja?) Or, if can't figure it out, just add each btn manually to 
         each page.-->
-        <div class="btnOff">
-          <form action="{{url_for('basicChange')}}" method="post">
-            <button type="submit" name="btnOff" value="off">Turn Off Lights</button>
+        <div class="rpiOffBtn">
+          <form action="{{url_for('index')}}" method="post">
             <button type="submit" name="rpiOff" value="rpiOff">Shut Down</button>
-            <button type="submit" name="cancel" value="cancelTask">Cancel Loop</button>
           </form>
         </div>
       </div>

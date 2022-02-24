@@ -10,6 +10,13 @@
         <div class="advFunctions">
             <h2>Advanced Functions</h2>
         </div>
+
+        <div class="controlBtns">
+            <form action="{{url_for('advancedChange')}}" method="post">
+              <button type="submit" name="btnOff" value="off">Turn Off Lights</button>
+              <button type="submit" name="cancel" value="cancelTask">Cancel Loop</button>
+            </form>
+        </div>
         
         <!-- <div class="basicChange"> -->
             <div class="row">
