@@ -60,15 +60,31 @@
                         <label for="2Colors">2 Colors</label>
 
                         <div class="sliderDiv">
-                            <label for="slider">Brightness</label>
+                            <label for="slider">Brightness:</label>
                             <input type="range" min="1" max="100" value="100" name="slider" id="brightness">
                             <label for="slider"><span id="value"></span></label>
                             <!-- <p>Value: <span id="value"></span></p> -->
                         </div>
 
+                        <div class="delayDiv">
+                            <label for="delay">Delay (seconds):</label>
+                            <input type="text" maxlength="4" size="1" value="0" name="delay" id="delay">   <!--Seconds-->
+                        </div>
+
+                        <!--TODO: Possibly have these only show up if Fade is selected-->
                         <div class="speedDiv">
-                            <label for="speed">Speed (seconds)</label>
-                            <input type="text" maxlength="4" size="1" value="0" name="speed" id="speed">   <!--Speed in Seconds-->
+                            <label for="speed">Fade Speed:</label>
+                            <br>
+                            <div class="subSpeedDiv">
+                                <label for="speed1">Default</label>
+                                <input type="radio" id="speed1" name="speed" value="default">
+                                <br>
+                                <label for="speed2">Medium</label>
+                                <input type="radio" id="speed2" name="speed" value="medium">
+                                <br>
+                                <label for="speed3">Fast</label>
+                                <input type="radio" id="speed3" name="speed" value="fast">
+                            </div>
                         </div>
                         
                         <button type="submit">Apply</button>

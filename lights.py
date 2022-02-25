@@ -116,31 +116,70 @@ def color_wipe(color, brightness = 100, reverse = False, options = None, delay=0
                 time.sleep(delay)
 
 '''Fades the strip of lights in and out'''
-def fade(color, brightness, options=None, repeat=True):
+def fade(color, brightness, speed='default', options=None, repeat=True):
     turn_off()
-    max_brightness = brightness
+    fade_color = list()
+    speed_rate = 1
 
     if(options == None):
         if('#' in color):
             color = convert_hex_to_rgb(color)
         color = change_brightness(brightness, color)
-        color_fill(color)
 
-        #This is just a test
+        #color is a tuple, so the values can't be changed, so it's rgb values are copied into a list where they can be changed
+        fade_color.append(color[0])
+        fade_color.append(color[1])
+        fade_color.append(color[2])
+
+        r_max = color[0]
+        g_max = color[1]
+        b_max = color[2]
+
+        print(f'r max: {r_max}')
+
+        print(f'fade_color= {fade_color}')
+        color_fill(fade_color)
+        
+        #TODO: Add in speed options. May need to add logic if the speed rate won't add or subtract to an even 0 or 255, based on rgb value
+        # if(speed == 'default'):
+        #     speed_rate = 1
+        # print(f'speed: {speed}')
+        # if(speed == 'medium'):
+        #     speed_rate == 25
+        # elif(speed == 'fast'):
+        #     speed_rate == 50
+
         while repeat:
-            #color is a tuple, this will not work
-            #change it r g b values and then make it into a tuple called new_color or something
-            #this wont work for anything but red green and blue or white 
-            # if(color[0] >= 255):
-            #     color[0] -= 1
-            #     color[1] -= 1
-            #     color[2] -= 1
-            # color[0] += 1
-            # color[1] += 1
-            # color[2] += 1
-            color_wipe(color)
-            # for i in range(0, max_brightness):
-                
+            #Prevent each value from going below 0
+            if(fade_color[0] < 0):
+                fade_color[0] = 0
+            if(fade_color[1] < 0):
+                fade_color[1] = 0
+            if(fade_color[2] < 0):
+                fade_color[2] = 0
+
+            while (fade_color[0] < r_max or fade_color[1] < g_max or fade_color[2] < b_max):
+                #Fade up
+                if(fade_color[0] < r_max):
+                    fade_color[0] += 1
+                if(fade_color[1] < g_max):
+                    fade_color[1] += 1
+                if(fade_color[2] < b_max):
+                    fade_color[2] += 1
+                pixels.fill(fade_color)
+                pixels.show()
+            
+            while (fade_color[0] != 0 or fade_color[1] != 0 or fade_color[2] != 0):
+                #Fade down
+                if(fade_color[0] != 0):
+                    fade_color[0] -= 1
+                if(fade_color[1] != 0):
+                    fade_color[1] -= 1
+                if(fade_color[2] != 0):
+                    fade_color[2] -= 1
+                print(fade_color)
+                pixels.fill(fade_color)
+                pixels.show()                
 
 
 '''Adjusts the brightness of the lights. Multiplies the percentage 

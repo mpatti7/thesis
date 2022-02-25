@@ -18,3 +18,7 @@
 .controlBtns {
 	margin-left: 35px;
 }
+
+.speedDiv .subSpeedDiv label{
+	padding-left: 40px;
+}

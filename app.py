@@ -41,6 +41,9 @@ def controlsChange():
     form = request.form.to_dict()       #request the form data
     print(f"form = {form}")
     options = dict()
+    delay = float()
+    brightness = int()
+    speed = ''
 
     if('cancel' in form):
         if(len(tasks) > 0):
@@ -60,10 +63,12 @@ def controlsChange():
         options = None
     print(f"options: {options}")
 
-    if('speed' in form):
-        speed = float(form['speed'])
+    if('delay' in form):
+        delay = float(form['delay'])
     if('slider' in form):
         brightness = float(form['slider'])
+    if('speed' in form):
+        speed = form['speed']
 
     if("favcolor" in form and "functions" not in form):         #Regular color fill
         color = form["favcolor"]
@@ -77,16 +82,16 @@ def controlsChange():
         color = form["favcolor"]
         if("functions" in form):
             if(form["functions"] == "colorWipe"):
-                task = color_wipe.delay(color, brightness, False, options, speed)
+                task = color_wipe.delay(color, brightness, False, options, delay)
                 tasks.append(task)
                 #TODO: In case any light function throws an exception, use task.traceback to see. Add in try/except with this?
                 # print(f'task.ready(): {task.ready()}')
                 # lights.color_wipe(color, form["slider"], False, options)
             if(form["functions"] == "rColorWipe"):
-                task = color_wipe.delay(color, brightness, True, options, speed)
+                task = color_wipe.delay(color, brightness, True, options, delay)
                 tasks.append(task)
             if(form["functions"] == "fade"):
-                task = fade.delay(color, brightness, options)
+                task = fade.delay(color, brightness, speed, options)
                 tasks.append(task)
 
     return render_template('controls.html')
@@ -95,8 +100,9 @@ def controlsChange():
 def advancedFunctions():
     return render_template('advancedFunctions.html')
 
-# @app.route('/advancedFunctions/advancedChange', methods = ["POST"])
-# def advancedChange():
+@app.route('/advancedFunctions/advancedChange', methods = ["POST"])
+def advancedChange():
+    return render_template('advancedFunctions.html')
 #     form = request.form.to_dict()       #request the form data
 #     print(f"form = {form}")
 #     options = dict()
@@ -165,12 +171,12 @@ def turn_off():
     return lights.turn_off()
 
 @celery.task(name='app.fade')
-def fade(color, brightness=100, options=None, repeat=True):
+def fade(color, speed='default', brightness=100, options=None, repeat=True):
     # task_id = fade.request.id
     # global CURRENT_TASK_ID
     # CURRENT_TASK_ID = task_id
     # print(task_id)
-    return lights.fade(color, brightness, options, repeat)
+    return lights.fade(color, speed, brightness, options, repeat)
 
 #CELERY TEST
 # @app.route('/process/<name>')
