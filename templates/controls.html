@@ -51,28 +51,35 @@
                         <label for="fade">Fade</label>
 
                         <br>
+
+                        <input type="radio" id="theaterChase" name="functions" value="theaterChase">
+                        <label for="theaterChase">Theater Chase</label>
+
                     </div>
 
+                    <!--=============================================================================-->
+                    <!--====                                                                     ====-->
+                    <!--====                                                                     ====-->
+                    <!--====                             OPTIONS                                 ====-->
+                    <!--====                                                                     ====-->
+                    <!--====                                                                     ====-->
+                    <!--=============================================================================-->
                     <div class="column" id="optionsColumn">
                         <h4>Options</h4>
-                        <input type="checkbox" id="2Colors" name="options" value="2Colors">
-                        <input type="color" id="favColor2" name="favColor2" value="#ff0000">
-                        <label for="2Colors">2 Colors</label>
 
                         <div class="sliderDiv">
                             <label for="slider">Brightness:</label>
-                            <input type="range" min="1" max="100" value="100" name="slider" id="brightness">
-                            <label for="slider"><span id="value"></span></label>
+                            <input type="range" min="1" max="100" value="100" name="brightness" id="brightness">
+                            <label for="brightness"><span id="value"></span></label>
                             <!-- <p>Value: <span id="value"></span></p> -->
                         </div>
 
                         <div class="delayDiv">
-                            <label for="delay">Delay (seconds):</label>
+                            <label for="delay">Delay (ms):</label>
                             <input type="text" maxlength="4" size="1" value="0" name="delay" id="delay">   <!--Seconds-->
                         </div>
 
-                        <!--TODO: Possibly have these only show up if Fade is selected-->
-                        <div class="speedDiv">
+                        <div class="speedDiv" id="speedDivID">
                             <label for="speed">Fade Speed:</label>
                             <br>
                             <div class="subSpeedDiv">
@@ -86,6 +93,17 @@
                                 <input type="radio" id="speed3" name="speed" value="fast">
                             </div>
                         </div>
+
+                        <div class="cyclesDiv" id="cyclesDivID">
+                            <label for="cycles">Cycles:</label>
+                            <input type="text" maxlength="4" size="1" value="0" name="cycles" id="cycles">
+                        </div>
+
+                        <input type="checkbox" id="2Colors" name="2Colors" value="2Colors">
+                        <input type="color" id="favColor2" name="favColor2" value="#ff0000">
+                        <label for="2Colors">2 Colors</label>
+                        
+                        <br>
                         
                         <button type="submit">Apply</button>
 
@@ -102,8 +120,8 @@
                         }
 
                         var twoColors = document.getElementById("2Colors");
-                        var color2 = document.getElementById("favColor2")
-                        color2.style.display = "none"
+                        var color2 = document.getElementById("favColor2");
+                        color2.style.display = "none";
                         twoColors.oninput = function(){
                             //Display the second color picker depending on if the box is checked or not
                             if(twoColors.checked == false){
@@ -111,6 +129,34 @@
                             }
                             if(twoColors.checked){
                                 color2.style.display = "block";                    
+                            }
+                        }
+
+                        var fadeBtn = document.getElementById("fade");
+                        var fadeSpeed = document.getElementById("speedDivID");
+                        fadeSpeed.style.display = "none";
+                        fadeBtn.oninput = function(){
+                            if(fadeBtn.checked == false){
+                                fadeSpeed.style.display = "none"
+                                twoColors.disable = false;
+                            }                           
+                            if(fadeBtn.checked){
+                                fadeSpeed.style.display = "block";
+                                twoColors.disable = true;
+                            }
+                        }
+
+                        var theaterBtn = document.getElementById("theaterChase");
+                        var cycles = document.getElementById("cyclesDivID");
+                        cycles.style.display = "none";
+                        theaterBtn.oninput = function(){
+                            if(theaterBtn.checked == false){
+                                cycles.style.display = "none"
+                                // twoColors.disable = false;
+                            }                           
+                            if(theaterBtn.checked){
+                                cycles.style.display = "block";
+                                // twoColors.disable = true;
                             }
                         }
 

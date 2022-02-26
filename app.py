@@ -44,6 +44,7 @@ def controlsChange():
     delay = float()
     brightness = int()
     speed = ''
+    cycles = int()
 
     if('cancel' in form):
         if(len(tasks) > 0):
@@ -53,26 +54,45 @@ def controlsChange():
             tasks.pop(0)
         return render_template('controls.html')
 
-    if("options" in form):              #if any options were selected, they are added to a separate dictionary
-        if(form["options"] == "2Colors"):
-            options["option1"] = dict()
-            options["option1"]["choice"] = "2Colors"
-            options["option1"]["color1"] = form["favcolor"]
-            options["option1"]["color2"] = form["favColor2"]
-    else:
-        options = None
+    # if("options" in form):              #if any options were selected, they are added to a separate dictionary
+    #     if(form["options"] == "2Colors"):
+    #         options["option1"] = dict()
+    #         options["option1"]["choice"] = "2Colors"
+    #         options["option1"]["color1"] = form["favcolor"]
+    #         options["option1"]["color2"] = form["favColor2"]
+    if('delay' in form):
+        options['option1'] = dict()
+        options['option1']['choice'] = 'delay'
+        options['option1']['value'] = form['delay']
+    if('speed' in form):
+        options['option2'] = dict()
+        options['option2']['choice'] = 'speed'
+        options['option2']['value'] = form['speed']
+    if('cycles' in form):
+        options['option3'] = dict()
+        options['option3']['choice'] = 'cycles'
+        options['option3']['value'] = form['cycles']
+    if('2Colors' in form):
+        options['option4'] = dict()
+        options['option4']['choice'] = '2Colors'
+        options['option4']['color1'] = form['favcolor']
+        options['option4']['color2'] = form['favColor2']
+    # else:
+    #     options = None
     print(f"options: {options}")
 
     if('delay' in form):
         delay = float(form['delay'])
-    if('slider' in form):
-        brightness = float(form['slider'])
+    if('brightness' in form):
+        brightness = float(form['brightness'])
     if('speed' in form):
         speed = form['speed']
+    if('cycles' in form):
+        cycles = form['cycles']
 
     if("favcolor" in form and "functions" not in form):         #Regular color fill
         color = form["favcolor"]
-        task = color_fill.delay(color, brightness, options)
+        task = color_fill.delay(color, options, brightness)
         print("color fill")
     elif("btnOff" in form):     #Turn off the lights
         print("turn off")
@@ -82,16 +102,19 @@ def controlsChange():
         color = form["favcolor"]
         if("functions" in form):
             if(form["functions"] == "colorWipe"):
-                task = color_wipe.delay(color, brightness, False, options, delay)
+                task = color_wipe.delay(color, options, brightness, False)
                 tasks.append(task)
                 #TODO: In case any light function throws an exception, use task.traceback to see. Add in try/except with this?
                 # print(f'task.ready(): {task.ready()}')
                 # lights.color_wipe(color, form["slider"], False, options)
             if(form["functions"] == "rColorWipe"):
-                task = color_wipe.delay(color, brightness, True, options, delay)
+                task = color_wipe.delay(color, options, brightness, True)
                 tasks.append(task)
             if(form["functions"] == "fade"):
-                task = fade.delay(color, brightness, speed, options)
+                task = fade.delay(color, options, brightness)
+                tasks.append(task)
+            if(form["functions"] == "theaterChase"):
+                task = theaterChase.delay(color, options, brightness, True)
                 tasks.append(task)
 
     return render_template('controls.html')
@@ -159,24 +182,27 @@ def info():
 ########### CELERY TASKS #############
 ######################################
 @celery.task(name='app.color_fill')
-def color_fill(color, brightness = 100, options = None):
-    return lights.color_fill(color, brightness, options)
+def color_fill(color, options, brightness = 100):
+    return lights.color_fill(color, options, brightness)
 
 @celery.task(name='app.color_wipe')
-def color_wipe(color, brightness = 100, reverse = False, options = None, delay=0):
-    return lights.color_wipe(color, brightness, reverse, options, delay)
+def color_wipe(color, options, brightness = 100, reverse = False):
+    return lights.color_wipe(color, options, brightness, reverse)
 
 @celery.task(name='app.turn_off')
 def turn_off():
     return lights.turn_off()
 
 @celery.task(name='app.fade')
-def fade(color, speed='default', brightness=100, options=None, repeat=True):
+def fade(color, options, brightness=100, repeat=True):
     # task_id = fade.request.id
-    # global CURRENT_TASK_ID
-    # CURRENT_TASK_ID = task_id
     # print(task_id)
-    return lights.fade(color, speed, brightness, options, repeat)
+    return lights.fade(color, options, brightness, repeat)
+
+@celery.task(name='app.theaterChase')
+def theaterChase(color, options, brightness=100, repeat=True):
+    return lights.theaterChase(color, options, brightness, repeat)
+
 
 #CELERY TEST
 # @app.route('/process/<name>')
