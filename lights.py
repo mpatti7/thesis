@@ -19,8 +19,9 @@ black = (0,0,0)
             RGB, so both types are allowed.
     brightness: the brightness value to set the lights to.
                 Default is 100 (full brightness)
-    options: Default is None.  A dictionary of options to alter 
-            this animation'''
+    options(dict): A dictionary of options to alter this animation
+        2Colors: enables the use of two colors    
+'''
 def color_fill(color, options, brightness = 100):
     if('option4' in options):
         color1 = options["option4"]["color1"]
@@ -61,9 +62,11 @@ def color_fill(color, options, brightness = 100):
                 Default is 100 (full brightness)
     reverse(boolean): default is false. If set to true, colorWipe
             will start from the end of the strip and work backwards.
-    options(dict): default is None. A dictionary of options to alter 
-            this animation
-    delay(int): default is 0. The time between when each LED is lit up in seconds.'''
+    options(dict): A dictionary of options to alter this animation
+        speed(str): the rate of which each RGB value increases or decreases by.
+                    default is 1, medium is 10, fast is 25
+        delay(int): default is 0. The time between when each LED is lit up in seconds.
+'''
 def color_wipe(color, options, brightness = 100, reverse = False):
     pixels.fill(black)
     delay = 0.0
@@ -71,7 +74,6 @@ def color_wipe(color, options, brightness = 100, reverse = False):
     if('option1' in options):
         delay = float(options['option1']['value']) / 1000.0
         print(f'delay {delay}')
-        # delay = delay/1000.0
         
     if('option4' in options):
         print(f"Double color wipe")
@@ -123,15 +125,16 @@ def color_wipe(color, options, brightness = 100, reverse = False):
                 time.sleep(delay)
 
 '''Fades the strip of lights in and out
-    color: the color of the lights
-    brightness: default is 100. the brightness of the lights
-    speed: the rate of which each RGB value increases or decreases by.
-            default is 1
-    options: default is None. A dictionary of options to alter 
-            this animation
-    repeat: Default is True. If enabled, this will repeat until it is stopped
-            by the user. If disabled, it will only repeat for a specified 
-            amount of cycles'''
+    color(tuple): the color of the lights
+    brightness(int): default is 100. the brightness of the lights
+    options(dict): A dictionary of options to alter this animation
+        speed(str): the rate of which each RGB value increases or decreases by.
+                    default is 1, medium is 10, fast is 25
+        cycles(int): Default is 0. Number of times this function will loop
+                     If greater than 0, repeat is set to False
+    repeat: Default is True. If cycles is greater than 0, this function will 
+            repeat that many times. Otherwise, it will not stop unless canceled.
+'''
 def fade(color, options, brightness=100, repeat=True):
     turn_off()
     fade_color = list()
@@ -233,6 +236,18 @@ def fade(color, options, brightness=100, repeat=True):
                 pixels.fill(fade_color)
                 pixels.show() 
 
+'''Flashes every third LED in a theater chase style animation
+    color(tuple): color of the LEDs
+    options(dict): A dictionary of options to alter this animation
+        cycles(int): Default is 0. Number of times this function will loop
+                     If greater than 0, repeat is set to False
+        delay(float): a time delay to alter the speed of this animation
+                      in millisecons. Default is 0.
+    brightness(int): the brightness of the LEDs
+    repeat(bool): Default is True. If cycles is greater than 0, this 
+            function will repeat that many times. Otherwise,
+            it will not stop unless canceled. 
+'''
 def theaterChase(color, options, brightness=100, repeat=True):
     print('turn off lights')
     print(f'options: {options}')

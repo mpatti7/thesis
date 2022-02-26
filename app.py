@@ -1,11 +1,6 @@
 from flask import Flask, render_template, request
-# import sqlalchemy
 # from flask_sqlalchemy import SQLAlchemy
 from celery import Celery
-# import celery.result
-# from celery.result import revoke
-# from celery.task.control import revoke
-# import celery.result
 import lights
 
 #start celery with this: sudo celery -A app.celery worker --loglevel=info
@@ -21,7 +16,6 @@ app.config['result_backend'] = 'rpc://results.db'
 celery = Celery(app.name, broker=app.config['CELERY_BROKER_URL'])
 celery.conf.update(app.config)
 
-# CURRENT_TASK = None
 # tasks = dict()          #A dictionary to hold looping task ids
 tasks = list()
 
@@ -38,15 +32,12 @@ def controls():
 
 @app.route('/controls/controlsChange', methods = ["POST"])
 def controlsChange():
-    form = request.form.to_dict()       #request the form data
+    form = request.form.to_dict()       #request the form data as a dictionary
     print(f"form = {form}")
     options = dict()
-    delay = float()
     brightness = int()
-    speed = ''
-    cycles = int()
 
-    if('cancel' in form):
+    if('cancel' in form):                   #check if any repeating function needs to be canceled before doing anything else
         if(len(tasks) > 0):
             tasks[0].revoke(terminate=True)
             turn_off.delay()
@@ -54,12 +45,7 @@ def controlsChange():
             tasks.pop(0)
         return render_template('controls.html')
 
-    # if("options" in form):              #if any options were selected, they are added to a separate dictionary
-    #     if(form["options"] == "2Colors"):
-    #         options["option1"] = dict()
-    #         options["option1"]["choice"] = "2Colors"
-    #         options["option1"]["color1"] = form["favcolor"]
-    #         options["option1"]["color2"] = form["favColor2"]
+    #if any options were selected, they are added to a separate dictionary
     if('delay' in form):
         options['option1'] = dict()
         options['option1']['choice'] = 'delay'
@@ -77,18 +63,10 @@ def controlsChange():
         options['option4']['choice'] = '2Colors'
         options['option4']['color1'] = form['favcolor']
         options['option4']['color2'] = form['favColor2']
-    # else:
-    #     options = None
     print(f"options: {options}")
 
-    if('delay' in form):
-        delay = float(form['delay'])
     if('brightness' in form):
         brightness = float(form['brightness'])
-    if('speed' in form):
-        speed = form['speed']
-    if('cycles' in form):
-        cycles = form['cycles']
 
     if("favcolor" in form and "functions" not in form):         #Regular color fill
         color = form["favcolor"]
