@@ -32,6 +32,11 @@
                     </div>
                     
                     <div class="column" id="functionsColumn">
+                        <!--=============================================================-->
+                        <!--                                                             -->
+                        <!--                           BASIC                             -->
+                        <!--                                                             -->
+                        <!--=============================================================-->
                         <h4>Basic</h4>
                         <p>Select one and hit "Apply"</p>
 
@@ -46,6 +51,16 @@
 
                         <br>
 
+                        <input type="radio" id="dotFill" name="functions" value="dotFill">
+                        <label for="dotFill">Dot Fill</label>
+
+                        <br>
+
+                        <!--=============================================================-->
+                        <!--                                                             -->
+                        <!--                        REPEATING                            -->
+                        <!--                                                             -->
+                        <!--=============================================================-->
                         <h4>Repeating</h4>
                         <input type="radio" id="fade" name="functions" value="fade">
                         <label for="fade">Fade</label>
@@ -54,6 +69,12 @@
 
                         <input type="radio" id="theaterChase" name="functions" value="theaterChase">
                         <label for="theaterChase">Theater Chase</label>
+
+                        <br>
+
+                        <input type="radio" id="twinkle" name="functions" value="twinkle">
+                        <label for="twinkle">Twinkle</label>
+
 
                     </div>
 
@@ -160,6 +181,17 @@
                             if(theaterBtn.checked){
                                 cycles.style.display = "block";
                                 // twoColors.disable = true;
+                            }
+                        }
+
+                        var twinkleBtn = document.getElementById("twinkle");
+                        var color2 = document.getElementById("favColor2");
+                        twinkleBtn.oninput = function(){
+                            if(twinkleBtn.checked == false){
+                                color2.checked = false;
+                            }
+                            if(twinkleBtn.checked){
+                                color2.checked = true;
                             }
                         }
 

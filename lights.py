@@ -2,6 +2,10 @@ import board
 import neopixel
 from PIL import ImageColor
 import time
+import random
+
+ # A module for all light functions
+ # Author: Marissa Patti
 
 NUM_LEDS = 300
 brightness = 50
@@ -11,17 +15,17 @@ pixels = neopixel.NeoPixel(pin, NUM_LEDS, auto_write = False)
 blue = 0,0,255
 black = (0,0,0)
 
-'''Sets the light strip to a solid color.
-    color: the color to set the lights to. fill()
-            from the Neopixel library requires RGB
-            values, but this function will check first 
-            if the color value is hex and convert it to 
-            RGB, so both types are allowed.
-    brightness: the brightness value to set the lights to.
-                Default is 100 (full brightness)
-    options(dict): A dictionary of options to alter this animation
-        2Colors: enables the use of two colors    
-'''
+# '''Sets the light strip to a solid color.
+#     color: the color to set the lights to. fill()
+#             from the Neopixel library requires RGB
+#             values, but this function will check first 
+#             if the color value is hex and convert it to 
+#             RGB, so both types are allowed.
+#     brightness: the brightness value to set the lights to.
+#                 Default is 100 (full brightness)
+#     options(dict): A dictionary of options to alter this animation
+#         2Colors: enables the use of two colors    
+# '''
 def color_fill(color, options, brightness = 100):
     if('option4' in options):
         color1 = options["option4"]["color1"]
@@ -52,21 +56,21 @@ def color_fill(color, options, brightness = 100):
         pixels.fill(color)
         pixels.show() 
 
-'''Sets the lights to a solid color with a wiping effect.
-    color: the color to set the lights to. The fill() method
-            from the Neopixel library requires RGB
-            values, but this function will check first 
-            if the color value is hex and convert it to 
-            RGB, so both types are allowed.
-    brightness(int): the brightness value to set the lights to.
-                Default is 100 (full brightness)
-    reverse(boolean): default is false. If set to true, colorWipe
-            will start from the end of the strip and work backwards.
-    options(dict): A dictionary of options to alter this animation
-        speed(str): the rate of which each RGB value increases or decreases by.
-                    default is 1, medium is 10, fast is 25
-        delay(int): default is 0. The time between when each LED is lit up in seconds.
-'''
+# '''Sets the lights to a solid color with a wiping effect.
+#     color: the color to set the lights to. The fill() method
+#             from the Neopixel library requires RGB
+#             values, but this function will check first 
+#             if the color value is hex and convert it to 
+#             RGB, so both types are allowed.
+#     brightness(int): the brightness value to set the lights to.
+#                 Default is 100 (full brightness)
+#     reverse(boolean): default is false. If set to true, colorWipe
+#             will start from the end of the strip and work backwards.
+#     options(dict): A dictionary of options to alter this animation
+#         speed(str): the rate of which each RGB value increases or decreases by.
+#                     default is 1, medium is 10, fast is 25
+#         delay(int): default is 0. The time between when each LED is lit up in seconds.
+# '''
 def color_wipe(color, options, brightness = 100, reverse = False):
     pixels.fill(black)
     delay = 0.0
@@ -124,17 +128,17 @@ def color_wipe(color, options, brightness = 100, reverse = False):
                 pixels.show()
                 time.sleep(delay)
 
-'''Fades the strip of lights in and out
-    color(tuple): the color of the lights
-    brightness(int): default is 100. the brightness of the lights
-    options(dict): A dictionary of options to alter this animation
-        speed(str): the rate of which each RGB value increases or decreases by.
-                    default is 1, medium is 10, fast is 25
-        cycles(int): Default is 0. Number of times this function will loop
-                     If greater than 0, repeat is set to False
-    repeat: Default is True. If cycles is greater than 0, this function will 
-            repeat that many times. Otherwise, it will not stop unless canceled.
-'''
+# '''Fades the strip of lights in and out
+#     color(tuple): the color of the lights
+#     brightness(int): default is 100. the brightness of the lights
+#     options(dict): A dictionary of options to alter this animation
+#         speed(str): the rate of which each RGB value increases or decreases by.
+#                     default is 1, medium is 10, fast is 25
+#         cycles(int): Default is 0. Number of times this function will loop
+#                      If greater than 0, repeat is set to False
+#     repeat: Default is True. If cycles is greater than 0, this function will 
+#             repeat that many times. Otherwise, it will not stop unless canceled.
+# '''
 def fade(color, options, brightness=100, repeat=True):
     turn_off()
     fade_color = list()
@@ -236,18 +240,18 @@ def fade(color, options, brightness=100, repeat=True):
                 pixels.fill(fade_color)
                 pixels.show() 
 
-'''Flashes every third LED in a theater chase style animation
-    color(tuple): color of the LEDs
-    options(dict): A dictionary of options to alter this animation
-        cycles(int): Default is 0. Number of times this function will loop
-                     If greater than 0, repeat is set to False
-        delay(float): a time delay to alter the speed of this animation
-                      in millisecons. Default is 0.
-    brightness(int): the brightness of the LEDs
-    repeat(bool): Default is True. If cycles is greater than 0, this 
-            function will repeat that many times. Otherwise,
-            it will not stop unless canceled. 
-'''
+# '''Flashes every third LED in a theater chase style animation
+#     color(tuple): color of the LEDs
+#     options(dict): A dictionary of options to alter this animation
+#         cycles(int): Default is 0. Number of times this function will loop
+#                      If greater than 0, repeat is set to False
+#         delay(float): a time delay to alter the speed of this animation
+#                       in millisecons. Default is 0.
+#     brightness(int): the brightness of the LEDs
+#     repeat(bool): Default is True. If cycles is greater than 0, this 
+#             function will repeat that many times. Otherwise,
+#             it will not stop unless canceled. 
+# '''
 def theaterChase(color, options, brightness=100, repeat=True):
     print('turn off lights')
     print(f'options: {options}')
@@ -287,10 +291,81 @@ def theaterChase(color, options, brightness=100, repeat=True):
         turn_off()
 
 
-'''Adjusts the brightness of the lights. Multiplies the percentage 
-    by the RGB values to get a less intense version of the same color.
-    val: the percentage from the slider. 
-    color: the color chosen for the lights.'''
+def twinkle(color, options, brightness=100, repeat=True):
+    print('work in progress')
+    # delay = 50
+    # cycles = 0
+    # color1 = color
+    # color2 = ''
+    # turn_off()
+
+    # if('option1' in options):
+    #     delay = float(options['option1']['value'])
+    # if('option3' in options):
+    #     cycles = int(options['option3']['value'])
+    # if('option4' in options):
+    #     color2 = options['option4']['color2']
+    # if(cycles > 0):
+    #     repeat = False
+    
+    # if("#" in color1):
+    #     color1 = convert_hex_to_rgb(color1)
+    # if("#" in color2):
+    #     color2 = convert_hex_to_rgb(color2)
+
+    # color1 = change_brightness(brightness, color1)
+    # color2 = change_brightness(brightness, color2)
+
+    # num_Dots = int(NUM_LEDS / .125)
+
+    # pixels.fill(color1)
+    # while repeat:
+    #     for i in range(num_Dots):
+    #         j = random.randrange(0, NUM_LEDS-1)
+    #         pixels[j] = color2
+    #         pixels.show()
+
+# '''Lights up each LED one by one in a random order. If 2 colors are not
+#     specified, color1(the base) becomes black and color becomes color2.
+#     color: the base color of the lights
+#     options: a dictionary of options to alter the animation
+#         color2: the color to light up with
+#     brightness: Default is 100. The brightness of the lights
+# '''
+def dot_fill(color, options, brightness=100):
+    color1 = color
+    color2 = ''
+    turn_off()
+
+    if('option4' in options):
+        color2 = options['option4']['color2']
+    else:                                        #if a second color wasn't chosen, fill pixels with black and use color1 as color2
+        color1 = black
+        color2 = color
+    
+    if("#" in color1):
+        color1 = convert_hex_to_rgb(color1)
+    if("#" in color2):
+        color2 = convert_hex_to_rgb(color2)
+
+    color1 = change_brightness(brightness, color1)
+    color2 = change_brightness(brightness, color2)
+
+    pixels.fill(color1)
+
+    num_pixels = list()
+    for i in range(0, NUM_LEDS):
+        num_pixels.append(i)
+
+    while len(num_pixels) != 0:
+        idx = num_pixels.pop(random.randint(0, len(num_pixels)-1))
+        pixels[idx] = color2
+        pixels.show()
+
+# '''Adjusts the brightness of the lights. Multiplies the percentage 
+#     by the RGB values to get a less intense version of the same color.
+#     val: the percentage from the slider. 
+#     color: the color chosen for the lights.'''
 def change_brightness(val, color):
     if("#" in color):
         color = convert_hex_to_rgb(color)
@@ -299,13 +374,13 @@ def change_brightness(val, color):
     print(f"brightness = {brightness}")
     return brightness
 
-'''Simply turns off the lights.'''
+# '''Simply turns off the lights.'''
 def turn_off():
     print("turning off lights")
     pixels.fill(black)
     pixels.show()
 
-'''Converts a hexadecimal value to an RGB value.'''
+# '''Converts a hexadecimal value to an RGB value.'''
 def convert_hex_to_rgb(hex):
     rgb = ImageColor.getcolor(hex, "RGB")
     return rgb
