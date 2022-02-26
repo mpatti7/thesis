@@ -136,10 +136,16 @@ def fade(color, options, brightness=100, repeat=True):
     turn_off()
     fade_color = list()
     # speed_rate = 1
+    cycles = 0
 
     if('#' in color):
         color = convert_hex_to_rgb(color)
     color = change_brightness(brightness, color)
+
+    if('option3' in options):
+        cycles = int(options['option3']['value'])
+    if(cycles > 0):
+        repeat = False
 
     #color is a tuple, so the values can't be changed, so it's rgb values are copied into a list where they can be changed
     fade_color.append(color[0])
@@ -193,6 +199,39 @@ def fade(color, options, brightness=100, repeat=True):
             print(fade_color)
             pixels.fill(fade_color)
             pixels.show()   
+    
+    if(not repeat):
+        for i in range(cycles):
+            if(fade_color[0] < 0):
+                fade_color[0] = 0
+            if(fade_color[1] < 0):
+                fade_color[1] = 0
+            if(fade_color[2] < 0):
+                fade_color[2] = 0
+
+            while (fade_color[0] < r_max or fade_color[1] < g_max or fade_color[2] < b_max):
+                #Fade up
+                if(fade_color[0] < r_max):
+                    fade_color[0] += 1
+                if(fade_color[1] < g_max):
+                    fade_color[1] += 1
+                if(fade_color[2] < b_max):
+                    fade_color[2] += 1
+                print(fade_color)
+                pixels.fill(fade_color)
+                pixels.show()
+            
+            while (fade_color[0] != 0 or fade_color[1] != 0 or fade_color[2] != 0):
+                #Fade down
+                if(fade_color[0] != 0):
+                    fade_color[0] -= 1
+                if(fade_color[1] != 0):
+                    fade_color[1] -= 1
+                if(fade_color[2] != 0):
+                    fade_color[2] -= 1
+                print(fade_color)
+                pixels.fill(fade_color)
+                pixels.show() 
 
 def theaterChase(color, options, brightness=100, repeat=True):
     print('turn off lights')
