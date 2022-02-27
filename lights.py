@@ -290,40 +290,75 @@ def theaterChase(color, options, brightness=100, repeat=True):
                     pixels[q+j] = black
         turn_off()
 
+# ''' Flashes a random set of LEDS on the strip. Twinkle is the slower version
+#     while Disco is a much faster version. Each version has their own default 
+#     delays for how each is intended to be used. The user may specify their own
+#     or not.
+#     color: the base color of the lights.
+#     options: a dictionary of options to alter the animation.
+#         color2: the color to light up with.
+#         delay: the delay in milliseconds to alter the speed of the LEDs. Default
+#                for Twinkle is 1000 and default for Disco is 50.
+#     brightness: Default is 100. The brightness of the lights.
+# '''
+def twinkle_disco(color, options, brightness=100, repeat=True):
+    delay = 0
+    cycles = 0
+    color1 = color
+    color2 = ''
+    turn_off()
 
-def twinkle(color, options, brightness=100, repeat=True):
-    print('work in progress')
-    # delay = 50
-    # cycles = 0
-    # color1 = color
-    # color2 = ''
-    # turn_off()
+    if(options['function'] == 'twinkle'):       #default values for twinkle and disco if a delay was not specified
+        delay = 1000 / 1000
+    elif(options['function'] == 'disco'):
+        delay = 50 / 1000
+    if('option1' in options):
+        delay = float(options['option1']['value']) / 1000
+    if('option3' in options):
+        cycles = int(options['option3']['value'])
+    if('option4' in options):
+        color2 = options['option4']['color2']
+    else:
+        color1 = black
+        color2 = color
+    if(cycles > 0):
+        repeat = False
 
-    # if('option1' in options):
-    #     delay = float(options['option1']['value'])
-    # if('option3' in options):
-    #     cycles = int(options['option3']['value'])
-    # if('option4' in options):
-    #     color2 = options['option4']['color2']
-    # if(cycles > 0):
-    #     repeat = False
+    print(f'delay = {delay}')
     
-    # if("#" in color1):
-    #     color1 = convert_hex_to_rgb(color1)
-    # if("#" in color2):
-    #     color2 = convert_hex_to_rgb(color2)
+    if("#" in color1):
+        color1 = convert_hex_to_rgb(color1)
+    if("#" in color2):
+        color2 = convert_hex_to_rgb(color2)
 
-    # color1 = change_brightness(brightness, color1)
-    # color2 = change_brightness(brightness, color2)
+    color1 = change_brightness(brightness, color1)
+    color2 = change_brightness(brightness, color2)
 
-    # num_Dots = int(NUM_LEDS / .125)
+    num_dots = int(NUM_LEDS * .125)                 #flash 1/8 of the total lights
+    print(f'num_dots = {num_dots}')
+    dots = list()
 
-    # pixels.fill(color1)
-    # while repeat:
-    #     for i in range(num_Dots):
-    #         j = random.randrange(0, NUM_LEDS-1)
-    #         pixels[j] = color2
-    #         pixels.show()
+    pixels.fill(color1)
+    while repeat:
+        for i in range(0, num_dots):
+            dots.append(random.randint(0, NUM_LEDS-1))
+        for j in dots:
+            pixels[j] = color2
+        pixels.show()
+        time.sleep(delay)
+        pixels.fill(color1)
+        dots.clear()
+    if(not repeat):
+        for i in range(cycles):
+            for idx in range(0, num_dots):
+                dots.append(random.randint(0, NUM_LEDS-1))
+            for j in dots:
+                pixels[j] = color2
+            pixels.show()
+            time.sleep(delay)
+            pixels.fill(color1)
+            dots.clear()
+
 
 # '''Lights up each LED one by one in a random order. If 2 colors are not
 #     specified, color1(the base) becomes black and color becomes color2.

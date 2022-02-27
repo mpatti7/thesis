@@ -3,6 +3,8 @@ import subprocess
 def create_options(form):
     options = dict()
 
+    if('functions' in form):
+        options['function'] = form['functions']
     if('delay' in form):
         options['option1'] = dict()
         options['option1']['choice'] = 'delay'

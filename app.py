@@ -83,7 +83,10 @@ def controlsChange():
             task = theaterChase.delay(color, options, brightness, True)
             tasks.append(task)
         if(form['functions'] == 'twinkle'):
-            task = twinkle.delay(color, options, brightness, True)
+            task = twinkle_disco.delay(color, options, brightness, True)
+            tasks.append(task)
+        if(form['functions'] == 'disco'):
+            task = twinkle_disco.delay(color, options, brightness, True)
             tasks.append(task)
 
     return render_template('controls.html')
@@ -133,9 +136,13 @@ def fade(color, options, brightness=100, repeat=True):
 def theaterChase(color, options, brightness=100, repeat=True):
     return lights.theaterChase(color, options, brightness, repeat)
 
-@celery.task(name='app.twinkle')
-def twinkle(color, options, brightness=100, repeat=True):
-    return lights.twinkle(color, options, brightness, repeat)
+@celery.task(name='app.twinkle_disco')
+def twinkle_disco(color, options, brightness=100, repeat=True):
+    return lights.twinkle_disco(color, options, brightness, repeat)
+
+# @celery.task(name='app.disco')
+# def disco(color, options, brightness=100, repeat=True):
+#     return lights.twinkle_disco(color, options, brightness, repeat)
 
 
 #CELERY TEST

@@ -75,6 +75,11 @@
                         <input type="radio" id="twinkle" name="functions" value="twinkle">
                         <label for="twinkle">Twinkle</label>
 
+                        <br>
+
+                        <input type="radio" id="disco" name="functions" value="disco">
+                        <label for="disco">Disco</label>
+
 
                     </div>
 
@@ -96,6 +101,7 @@
                         </div>
 
                         <div class="delayDiv">
+                            <input type="checkbox" id="delayCheck" name="delayCheck" value="delayCheck">
                             <label for="delay">Delay (ms):</label>
                             <input type="text" maxlength="4" size="1" value="0" name="delay" id="delay">   <!--Seconds-->
                         </div>
@@ -153,47 +159,63 @@
                             }
                         }
 
+                        var delayCheck = document.getElementById("delayCheck");
+                        var delayTxt = document.getElementById("delay");
+                        delayTxt.disabled = true;
+                        delayTxt.style.display = "none";
+                        delayCheck.oninput = function(){
+                            if(delayCheck.checked == false){
+                                delayTxt.style.display = "none";
+                                delayTxt.disabled = true;
+                            }
+                            if(delayCheck.checked){
+                                delayTxt.style.display = "block";      
+                                delayTxt.disabled = false;              
+                            }
+                        }
+
                         var fadeBtn = document.getElementById("fade");
                         var fadeSpeed = document.getElementById("speedDivID");
-                        fadeSpeed.style.display = "none";
-                        fadeBtn.oninput = function(){
-                            if(fadeBtn.checked == false){
-                                fadeSpeed.style.display = "none"
-                                twoColors.disable = false;
-                            }                           
-                            if(fadeBtn.checked){
-                                fadeSpeed.style.display = "block";
-                                twoColors.disable = true;
-                            }
-                            if(fadeBtn.checked){
-                                cycles.style.display = "block";
-                            }
-                        }
+                        // fadeSpeed.style.display = "none";
+                        // fadeBtn.oninput = function(){
+                        //     if(fadeBtn.checked == false){
+                        //         fadeSpeed.style.display = "none"
+                        //         twoColors.disable = false;
+                        //     }                           
+                        //     if(fadeBtn.checked){
+                        //         fadeSpeed.style.display = "block";
+                        //         twoColors.disable = true;
+                        //     }
+                        //     if(fadeBtn.checked){
+                        //         cycles.style.display = "block";
+                        //     }
+                        // }
 
                         var theaterBtn = document.getElementById("theaterChase");
-                        var cycles = document.getElementById("cyclesDivID");
-                        cycles.style.display = "none";
-                        theaterBtn.oninput = function(){
-                            if(theaterBtn.checked == false || fadeBtn.checked == false){
-                                cycles.style.display = "none"
-                                // twoColors.disable = false;
-                            }                           
-                            if(theaterBtn.checked){
-                                cycles.style.display = "block";
-                                // twoColors.disable = true;
-                            }
-                        }
-
                         var twinkleBtn = document.getElementById("twinkle");
-                        var color2 = document.getElementById("favColor2");
-                        twinkleBtn.oninput = function(){
-                            if(twinkleBtn.checked == false){
-                                color2.checked = false;
-                            }
-                            if(twinkleBtn.checked){
-                                color2.checked = true;
-                            }
-                        }
+                        var cycles = document.getElementById("cyclesDivID");
+                        // cycles.style.display = "none";
+                        // theaterBtn.oninput = function(){
+                        //     if(theaterBtn.checked == false || fadeBtn.checked == false || twinkleBtn.checked == false){
+                        //         cycles.style.display = "none"
+                        //         // twoColors.disable = false;
+                        //     }                           
+                        //     if(theaterBtn.checked || twinkleBtn.checked){
+                        //         cycles.style.display = "block";
+                        //         // twoColors.disable = true;
+                        //     }
+                        // }
+
+                        // var twinkleBtn = document.getElementById("twinkle");
+                        // var color2 = document.getElementById("favColor2");
+                        // twinkleBtn.oninput = function(){
+                        //     if(twinkleBtn.checked == false){
+                        //         color2.checked = false;
+                        //     }
+                        //     if(twinkleBtn.checked){
+                        //         color2.checked = true;
+                        //     }
+                        // }
 
                     </script>
 
