@@ -1,4 +1,21 @@
 .home{
 	margin-top: 75px;
 	margin-left: 40px;
+	text-align: center;
+}
+
+#left{
+	float: left;
+	max-width: 550px;
+	width: 100%;
+	padding-left: 2em;
+	margin-left: 10%;
+}
+
+#right{
+	float: right;
+	max-width: 550px;
+	width: 100%;
+	padding-right: 2em;
+	margin-right: 15%;
 }

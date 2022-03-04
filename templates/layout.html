@@ -3,13 +3,14 @@
     <head>
         <title>Layout</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"> <!--Google Icons-->
     </head>
   <body>
     <header>
       <div class="container">
         <h1 class="logo">Light Pi</h1>
-        <strong><nav>
-          <ul class="menu">
+        <strong><nav class="menu">
+          <ul>
             <li><a href="{{ url_for('index') }}">Home</a></li>
             <li><a href="{{ url_for('controls') }}">Controls</a></li>
             <li><a href="{{ url_for('advancedFunctions') }}">Advanced Functions</a></li>
@@ -24,8 +25,8 @@
         <div class="rpiControls">
           <strong><label for="rpiControls">Raspberry Pi Controls</label></strong>
           <form action="{{url_for('index')}}" method="post">
-            <button id="rpiOff" type="submit" name="rpiOff" value="rpiOff">Shut Down</button>
-            <button id="rpiReboot" type="submit" name="rpiReboot" value="rpiReboot">Reboot</button>
+            <button id="rpiOff" type="submit" name="rpiOff" value="rpiOff"><i class="material-icons">power_settings_new</i></button>
+            <button id="rpiReboot" type="submit" name="rpiReboot" value="rpiReboot"><i class="material-icons">loop</i></button>
           </form>
         </div>
       </div>

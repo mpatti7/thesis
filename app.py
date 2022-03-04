@@ -39,7 +39,7 @@ def controlsChange():
 
     if('cancel' in form):                   #check if any repeating function needs to be canceled before doing anything else
         if(len(tasks) > 0):
-            tasks[0].revoke(terminate=True)
+            tasks[0].revoke(terminate=True, signal='SIGKILL')
             turn_off.delay()
             print(f'killed task')
             tasks.pop(0)
