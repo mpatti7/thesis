@@ -109,9 +109,91 @@ header{
   background-color: rgb(41, 233, 159);
 }
 
-/* @media only screen and (max-width: 1280px){
+.slicknav_menu{
+  display: none;
+}
+
+@media only screen and (max-width: 1280px){
+  .logo {
+    font-size: 300%;
+  }
+
+  .menu ul li{
+    width: 20%;
+  }
   
-} */
+  .menu ul li a {
+    font-size: 100%;
+    width: auto;    
+  }
+
+  .rpiControls {
+    margin-right: 5%;
+    font-size: 200%;
+    margin-top: 1em;
+  }
+  
+  .rpiControls form button{
+    margin: 22px 5px;
+    width: 50px;
+    font-size: 110%;
+  }
+  
+  .rpiControls form #rpiOff .material-icons{
+    font-size: 65%;
+  } 
+  
+  .rpiControls form #rpiReboot .material-icons{
+    font-size: 65%;
+  }
+}
+
+@media only screen and (max-width: 767px){
+  .logo {
+    font-size: 200%;
+    text-align: center;
+    padding: 0;
+  }
+
+  .menu ul li{
+    display: none;
+  }
+
+  #mobilemenu{
+    display: block;
+    background-color: rgb(29, 64, 128) !important;
+  }
+
+  .slicknav_menu{
+    display: block;
+    background-color:  rgb(12, 143, 112) !important;
+  }
+  .slicknav_menu ul li a{
+    color: white !important;
+  }
+
+  .rpiControls {
+    margin-right: 5%;
+    font-size: 200%;
+    margin-top: 0;
+  }
+  
+  .rpiControls form button{
+    /* margin: 22px 5px; */
+    width: 50px;
+    font-size: 110%;
+  }
+  
+  .rpiControls form #rpiOff .material-icons{
+    font-size: 65%;
+  } 
+  
+  .rpiControls form #rpiReboot .material-icons{
+    font-size: 65%;
+  }
+
+
+}
 
 
 
