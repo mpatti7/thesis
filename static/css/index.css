@@ -1,21 +1,45 @@
 .home{
-	margin-top: 75px;
-	margin-left: 40px;
+	/* margin-top: 75px; */
+	margin-top: 5%;
+	/* margin-left: 40px; */
+	margin-left: 15%;
 	text-align: center;
+	font-size: 200%;
 }
 
 #left{
+	margin-top: 5%;
 	float: left;
 	max-width: 550px;
 	width: 100%;
 	padding-left: 2em;
+	padding-right: 0;
 	margin-left: 10%;
 }
 
+#left h3{
+	font-size: 250%;
+}
+
+#left p{
+	font-size: 150%;
+}
+
 #right{
+	margin-top: 5%;
 	float: right;
 	max-width: 550px;
 	width: 100%;
-	padding-right: 2em;
-	margin-right: 15%;
+	/* padding-right: 2em; */
+	margin-right: 10%;
+	/* margin-left: 1%; */
+	/* margin-top: -1%; */
+}
+
+#right h3{
+	font-size: 250%;
+}
+
+#right p{
+	font-size: 150%;
 }

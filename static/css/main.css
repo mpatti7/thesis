@@ -1,17 +1,29 @@
+*{
+  margin: 0;
+  padding: 0;
+}
 body {
   margin: 0;
   padding: 0;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   color: #444;
+  background-color: rgb(204, 204, 204);
+}
+
+header{
+  background-color: rgb(29, 64, 128);
+  padding-top: 2em;
+  
 }
 
 .logo {
   padding-left:  1em;
-  font-size: 350%;
+  font-size: 400%;
+  color: white;
+  padding-bottom: .5em;
 }
 
 .menu {
-  /* float: none; */
   clear: left;
   text-align: center;
   margin-top: 8px;
@@ -32,36 +44,30 @@ body {
 }
 
 .menu ul li a {
-  /* display: inline-block; */
   display: block;
-  /* font-size: larger; */
   font-size: 125%;
-  /* width: 55%; */
   width: auto;
   text-decoration: none;
   text-align: center;
-  /* padding: .5em 0; */
   padding-top: .75em;
   padding-bottom: .75em;
-  /* margin-left: 25%; */
-  /* border: 1px solid black; */
   border-bottom: 1px solid black;
   border-top: 1px solid black;
-  color: #444;
+  color: white;
+  background-color: rgb(12, 143, 112);
 }
 
 .menu ul li a:hover{
   background-color: #444;
   color: white;
-  /* border-bottom: 2px solid red; */
   /* transition: all .5s; */
 }
 
 .rpiControls {
   float: right;
-  margin-right: 35px;
-  font-size: 150%;
-  margin-top: 30px;
+  margin-right: 5%;
+  font-size: 200%;
+  margin-top: 1em;
 }
 
 .rpiControls form{
@@ -70,25 +76,42 @@ body {
 
 .rpiControls form button{
   text-decoration: none;
-  display: inline-block;
-  /* font-size: 100%; */
+  margin: 22px 5px;
+  display: inline;
+  width: 60px;
   border: 1px solid black;
   border-radius: 15%;
+  font-size: 145%;
+  /* width: 50%; */
 }
+
+.rpiControls form #rpiOff .material-icons{
+  font-size: 75%;
+  color: white;
+} 
+
+.rpiControls form #rpiReboot .material-icons{
+  font-size: 75%;
+  color: white;
+} 
 
 #rpiOff{
-  background-color: rgb(240, 38, 38);
-}
-#rpiOff:hover{
-  background-color: rgb(180, 30, 30);
+  background-color: rgb(29, 64, 128);
 }
 
+#rpiOff:hover{
+  background-color: rgb(21, 181, 221);
+}
 #rpiReboot{
-  background-color: rgb(116, 255, 52);
+  background-color: rgb(12, 143, 112);
 }
 #rpiReboot:hover{
-  background-color: rgb(78, 173, 34);
+  background-color: rgb(41, 233, 159);
 }
+
+/* @media only screen and (max-width: 1280px){
+  
+} */
 
 
 
