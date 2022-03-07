@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Playlists</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/playlists.css') }}">
+    </head>
+    {% extends "layout.html" %}
+    <body>
+        {% block content %}
+        <div class="playlists">
+            <h2>Create Playlists</h2>
+        </div>
+
+        <div class="controlBtns">
+            <form action="{{url_for('playlistsChange')}}" method="post">
+              <button type="submit" name="btnOff" value="off">Turn Off Lights</button>
+              <button type="submit" name="cancel" value="cancelTask">Cancel Loop</button>
+            </form>
+        </div>
+        
+            <div class="row">
+                <form action="{{url_for('playlistsChange')}}" method="post">
+                    <div class="column" id="functionsColumn">
+                        <!--=============================================================-->
+                        <!--                                                             -->
+                        <!--                           BASIC                             -->
+                        <!--                                                             -->
+                        <!--=============================================================-->
+                        <h4>Basic</h4>
+                        <ul id="basic">
+                            <li id="colorWipe" value="Color Wipe">Color Wipe <input type="button" id="colorWipeAdd" value="Add" onclick="addItem('colorWipe')"></li>
+                            <li id="rColorWipe" value="Reverse Color Wipe">Reverse Color Wipe <input type="button" id="rColorWipeAdd" value="Add" onclick="addItem('rColorWipe')"></li>
+                            <li id="dotFill" value="Dot Fill">Dot Fill <input type="button" id="dotFillAdd" value="Add" onclick="addItem('dotFill')"></li>
+                        </ul>
+
+                        <!--=============================================================-->
+                        <!--                                                             -->
+                        <!--                        REPEATING                            -->
+                        <!--                                                             -->
+                        <!--=============================================================-->
+
+                        <h4>Repeating</h4>
+                        <ul id="repeating">
+                            <li id="fade" value="Fade">Fade <input type="button" id="fadeAdd" value="Add" onclick="addItem('fade')"></li>
+                            <li id="theaterChase" value="Theater Chase">Theater Chase <input type="button" id="theaterAdd" value="Add" onclick="addItem('theaterChase')"></li>
+                            <li id="twinkle" value="Twinkle">Twinkle <input type="button" id="twinkleAdd" value="Add" onclick="addItem('twinkle')"></li>
+                            <li id="disco" value="Disco">Disco <input type="button" id="discoAdd" value="Add" onclick="addItem('disco')"></li>
+                        </ul>
+
+                    </div>
+                    
+                    <div class="column" id="playlistColumn">
+                        <h4>Playlist</h4>
+                        <ul id="playlist">
+
+                        </ul>
+                        <button type="submit">Play</button>
+                    </div>
+
+                    <div class="column" id="presetsColumn">
+                        <h4>Presets</h4>
+                        <input type="radio" id="classic" name="functions" value="classic">
+                        <label for="classic">Classic</label>
+                    </div>
+
+                </form>
+            </div>
+
+            <script>
+                function addItem(id){
+                    console.log(id);
+                    var li = document.createElement("LI");  
+                    var input = document.getElementById(id);
+                    // var lightFunction = input.getAttribute("value")
+                    // li.innerHTML = lightFunction;
+                    li.innerHTML = input.getAttribute("value");
+                    playlist = document.getElementById("playlist");
+                    for(var i = 0; i < playlist.length; i++){
+                        console.log("in for loop")
+                        console.log(playlist[i]);
+                        if(li.innerHTML === playlist[i]){
+                            console.log(li.innerHTML)
+                            document.getElementById("playlist").appendChild(li.cloneNode(true));
+                        }
+                    }
+                    document.getElementById("playlist").appendChild(li);
+                    console.log(document.getElementById("playlist"))
+                    input.value = "";
+                    lightFunction = "";
+                }
+            </script>
+        {% endblock %}
+    </body>
+</html>

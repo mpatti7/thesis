@@ -30,7 +30,7 @@
           <ul>
             <li><a href="{{ url_for('index') }}">Home</a></li>
             <li><a href="{{ url_for('controls') }}">Controls</a></li>
-            <li><a href="{{ url_for('advancedFunctions') }}">Advanced Functions</a></li>
+            <li><a href="{{ url_for('playlists') }}">Playlists</a></li>
             <li><a href="{{ url_for('musicSync') }}">Music Sync</a></li>
             <li><a href="{{ url_for('info') }}">Info</a></li>
           </ul>
@@ -40,16 +40,9 @@
         <nav id="mobilemenu"></nav>
         
         <div class="rpiControls">
-          <!-- <strong><label for="rpiControls">Raspberry Pi Controls</label></strong> -->
           <form action="{{url_for('index')}}" method="post">
-            <!-- <div class="toolTipOff"> -->
-              <!-- <button id="rpiOff" type="submit" title="Shutdown the Pi" name="rpiOff" value="rpiOff"><i class="material-icons">power_settings_new</i><span class="toolTipTextOff">Shutdown Pi</span></button> -->
               <button id="rpiOff" type="submit" title="Shutdown the Pi" name="rpiOff" value="rpiOff"><i class="material-icons">power_settings_new</i></button>
-            <!-- </div>  -->
-            <!-- <div class="toolTipReboot">  -->
-              <!-- <button id="rpiReboot" type="submit" title="Reboot the Pi" name="rpiReboot" value="rpiReboot"><i class="material-icons">loop</i><span class="toolTipTextReboot">Reboot Pi</span></button> -->
               <button id="rpiReboot" type="submit" title="Reboot the Pi" name="rpiReboot" value="rpiReboot"><i class="material-icons">loop</i></button>
-            <!-- </div> -->
           </form>
         </div>
       </div>

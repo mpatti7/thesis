@@ -3,6 +3,8 @@
     <head>
         <title>Control</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/controls.css') }}">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"> <!--Google Icons-->
+
     </head>
     {% extends "layout.html" %}
 
@@ -11,20 +13,15 @@
             <div class="controls">
                 <h2>Controls</h2>
             </div>
-            
-            <div class="controlBtns">
-                <form action="{{url_for('controlsChange')}}" method="post">
-                  <button type="submit" name="btnOff" value="off">Turn Off Lights</button>
-                  <button type="submit" name="cancel" value="cancelTask">Cancel Loop</button>
-                </form>
-            </div>
 
             <div class="row">
                 <form action="{{url_for('controlsChange')}}" method="post">
                     <div class="column" id="colorColumn">
                         <h4>Color</h4>
+                        <br>
                         <label for="favcolor">Choose a color and hit "Apply"</label>
                         <br>        
+                        <br>
                         <!--Change solid color-->
                         <input type="color" id="favcolor" name="favcolor" value="#ff0000">
                         
@@ -38,22 +35,26 @@
                         <!--                                                             -->
                         <!--=============================================================-->
                         <h4>Basic</h4>
-                        <p>Select one and hit "Apply"</p>
+                        <br>
+                        <!-- <p>Select one and hit "Apply"</p> -->
 
                         <!--Change Function-->
                         <input type="radio" id="colorWipe" name="functions" value="colorWipe">
                         <label for="colorWipe">Color Wipe</label>
 
                         <br>
+                        <br>
 
                         <input type="radio" id="rColorWipe" name="functions" value="rColorWipe">
                         <label for="colorWipe">Reverse Color Wipe</label>
 
                         <br>
+                        <br>
 
                         <input type="radio" id="dotFill" name="functions" value="dotFill">
                         <label for="dotFill">Dot Fill</label>
 
+                        <br>
                         <br>
 
                         <!--=============================================================-->
@@ -61,25 +62,29 @@
                         <!--                        REPEATING                            -->
                         <!--                                                             -->
                         <!--=============================================================-->
+                        <br>
                         <h4>Repeating</h4>
+                        <br>
                         <input type="radio" id="fade" name="functions" value="fade">
                         <label for="fade">Fade</label>
 
+                        <br>
                         <br>
 
                         <input type="radio" id="theaterChase" name="functions" value="theaterChase">
                         <label for="theaterChase">Theater Chase</label>
 
                         <br>
+                        <br>
 
                         <input type="radio" id="twinkle" name="functions" value="twinkle">
                         <label for="twinkle">Twinkle</label>
 
                         <br>
+                        <br>
 
                         <input type="radio" id="disco" name="functions" value="disco">
                         <label for="disco">Disco</label>
-
 
                     </div>
 
@@ -93,20 +98,31 @@
                     <div class="column" id="optionsColumn">
                         <h4>Options</h4>
 
+                        <br>
+                        
                         <div class="sliderDiv">
                             <label for="slider">Brightness:</label>
                             <input type="range" min="1" max="100" value="100" name="brightness" id="brightness">
-                            <label for="brightness"><span id="value"></span></label>
+                            <label for="brightness"><span id="value"></span>%</label>
                             <!-- <p>Value: <span id="value"></span></p> -->
                         </div>
+
+                        <br>
+
+                        <!-- <div class="intensityDiv">
+                            <label for="intensity">Intensity:</label>
+                            <input type="range" min="1" max="75" value="12" name="intensity" id="intensity">
+                        </div> -->
 
                         <div class="delayDiv">
                             <input type="checkbox" id="delayCheck" name="delayCheck" value="delayCheck">
                             <label for="delay">Delay (ms):</label>
-                            <input type="text" maxlength="4" size="1" value="0" name="delay" id="delay">   <!--Seconds-->
+                            <input type="text" maxlength="4" size="1" value="0" name="delay" id="delay">   
                         </div>
 
-                        <div class="speedDiv" id="speedDivID">
+                        <br>
+
+                        <!-- <div class="speedDiv" id="speedDivID">
                             <label for="speed">Fade Speed:</label>
                             <br>
                             <div class="subSpeedDiv">
@@ -119,22 +135,38 @@
                                 <label for="speed3">Fast</label>
                                 <input type="radio" id="speed3" name="speed" value="fast">
                             </div>
-                        </div>
+                        </div> -->
+
+                        <!-- <br> -->
 
                         <div class="cyclesDiv" id="cyclesDivID">
                             <label for="cycles">Cycles:</label>
                             <input type="text" maxlength="4" size="1" value="0" name="cycles" id="cycles">
                         </div>
 
-                        <input type="checkbox" id="2Colors" name="2Colors" value="2Colors">
-                        <input type="color" id="favColor2" name="favColor2" value="#ff0000">
-                        <label for="2Colors">2 Colors</label>
+                        <br>
+
+                        <div class="twoColorsDiv">
+                            <input type="checkbox" id="twoColorsID" name="2Colors" value="2Colors">
+                            <label for="2Colors">2 Colors:</label>
+                            <input type="color" id="favColor2" name="favColor2" value="#ff0000">
+                            
+                        </div>
                         
                         <br>
 
-                        <button type="submit">Apply</button>
+                        <div class="controlBtns">
+                            <form action="{{url_for('controlsChange')}}" method="post">
+                                <button type="submit" title="Light up the lights" id="applyBtn">Apply   <i class="material-icons">&#xe038;</i></button>
+                                <button type="submit" title="Turn off the lights" id="offBtn" name="btnOff" value="off">Turn Off   <i class="material-icons">&#xe8f5;</i></button>
+                                <button type="submit" title="Stop a repeating function" id="cancelBtn" name="cancel" value="cancelTask">Stop   <i class="material-icons">&#xe5c9;</i></button>
+                                <!-- <i class="material-icons">&#xe047;</i> -->
+                            </form>
+                        </div>
 
                     </div>
+
+                    
 
                     <script>
                         var slider = document.getElementById("brightness");
@@ -146,7 +178,7 @@
                             output.innerHTML = this.value;
                         }
 
-                        var twoColors = document.getElementById("2Colors");
+                        var twoColors = document.getElementById("twoColorsID");
                         var color2 = document.getElementById("favColor2");
                         color2.style.display = "none";
                         twoColors.oninput = function(){
@@ -155,7 +187,7 @@
                                 color2.style.display = "none";
                             }
                             if(twoColors.checked){
-                                color2.style.display = "block";                    
+                                color2.style.display = "inline-block";                    
                             }
                         }
 
@@ -169,7 +201,7 @@
                                 delayTxt.disabled = true;
                             }
                             if(delayCheck.checked){
-                                delayTxt.style.display = "block";      
+                                delayTxt.style.display = "inline-block";      
                                 delayTxt.disabled = false;              
                             }
                         }

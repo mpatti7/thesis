@@ -1,12 +1,94 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
 .controls{
 	margin-top: 75px;
 	margin-left: 40px;
+	font-size: 200%;
 }
 
 .column{
 	float: left;
 	width: 30%;
-	margin-left: 40px;
+	/* margin-left: 40px; */
+	margin-left: 3%;
+}
+
+#colorColumn h4{
+	font-size: 200%;
+	margin-top: 5%;
+}
+#colorColumn label{
+	font-size: 150%;
+}
+
+#favcolor{
+	width: 100px;
+	/* height: 100%; */
+	height: 50px;
+}
+
+#functionsColumn h4{
+	font-size: 200%;
+	margin-top: 5%;
+}
+#functionsColumn label{
+	font-size: 150%;
+}
+#functionsColumn input{
+	border: 0px;
+	width: 20px;
+	height: 20px;
+}
+
+#optionsColumn h4{
+	font-size: 200%;
+	/* margin-top: 3%; */
+}
+.sliderDiv input{
+	width: 25%;
+	/* opacity: 0.7; */
+	background: rgb(29, 64, 128);
+	/* height: 50px; */
+	/* background: url("icons/brightness_medium.png"); */
+}
+.sliderDiv::-webkit-slider-thumb{
+	border-radius: 50%;
+}
+.sliderDiv label{
+	font-size: 150%;
+}
+
+.delayDiv label{
+	font-size: 150%;
+}
+.delayDiv input{
+	width: 18Px;
+	height: 18Px;
+}
+#delay{
+	width: 8%;
+	height: 25px;
+	font-size: medium;
+}
+
+.cyclesDiv label{
+	font-size: 150%;
+}
+.cyclesDiv input{
+	width: 8%;
+	height: 25px;
+	font-size: medium;
+}
+
+#twoColorsID{
+	width: 18Px;
+	height: 18Px;
+} 
+.twoColorsDiv label{
+	font-size: 150%;
 }
 
 .row:after{
@@ -15,8 +97,49 @@
 	clear: both;
 }
 
-.controlBtns {
-	margin-left: 35px;
+/* .controlBtns {
+	/* margin-left: 35px; */
+	/* margin-right: 100px; */
+	/* padding-right: 2em; 
+} */
+.controlBtns button{
+	font-size: 150%;
+	text-align: center;
+	border: 1px solid black;
+	border-radius: 8px;
+	width: 28%;
+	margin: 15px 10px;
+	color: white;
+}
+.controlBtns button .material-icons{
+	font-size: 150%;
+	margin-bottom: 10px;
+	/* margin-bottom: 15px; */
+
+}
+
+#applyBtn{
+	background-color: rgb(12, 143, 112);
+}
+#applyBtn:hover{
+	background-color: rgb(41, 233, 159);
+}
+
+#offBtn{
+	background-color: rgb(29, 64, 128);
+}
+#offBtn:hover{
+	background-color: rgb(21, 181, 221);
+}
+
+#cancelBtn{
+	background-color: rgb(12, 143, 112);
+}
+/* #cancelBtn .material-icons{
+	color: red;
+} */
+#cancelBtn:hover{
+	background-color: rgb(41, 233, 159);
 }
 
 .speedDiv .subSpeedDiv label{

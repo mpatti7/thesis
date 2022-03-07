@@ -1,0 +1,20 @@
+.playlists{
+	margin-top: 75px;
+	margin-left: 40px;
+}
+
+.column{
+	float: left;
+	width: 30%;
+	margin-left: 40px;
+}
+
+#playlistColumn{
+	padding-bottom: 2em;
+}
+
+.row:after{
+	content: "";
+	display: table;
+	clear: both;
+}

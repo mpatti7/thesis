@@ -52,15 +52,16 @@ def controlsChange():
     #brightness is the only option that is not part of the options dictionary, it will be used for every function
     if('brightness' in form):
         brightness = float(form['brightness'])
+    
+    if("btnOff" in form):     #Turn off the lights
+        print("turn off")
+        turn_off.delay()
 
     #If a function was not selected, then just do a regular color fill
-    if("favcolor" in form and "functions" not in form):         #Regular color fill
+    if("favcolor" in form and "functions" not in form and "btnOff" not in form):         #Regular color fill
         color = form["favcolor"]
         task = color_fill.delay(color, options, brightness)
         print("color fill")
-    elif("btnOff" in form):     #Turn off the lights
-        print("turn off")
-        turn_off.delay()
 
     #If a function was selected, then call it
     elif('functions' in form):
@@ -91,13 +92,13 @@ def controlsChange():
 
     return render_template('controls.html')
 
-@app.route('/advancedFunctions/')
-def advancedFunctions():
-    return render_template('advancedFunctions.html')
+@app.route('/playlists/')
+def playlists():
+    return render_template('playlists.html')
 
-@app.route('/advancedFunctions/advancedChange', methods = ["POST"])
-def advancedChange():
-    return render_template('advancedFunctions.html')
+@app.route('/playlists/playlistsChange', methods = ["POST"])
+def playlistsChange():
+    return render_template('playlists.html')
 
 @app.route('/musicSync/')
 def musicSync():
