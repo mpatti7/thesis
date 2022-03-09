@@ -68,25 +68,12 @@
 
             <script>
                 function addItem(id){
-                    console.log(id);
                     var li = document.createElement("LI");  
-                    var input = document.getElementById(id);
-                    // var lightFunction = input.getAttribute("value")
-                    // li.innerHTML = lightFunction;
-                    li.innerHTML = input.getAttribute("value");
-                    playlist = document.getElementById("playlist");
-                    for(var i = 0; i < playlist.length; i++){
-                        console.log("in for loop")
-                        console.log(playlist[i]);
-                        if(li.innerHTML === playlist[i]){
-                            console.log(li.innerHTML)
-                            document.getElementById("playlist").appendChild(li.cloneNode(true));
-                        }
-                    }
-                    document.getElementById("playlist").appendChild(li);
-                    console.log(document.getElementById("playlist"))
+                    var input = document.getElementById(id).innerText;
+                    li.innerText = input;
+                    var playlist = document.getElementById("playlist");
+                    playlist.appendChild(li);
                     input.value = "";
-                    lightFunction = "";
                 }
             </script>
         {% endblock %}
