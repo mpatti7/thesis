@@ -98,10 +98,17 @@ def playlists():
 
 @app.route('/playlists/playlistsChange', methods = ["POST"])
 def playlistsChange():
+    # form = request.form.get('1')
+    form = request.form.to_dict()  
+    print(f"form = {form}")
     return render_template('playlists.html')
 
 @app.route('/musicSync/')
 def musicSync():
+    return render_template('musicSync.html')
+
+@app.route('/musicSync/musicChange/')
+def musicChange():
     return render_template('musicSync.html')
 
 @app.route('/info/')

@@ -10,6 +10,32 @@
             <div class="musicClass">
                 <h2>Music Sync</h2>
             </div>
+
+            <div class="row">
+                <form action="{{url_for('musicChange')}}" method="post">
+                    <div class="column" id="colorColumn">
+                        <h4>Color</h4>
+                        <br>
+                        <label for="favcolor">Choose a color</label>
+                        <br>        
+                        <input type="color" id="favcolor" name="favcolor" value="#ff0000"> 
+                        <br>
+                    </div>
+                    
+                    <div class="column" id="musicColumn">
+                        <!--=============================================================-->
+                        <!--                                                             -->
+                        <!--                           MUSIC                             -->
+                        <!--                                                             -->
+                        <!--=============================================================-->
+                        <h4>Songs</h4>
+                        <br>
+                        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DX5KpP2LN299J?utm_source=generator&theme=0" width="100%" 
+                            height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
+                        </iframe>
+
+                    </div>
+
             {% endblock %}
         </body>
 </html>

@@ -3,6 +3,7 @@
     <head>
         <title>Playlists</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/playlists.css') }}">
+        <script type="text/javascript" src="{{ url_for('static', filename='utilities.js')}}"></script>
     </head>
     {% extends "layout.html" %}
     <body>
@@ -19,7 +20,7 @@
         </div>
         
             <div class="row">
-                <form action="{{url_for('playlistsChange')}}" method="post">
+                <!-- <form action="{{url_for('playlistsChange')}}" method="post"> -->
                     <div class="column" id="functionsColumn">
                         <!--=============================================================-->
                         <!--                                                             -->
@@ -28,9 +29,11 @@
                         <!--=============================================================-->
                         <h4>Basic</h4>
                         <ul id="basic">
-                            <li id="colorWipe" value="Color Wipe">Color Wipe <input type="button" id="colorWipeAdd" value="Add" onclick="addItem('colorWipe')"></li>
-                            <li id="rColorWipe" value="Reverse Color Wipe">Reverse Color Wipe <input type="button" id="rColorWipeAdd" value="Add" onclick="addItem('rColorWipe')"></li>
-                            <li id="dotFill" value="Dot Fill">Dot Fill <input type="button" id="dotFillAdd" value="Add" onclick="addItem('dotFill')"></li>
+                            <!-- <li id="colorWipe" value="Color Wipe">Color Wipe <input type="button" id="colorWipeAdd" value="Add" onclick="addItem('colorWipe')"></li> -->
+                            <li id="colorFill" value="Color Fill">Color Fill <input type="button" id="colorFillAdd" value="Add" onclick="add('colorFill')"></li>
+                            <li id="colorWipe" value="Color Wipe">Color Wipe <input type="button" id="colorWipeAdd" value="Add" onclick="add('colorWipe')"></li>
+                            <li id="rColorWipe" value="Reverse Color Wipe">Reverse Color Wipe <input type="button" id="rColorWipeAdd" value="Add" onclick="add('rColorWipe')"></li>
+                            <li id="dotFill" value="Dot Fill">Dot Fill <input type="button" id="dotFillAdd" value="Add" onclick="add('dotFill')"></li>
                         </ul>
 
                         <!--=============================================================-->
@@ -41,21 +44,24 @@
 
                         <h4>Repeating</h4>
                         <ul id="repeating">
-                            <li id="fade" value="Fade">Fade <input type="button" id="fadeAdd" value="Add" onclick="addItem('fade')"></li>
-                            <li id="theaterChase" value="Theater Chase">Theater Chase <input type="button" id="theaterAdd" value="Add" onclick="addItem('theaterChase')"></li>
-                            <li id="twinkle" value="Twinkle">Twinkle <input type="button" id="twinkleAdd" value="Add" onclick="addItem('twinkle')"></li>
-                            <li id="disco" value="Disco">Disco <input type="button" id="discoAdd" value="Add" onclick="addItem('disco')"></li>
+                            <li id="fade" value="Fade">Fade <input type="button" id="fadeAdd" value="Add" onclick="add('fade')"></li>
+                            <li id="theaterChase" value="Theater Chase">Theater Chase <input type="button" id="theaterAdd" value="Add" onclick="add('theaterChase')"></li>
+                            <li id="twinkle" value="Twinkle">Twinkle <input type="button" id="twinkleAdd" value="Add" onclick="add('twinkle')"></li>
+                            <li id="disco" value="Disco">Disco <input type="button" id="discoAdd" value="Add" onclick="add('disco')"></li>
                         </ul>
 
                     </div>
                     
-                    <div class="column" id="playlistColumn">
-                        <h4>Playlist</h4>
-                        <ul id="playlist">
+                    <form action="{{url_for('playlistsChange')}}" method="post">
+                        <div class="column" id="playlistColumn">
+                            <h4>Playlist</h4>
+                            <ul id="playlistList" name="playlist">
 
-                        </ul>
-                        <button type="submit">Play</button>
-                    </div>
+                            </ul>
+                            <input type="button" value="Play Sequence" onclick="createObject('playlistList')">
+                            <button type="submit">Play</button>
+                        </div>
+                    </form>
 
                     <div class="column" id="presetsColumn">
                         <h4>Presets</h4>
@@ -63,19 +69,30 @@
                         <label for="classic">Classic</label>
                     </div>
 
-                </form>
-            </div>
+                    <div class="controlBtns">
+                        <form action="{{url_for('playlistsChange')}}" method="post">
+                            <button type="submit" title="Light up the lights" id="applyBtn">Play   <i class="material-icons">&#xe038;</i></button>
+                            <!-- <button type="submit" title="Turn off the lights" id="offBtn" name="btnOff" value="off">Turn Off   <i class="material-icons">&#xe8f5;</i></button> -->
+                            <button type="submit" title="Stop a repeating function" id="cancelBtn" name="cancel" value="cancelTask">Stop   <i class="material-icons">&#xe5c9;</i></button>
+                            <!-- <i class="material-icons">&#xe047;</i> -->
+                        </form>
+                    </div>
 
-            <script>
-                function addItem(id){
-                    var li = document.createElement("LI");  
-                    var input = document.getElementById(id).innerText;
-                    li.innerText = input;
-                    var playlist = document.getElementById("playlist");
-                    playlist.appendChild(li);
-                    input.value = "";
-                }
-            </script>
+                
+            
+
+                    <script>
+                        // function addItem(id){
+                        //     var li = document.createElement("LI");  
+                        //     var input = document.getElementById(id).innerText;
+                        //     li.innerText = input;
+                        //     var playlist = document.getElementById("playlist");
+                        //     playlist.appendChild(li);
+                        //     input.value = "";
+                        // }
+                    </script>
+                <!-- </form> -->
+            </div>
         {% endblock %}
     </body>
 </html>
