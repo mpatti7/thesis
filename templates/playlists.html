@@ -3,7 +3,11 @@
     <head>
         <title>Playlists</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/playlists.css') }}">
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script type="text/javascript" src="{{ url_for('static', filename='utilities.js')}}"></script>
+        <!-- <script>
+            $SCRIPT_ROOT = "{{ request.script_root|tojson }}";
+        </script> -->
     </head>
     {% extends "layout.html" %}
     <body>
@@ -52,16 +56,16 @@
 
                     </div>
                     
-                    <form action="{{url_for('playlistsChange')}}" method="post">
+                    <!-- <form action="{{url_for('playlistsChange')}}" method="post"> -->
                         <div class="column" id="playlistColumn">
                             <h4>Playlist</h4>
                             <ul id="playlistList" name="playlist">
 
                             </ul>
-                            <input type="button" value="Play Sequence" onclick="createObject('playlistList')">
+                            <input type="button" value="Set Sequence" onclick="createObject('playlistList')">
                             <button type="submit">Play</button>
                         </div>
-                    </form>
+                    <!-- </form> -->
 
                     <div class="column" id="presetsColumn">
                         <h4>Presets</h4>

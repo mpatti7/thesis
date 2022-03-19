@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, jsonify
 from celery import Celery
 import lights
 import utils
@@ -98,8 +98,7 @@ def playlists():
 
 @app.route('/playlists/playlistsChange', methods = ["POST"])
 def playlistsChange():
-    # form = request.form.get('1')
-    form = request.form.to_dict()  
+    form = request.get_json()
     print(f"form = {form}")
     return render_template('playlists.html')
 
@@ -165,3 +164,4 @@ def twinkle_disco(color, options, brightness=100, repeat=True):
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=80)
+    # app.run(debug=True)
