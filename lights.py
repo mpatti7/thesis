@@ -3,6 +3,7 @@ import neopixel
 from PIL import ImageColor
 import time
 import random
+from functools import partial
 
  # A module for all light functions
  # Author: Marissa Patti
@@ -396,6 +397,34 @@ def dot_fill(color, options, brightness=100):
         idx = num_pixels.pop(random.randint(0, len(num_pixels)-1))
         pixels[idx] = color2
         pixels.show()
+
+def play_sequence(sequence):
+    print(f'playing sequence')
+    methods = dict()
+    count = 0
+
+    for item in sequence:
+        print(item)
+        # print(item['options'])
+        if(item['method'] == "color_wipe"):
+            methods[str(count)] = partial(color_wipe, item['color1'], item['options'], int(item['brightness']), False)
+            print(methods)
+        if(item['method'] == 'dot_fill'):
+            methods[str(count)] = partial(dot_fill, item['color1'], item['options'], int(item['brightness']))
+            print(methods)
+        if(item['method'] == 'color_fill'):
+            methods[str(count)] = partial(color_fill, item['color1'], item['options'], int(item['brightness']))
+            print(methods)
+        if(item['method'] == "reverse_color_wipe"):
+            methods[str(count)] = partial(color_wipe, item['color1'], item['options'], int(item['brightness']), True)
+        if(item['method'] == "fade"):
+            methods[str(count)] = partial(fade, item['color1'], item['options'], int(item['brightness']))
+        count += 1
+    
+    while True:
+        for i in range(len(methods)):
+            print(methods[str(i)])
+            methods[str(i)]()
 
 # '''Adjusts the brightness of the lights. Multiplies the percentage 
 #     by the RGB values to get a less intense version of the same color.

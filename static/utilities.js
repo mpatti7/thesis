@@ -65,31 +65,51 @@ function createObject(list){
         if(items[i].innerText === "Color Wipe"){
             elem = {
                 name: items[i].innerText,
+                method: "color_wipe",
                 brightness: brightness,
                 color1: color1,
-                delay: delay
+                options: {
+                    option1: {
+                        choice: "delay",
+                        value: delay
+                    }
+                }
             }
         }
         else if(items[i].innerText === "Color Fill"){
             elem = {
                 name: items[i].innerText,
+                method: "color_fill",
                 brightness: brightness,
-                color1: color1
+                color1: color1,
+                options: {
+
+                }
             }
         }
         else if(items[i].innerText === "Reverse Color Wipe"){
             elem = {
                 name: items[i].innerText,
+                method: "reverse_color_wipe",
                 brightness: brightness,
                 color1: color1,
-                delay: delay
+                options: {
+                    option1: {
+                        choice: "delay",
+                        value: delay
+                    }
+                }
             }
         }
         else if(items[i].innerText === "Dot Fill"){
             elem = {
                 name: items[i].innerText,
+                method: "dot_fill",
                 brightness: brightness,
-                color1: color1
+                color1: color1,
+                options: {
+                    
+                }
             }
         }
 

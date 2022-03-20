@@ -100,6 +100,8 @@ def playlists():
 def playlistsChange():
     form = request.get_json()
     print(f"form = {form}")
+    task = play_sequence.delay(form)
+    tasks.append(task)
     return render_template('playlists.html')
 
 @app.route('/musicSync/')
@@ -146,6 +148,10 @@ def theaterChase(color, options, brightness=100, repeat=True):
 @celery.task(name='app.twinkle_disco')
 def twinkle_disco(color, options, brightness=100, repeat=True):
     return lights.twinkle_disco(color, options, brightness, repeat)
+
+@celery.task(name='play_sequence')
+def play_sequence(form):
+    return lights.play_sequence(form)
 
 # @celery.task(name='app.disco')
 # def disco(color, options, brightness=100, repeat=True):
