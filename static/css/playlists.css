@@ -1,20 +1,115 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
 .playlists{
 	margin-top: 75px;
 	margin-left: 40px;
+	font-size: 200%;
+}
+.playlists p{
+	font-size: 100%;
 }
 
 .column{
 	float: left;
 	width: 30%;
-	margin-left: 40px;
+	margin-left: 3%;
+}
+#functionsColumn h4{
+	font-size: 200%;
+	margin-top: 5%;
+}
+
+#functionsColumn ul li{
+	list-style-type: none;
+}
+#basic{
+	font-size: 150%;
+}
+#repeating{
+	font-size: 150%;
+}
+.addBtn{
+	height: 24px;
+	width: 24px;
+	border: 1px solid black;
+	border-radius: 15%;
+	background-color: rgb(12, 143, 112);
+	color: white;
+}
+.addBtn i{
+	font-size: 150%;
+	text-align: center;
+}
+.addBtn:hover{
+	background-color: rgb(41, 233, 159);
 }
 
 #playlistColumn{
-	padding-bottom: 2em;
+	/* padding-bottom: 2em; */
+	margin-top: 2%;
+}
+#playlistColumn ul li{
+	list-style-type: none;
+	font-size: 150%;
+}
+#playlistColumn h4{
+	font-size: 200%;
+}
+
+#presetsColumn h4{
+	font-size: 200%;
 }
 
 .row:after{
 	content: "";
 	display: table;
 	clear: both;
+}
+
+@media only screen and (max-width: 1280px){
+	.playlists{
+		margin-top: 75px;
+		margin-left: 35px;
+		font-size: 150%;
+	}
+	
+	.column{
+		float: left;
+		width: 30%;
+		margin-left: 3%;
+	}
+
+	#functionsColumn h4{
+		font-size: 150%;
+		margin-top: 5%;
+	}
+	#basic{
+		font-size: 125%;
+		margin-top: 3%;
+	}
+	#repeating{
+		font-size: 125%;
+		margin-top: 3%;
+	}
+	.addBtn{
+		font-size: 15px;
+		text-align: center;
+		height: 24px;
+		width: 24px;
+	}
+	
+	#playlistColumn{
+		/* padding-bottom: 2em; */
+		font-size: 150%;
+		/* margin-top: 5%; */
+	}
+	
+	.row:after{
+		content: "";
+		display: table;
+		clear: both;
+	}
 }

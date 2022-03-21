@@ -73,7 +73,7 @@ def color_fill(color, options, brightness = 100):
 #         delay(int): default is 0. The time between when each LED is lit up in seconds.
 # '''
 def color_wipe(color, options, brightness = 100, reverse = False):
-    pixels.fill(black)
+    # pixels.fill(black)
     delay = 0.0
 
     if('option1' in options):
@@ -141,7 +141,7 @@ def color_wipe(color, options, brightness = 100, reverse = False):
 #             repeat that many times. Otherwise, it will not stop unless canceled.
 # '''
 def fade(color, options, brightness=100, repeat=True):
-    turn_off()
+    # turn_off()
     fade_color = list()
     # speed_rate = 1
     cycles = 0
@@ -258,7 +258,7 @@ def theaterChase(color, options, brightness=100, repeat=True):
     print(f'options: {options}')
     delay = 50
     cycles = 0
-    turn_off()
+    # turn_off()
 
     if('option1' in options):
         delay = float(options['option1']['value'])
@@ -307,7 +307,7 @@ def twinkle_disco(color, options, brightness=100, repeat=True):
     cycles = 0
     color1 = color
     color2 = ''
-    turn_off()
+    # turn_off()
 
     if(options['function'] == 'twinkle'):       #default values for twinkle and disco if a delay was not specified
         delay = 1000 / 1000
@@ -371,23 +371,23 @@ def twinkle_disco(color, options, brightness=100, repeat=True):
 def dot_fill(color, options, brightness=100):
     color1 = color
     color2 = ''
-    turn_off()
+    # turn_off()
 
-    if('option4' in options):
-        color2 = options['option4']['color2']
-    else:                                        #if a second color wasn't chosen, fill pixels with black and use color1 as color2
-        color1 = black
-        color2 = color
+    # if('option4' in options):
+    #     color2 = options['option4']['color2']
+    # else:                                        #if a second color wasn't chosen, fill pixels with black and use color1 as color2
+    #     color1 = black
+    #     color2 = color
     
     if("#" in color1):
         color1 = convert_hex_to_rgb(color1)
-    if("#" in color2):
-        color2 = convert_hex_to_rgb(color2)
+    # if("#" in color2):
+    #     color2 = convert_hex_to_rgb(color2)
 
     color1 = change_brightness(brightness, color1)
-    color2 = change_brightness(brightness, color2)
+    # color2 = change_brightness(brightness, color2)
 
-    pixels.fill(color1)
+    # pixels.fill(color1)
 
     num_pixels = list()
     for i in range(0, NUM_LEDS):
@@ -395,7 +395,8 @@ def dot_fill(color, options, brightness=100):
 
     while len(num_pixels) != 0:
         idx = num_pixels.pop(random.randint(0, len(num_pixels)-1))
-        pixels[idx] = color2
+        # pixels[idx] = color2
+        pixels[idx] = color1
         pixels.show()
 
 def play_sequence(sequence):

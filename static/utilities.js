@@ -8,6 +8,8 @@ function add(item){
     var brightness = createBrightness();
     var colorPicker = createColorPicker();
     var delay = createDelay();
+    var colorCB = createCheckbox();
+    var secondColor = createSecondColor();
 
     if(item === "colorWipe"){
         element.innerText = "Color Wipe";
@@ -15,6 +17,9 @@ function add(item){
         element.append(colorPicker);
         //need 2 colors
         element.append(delay)
+        element.append(colorCB);
+        secondColor.style.display = "none"
+        element.append(secondColor);
     }
     else if(item === "colorFill"){
         element.innerText = "Color Fill";
@@ -35,6 +40,29 @@ function add(item){
         element.append(colorPicker);
         //need 2 colors
     }
+    else if(item === "fade"){
+        element.innerText = "Fade";
+        element.append(brightness);
+        element.append(colorPicker);
+    }
+    else if(item === "theaterChase"){
+        element.innerText = "Theater Chase";
+        element.append(brightness);
+        element.append(colorPicker);
+    }
+    else if(item === "twinkle"){
+        element.innerText = "Twinkle";
+        element.append(brightness);
+        element.append(colorPicker);
+    }
+    else if(item === "disco"){
+        element.innerText = "Disco";
+        element.append(brightness);
+        element.append(colorPicker);
+    }
+    
+    
+
     htmlList.appendChild(element);
 }
 
@@ -47,6 +75,7 @@ function createObject(list){
     var color1;
     var color2;
     var delay = 0;
+    // elem = {};
     
     for(var i = 0; i < items.length; i++){
         console.log(items[i]);  
@@ -63,6 +92,7 @@ function createObject(list){
             }
         }
         if(items[i].innerText === "Color Wipe"){
+            console.log("creating colorWipe object")
             elem = {
                 name: items[i].innerText,
                 method: "color_wipe",
@@ -143,7 +173,23 @@ function createColorPicker(){
     var colorPicker = document.createElement('input');
     colorPicker.setAttribute("type", "color");
     colorPicker.setAttribute("name", "color1");
+    colorPicker.setAttribute("value", "#ff0000");
     return colorPicker;
+}
+
+function createSecondColor(){
+    var secondColor = document.createElement('input');
+    secondColor.setAttribute("type", "color");
+    secondColor.setAttribute("name", "color2");
+    secondColor.setAttribute("value", "#ff0000");
+    // secondColor.setAttribute("id", "color2");
+    return secondColor;
+}
+
+function createCheckbox(){
+    var cb = document.createElement("input");
+    cb.setAttribute("type", "checkbox");
+    return cb
 }
 
 function createBrightness(){
