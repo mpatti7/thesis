@@ -130,7 +130,7 @@ header{
   .rpiControls {
     margin-right: 5%;
     font-size: 200%;
-    margin-top: 1em;
+    margin-top: .5em;
   }
   
   .rpiControls form button{

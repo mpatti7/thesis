@@ -145,3 +145,154 @@
 .speedDiv .subSpeedDiv label{
 	padding-left: 40px;
 }
+
+@media only screen and (max-width: 1280px){
+	* {
+		margin: 0;
+		padding: 0;
+	}
+	
+	.controls{
+		margin-top: 75px;
+		margin-left: 35px;
+		font-size: 150%;
+	}
+	
+	.column{
+		float: left;
+		width: 30%;
+		/* margin-left: 40px; */
+		margin-left: 3%;
+	}
+	
+	#colorColumn h4{
+		font-size: 150%;
+		margin-top: 5%;
+	}
+	#colorColumn label{
+		font-size: 125%;
+	}
+	
+	#favcolor{
+		width: 75px;
+		/* height: 100%; */
+		height: 35px;
+	}
+	
+	#functionsColumn h4{
+		font-size: 150%;
+		margin-top: 5%;
+	}
+	#functionsColumn label{
+		font-size: 125%;
+	}
+	#functionsColumn input{
+		border: 0px;
+		width: 15px;
+		height: 15px;
+	}
+	
+	#optionsColumn h4{
+		font-size: 150%;
+		/* margin-top: 3%; */
+	}
+	.sliderDiv input{
+		width: 50%;
+		/* opacity: 0.7; */
+		background: rgb(29, 64, 128);
+		/* height: 50px; */
+		/* background: url("icons/brightness_medium.png"); */
+	}
+	.sliderDiv::-webkit-slider-thumb{
+		border-radius: 50%;
+	}
+	.sliderDiv label{
+		font-size: 125%;
+	}
+	
+	.delayDiv label{
+		font-size: 125%;
+	}
+	.delayDiv input{
+		width: 15px;
+		height: 15Px;
+	}
+	#delay{
+		width: 8%;
+		height: 22px;
+		font-size: medium;
+	}
+	
+	.cyclesDiv label{
+		font-size: 125%;
+	}
+	.cyclesDiv input{
+		width: 8%;
+		height: 22px;
+		font-size: medium;
+	}
+	
+	#twoColorsID{
+		width: 15Px;
+		height: 15Px;
+	} 
+	.twoColorsDiv label{
+		font-size: 125%;
+	}
+	
+	.row:after{
+		content: "";
+		display: table;
+		clear: both;
+	}
+	
+	/* .controlBtns {
+		/* margin-left: 35px; */
+		/* margin-right: 100px; */
+		/* padding-right: 2em; 
+	} */
+	.controlBtns button{
+		font-size: 125%;
+		text-align: center;
+		border: 1px solid black;
+		border-radius: 8px;
+		width: 26%;
+		margin: 13px 8px;
+		color: white;
+	}
+	.controlBtns button .material-icons{
+		font-size: 125%;
+		margin-bottom: 10px;
+		/* margin-bottom: 15px; */
+	
+	}
+	
+	#applyBtn{
+		background-color: rgb(12, 143, 112);
+	}
+	#applyBtn:hover{
+		background-color: rgb(41, 233, 159);
+	}
+	
+	#offBtn{
+		background-color: rgb(29, 64, 128);
+		width: 28%;
+	}
+	#offBtn:hover{
+		background-color: rgb(21, 181, 221);
+	}
+	
+	#cancelBtn{
+		background-color: rgb(12, 143, 112);
+	}
+	/* #cancelBtn .material-icons{
+		color: red;
+	} */
+	#cancelBtn:hover{
+		background-color: rgb(41, 233, 159);
+	}
+	
+	.speedDiv .subSpeedDiv label{
+		padding-left: 40px;
+	}
+}
