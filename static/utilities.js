@@ -4,61 +4,110 @@ function add(item){
     var element = document.createElement("li");
     num = htmlList.children.length + 1;
     element.setAttribute("id", num);
+    console.log("id = " + num);
 
     var brightness = createBrightness();
     var colorPicker = createColorPicker();
     var delay = createDelay();
+    var cycles = createCycles();
     var colorCB = createCheckbox();
     var secondColor = createSecondColor();
+    var deleteBtn = createDeleteBtn();
 
     if(item === "colorWipe"){
         element.innerText = "Color Wipe";
         element.append(brightness);
         element.append(colorPicker);
         //need 2 colors
+        label = createLabel("Delay:", delay.name);
+        element.append(label);
         element.append(delay)
         element.append(colorCB);
         secondColor.style.display = "none"
         element.append(secondColor);
+        // deleteBtn.setAttribute("onclick", "removeElement('element.id')")
+        deleteBtn.onclick = function() { removeElement(element.id); };
+        element.prepend(deleteBtn);
+        
     }
     else if(item === "colorFill"){
         element.innerText = "Color Fill";
         element.append(brightness);
         element.append(colorPicker);
         //need 2 colors
+        deleteBtn.onclick = function() { removeElement(element.id); };
+        element.prepend(deleteBtn);
     }
     else if(item === "rColorWipe"){
         element.innerText = "Reverse Color Wipe";
         element.append(brightness);
         element.append(colorPicker);
         //need 2 colors
+        label = createLabel("Delay:", delay.name);
+        element.append(label);
         element.append(delay)
+        deleteBtn.onclick = function() { removeElement(element.id); };
+        element.prepend(deleteBtn);
     }
     else if(item === "dotFill"){
         element.innerText = "Dot Fill";
         element.append(brightness);
         element.append(colorPicker);
         //need 2 colors
+        deleteBtn.onclick = function() { removeElement(element.id); };
+        element.prepend(deleteBtn);
     }
     else if(item === "fade"){
         element.innerText = "Fade";
         element.append(brightness);
         element.append(colorPicker);
+        label = createLabel("Delay:", delay.name);
+        element.append(label);
+        element.append(delay)
+        label = createLabel("Cycles:", cycles.name);
+        element.append(label);
+        element.append(cycles);
+        deleteBtn.onclick = function() { removeElement(element.id); };
+        element.prepend(deleteBtn);
     }
     else if(item === "theaterChase"){
         element.innerText = "Theater Chase";
         element.append(brightness);
         element.append(colorPicker);
+        label = createLabel("Delay:", delay.name);
+        element.append(label);
+        element.append(delay);
+        label = createLabel("Cycles:", cycles.name);
+        element.append(label);
+        element.append(cycles);
+        deleteBtn.onclick = function() { removeElement(element.id); };
+        element.prepend(deleteBtn);
     }
     else if(item === "twinkle"){
         element.innerText = "Twinkle";
         element.append(brightness);
         element.append(colorPicker);
+        label = createLabel("Delay:", delay.name);
+        element.append(label);
+        element.append(delay)
+        label = createLabel("Cycles:", cycles.name);
+        element.append(label);
+        element.append(cycles);
+        deleteBtn.onclick = function() { removeElement(element.id); };
+        element.prepend(deleteBtn);
     }
     else if(item === "disco"){
         element.innerText = "Disco";
         element.append(brightness);
         element.append(colorPicker);
+        label = createLabel("Delay:", delay.name);
+        element.append(label);
+        element.append(delay);
+        label = createLabel("Cycles:", cycles.name);
+        element.append(label);
+        element.append(cycles);
+        deleteBtn.onclick = function() { removeElement(element.id); };
+        element.prepend(deleteBtn);
     }
     
     
@@ -75,6 +124,7 @@ function createObject(list){
     var color1;
     var color2;
     var delay = 0;
+    var cycles = 1;
     // elem = {};
     
     for(var i = 0; i < items.length; i++){
@@ -139,6 +189,20 @@ function createObject(list){
                 color1: color1,
                 options: {
                     
+                }
+            }
+        }
+        else if(items[i].innerText === "Fade"){
+            elem = {
+                name: items[i].innerText,
+                method: "fade",
+                brightness: brightness,
+                color1: color1,
+                options: {
+                    option3: {
+                        choice: "cycles",
+                        value: cycles
+                    }
                 }
             }
         }
@@ -210,4 +274,44 @@ function createDelay(){
     delay.setAttribute("size", 1);
     delay.setAttribute("name", "delay");
     return delay;
+}
+
+function createCycles(){
+    var label = document.createElement("label");
+    label.innerText = "Cycles:"
+    var cycles = document.createElement("input");
+    cycles.setAttribute("type", "text");
+    cycles.setAttribute("value", 1);
+    cycles.setAttribute("maxLength", 4);
+    cycles.setAttribute("size", 1);
+    cycles.setAttribute("name", "cycles");
+    label.setAttribute("for", cycles.name);
+    console.log(label);
+    // cycles.appendChild(label);
+    return cycles;
+}
+
+function createLabel(text, id){
+    var label = document.createElement("label");
+    label.innerText = text;
+    label.setAttribute("for", id);
+    return label
+}
+
+function createDeleteBtn(){
+    var btn = document.createElement("button");
+    btn.innerHTML = '<i class="material-icons">&#xe5cd;</i>';
+    return btn;
+}
+
+function removeElement(id){
+    // console.log(id)
+    list = document.getElementById("playlistList");
+    item = document.getElementById(id);
+    item.parentNode.removeChild(item);
+
+    //reset the IDs of each item so we don't end up with duplicates from removing and adding
+    for(var i = 0; i < list.children.length; i++){
+        list.children[i].setAttribute("id", i+1)
+    }
 }

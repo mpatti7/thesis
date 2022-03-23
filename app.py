@@ -149,7 +149,7 @@ def theaterChase(color, options, brightness=100, repeat=True):
 def twinkle_disco(color, options, brightness=100, repeat=True):
     return lights.twinkle_disco(color, options, brightness, repeat)
 
-@celery.task(name='play_sequence')
+@celery.task(name='app.play_sequence')
 def play_sequence(form):
     return lights.play_sequence(form)
 

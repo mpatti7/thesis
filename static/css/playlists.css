@@ -70,6 +70,11 @@
 }
 
 @media only screen and (max-width: 1280px){
+	* {
+		margin: 0;
+		padding: 0;
+	}
+
 	.playlists{
 		margin-top: 75px;
 		margin-left: 35px;
@@ -100,11 +105,25 @@
 		height: 24px;
 		width: 24px;
 	}
-	
+
+	#playlistColumn h4{
+		font-size: 110%;
+		margin-bottom: 3%;
+		/* text-align: center; */
+	}
 	#playlistColumn{
 		/* padding-bottom: 2em; */
 		font-size: 150%;
 		/* margin-top: 5%; */
+		column-width: 275px;
+	}
+	#playlistColumn ul li{
+		list-style-type: none;
+		font-size: 80%;
+		background-color: white;
+		border: 1px solid black;
+		padding: .25em .25em .25em .25em;
+		margin-right: 5em;
 	}
 	
 	.row:after{
