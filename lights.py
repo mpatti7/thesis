@@ -415,6 +415,8 @@ def play_sequence(sequence):
             methods[str(count)] = partial(color_fill, item['color1'], item['options'], int(item['brightness']))
         if(item['method'] == "reverse_color_wipe"):
             methods[str(count)] = partial(color_wipe, item['color1'], item['options'], int(item['brightness']), True)
+        if(item['method'] == "pause"):
+            methods[str(count)] = partial(pause, item['wait'])
         if(item['method'] == "fade"):
             methods[str(count)] = partial(fade, item['color1'], item['options'], int(item['brightness']))
         if(item['method'] == "theater_chase"):
@@ -430,6 +432,11 @@ def play_sequence(sequence):
         for i in range(len(methods)):
             print(f'Performing {methods[str(i)]}')
             methods[str(i)]()
+
+def pause(wait):
+    wait = float(wait) / 1000
+    print(f'wait time: {wait}')
+    time.sleep(wait)
 
 # '''Adjusts the brightness of the lights. Multiplies the percentage 
 #     by the RGB values to get a less intense version of the same color.

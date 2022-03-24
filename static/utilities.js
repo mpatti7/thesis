@@ -59,6 +59,14 @@ function add(item){
         deleteBtn.onclick = function() { removeElement(element.id); };
         element.prepend(deleteBtn);
     }
+    else if(item === "pause"){
+        element.innerText = "Pause";
+        element.name = "pause";
+        delay.setAttribute("name", "pause");
+        element.append(delay)
+        deleteBtn.onclick = function() { removeElement(element.id); };
+        element.prepend(deleteBtn);
+    }
     else if(item === "fade"){
         element.innerText = "Fade";
         element.name = "fade";
@@ -118,6 +126,7 @@ function add(item){
 }
 
 function createObject(list){
+    sequence = [];
     var list = document.getElementById("playlistList");
     var items = list.getElementsByTagName("li")
     console.log(items);
@@ -127,6 +136,7 @@ function createObject(list){
     var color2;
     var delay = 0;
     var cycles = 1;
+    pause = 0;
     // elem = {};
     
     for(var i = 0; i < items.length; i++){
@@ -151,6 +161,9 @@ function createObject(list){
                     items[i].children[j].value = 1;
                 }
                 cycles = items[i].children[j].value;
+            }
+            if(items[i].children[j].name === "pause"){
+                pause = items[i].children[j].value;
             }
         }
         if(items[i].name === "colorWipe"){
@@ -202,6 +215,13 @@ function createObject(list){
                 options: {
                     
                 }
+            }
+        }
+        else if(items[i].name === "pause"){
+            elem = {
+                name: items[i].name,
+                method: "pause",
+                wait: pause
             }
         }
         else if(items[i].name === "fade"){
@@ -335,7 +355,7 @@ function createDelay(){
     var delay = document.createElement("input");
     delay.setAttribute("type", "text");
     delay.setAttribute("value", 0);
-    delay.setAttribute("maxLength", 4);
+    delay.setAttribute("maxLength", 5);
     delay.setAttribute("size", 1);
     delay.setAttribute("name", "delay");
     return delay;
