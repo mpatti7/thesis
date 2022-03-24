@@ -48,7 +48,7 @@ git clone https://github.com/rpi-ws281x/rpi-ws281x-python.git
 ```
 3. There should be a folder called rpi-WS281x-python somewhere on the pi
 ```bash
-cd rpi-WS281x-python/examples
+cd rpi-ws281x-python/examples
 sudo python3 strandtest.py
 ```
 - Note: the number of leds in this file is only 16. You can edit the file and change LED_COUNT to the amount of lights you have
