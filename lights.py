@@ -253,7 +253,7 @@ def fade(color, options, brightness=100, repeat=True):
 #             function will repeat that many times. Otherwise,
 #             it will not stop unless canceled. 
 # '''
-def theaterChase(color, options, brightness=100, repeat=True):
+def theater_chase(color, options, brightness=100, repeat=True):
     print('turn off lights')
     print(f'options: {options}')
     delay = 50
@@ -409,22 +409,26 @@ def play_sequence(sequence):
         # print(item['options'])
         if(item['method'] == "color_wipe"):
             methods[str(count)] = partial(color_wipe, item['color1'], item['options'], int(item['brightness']), False)
-            print(methods)
         if(item['method'] == 'dot_fill'):
             methods[str(count)] = partial(dot_fill, item['color1'], item['options'], int(item['brightness']))
-            print(methods)
         if(item['method'] == 'color_fill'):
             methods[str(count)] = partial(color_fill, item['color1'], item['options'], int(item['brightness']))
-            print(methods)
         if(item['method'] == "reverse_color_wipe"):
             methods[str(count)] = partial(color_wipe, item['color1'], item['options'], int(item['brightness']), True)
         if(item['method'] == "fade"):
             methods[str(count)] = partial(fade, item['color1'], item['options'], int(item['brightness']))
+        if(item['method'] == "theater_chase"):
+            methods[str(count)] = partial(theater_chase, item['color1'], item['options'], int(item['brightness']))
+        if(item['name'] == "twinkle"):
+            methods[str(count)] = partial(twinkle_disco, item['color1'], item['options'], int(item['brightness']))
+        if(item['name'] == "disco"):
+            methods[str(count)] = partial(twinkle_disco, item['color1'], item['options'], int(item['brightness']))
         count += 1
+    print(f'methods: {methods}')
     
     while True:
         for i in range(len(methods)):
-            print(methods[str(i)])
+            print(f'Performing {methods[str(i)]}')
             methods[str(i)]()
 
 # '''Adjusts the brightness of the lights. Multiplies the percentage 

@@ -4,7 +4,6 @@ function add(item){
     var element = document.createElement("li");
     num = htmlList.children.length + 1;
     element.setAttribute("id", num);
-    console.log("id = " + num);
 
     var brightness = createBrightness();
     var colorPicker = createColorPicker();
@@ -16,6 +15,7 @@ function add(item){
 
     if(item === "colorWipe"){
         element.innerText = "Color Wipe";
+        element.name = "colorWipe";
         element.append(brightness);
         element.append(colorPicker);
         //need 2 colors
@@ -25,13 +25,13 @@ function add(item){
         element.append(colorCB);
         secondColor.style.display = "none"
         element.append(secondColor);
-        // deleteBtn.setAttribute("onclick", "removeElement('element.id')")
         deleteBtn.onclick = function() { removeElement(element.id); };
         element.prepend(deleteBtn);
         
     }
     else if(item === "colorFill"){
         element.innerText = "Color Fill";
+        element.name = "colorFill";
         element.append(brightness);
         element.append(colorPicker);
         //need 2 colors
@@ -40,6 +40,7 @@ function add(item){
     }
     else if(item === "rColorWipe"){
         element.innerText = "Reverse Color Wipe";
+        element.name = "rColorWipe";
         element.append(brightness);
         element.append(colorPicker);
         //need 2 colors
@@ -51,6 +52,7 @@ function add(item){
     }
     else if(item === "dotFill"){
         element.innerText = "Dot Fill";
+        element.name = "dotFill";
         element.append(brightness);
         element.append(colorPicker);
         //need 2 colors
@@ -59,11 +61,9 @@ function add(item){
     }
     else if(item === "fade"){
         element.innerText = "Fade";
+        element.name = "fade";
         element.append(brightness);
         element.append(colorPicker);
-        label = createLabel("Delay:", delay.name);
-        element.append(label);
-        element.append(delay)
         label = createLabel("Cycles:", cycles.name);
         element.append(label);
         element.append(cycles);
@@ -72,6 +72,7 @@ function add(item){
     }
     else if(item === "theaterChase"){
         element.innerText = "Theater Chase";
+        element.name = "theaterChase";
         element.append(brightness);
         element.append(colorPicker);
         label = createLabel("Delay:", delay.name);
@@ -85,10 +86,12 @@ function add(item){
     }
     else if(item === "twinkle"){
         element.innerText = "Twinkle";
+        element.name = "twinkle";
         element.append(brightness);
         element.append(colorPicker);
         label = createLabel("Delay:", delay.name);
         element.append(label);
+        delay.setAttribute("value", 1000);
         element.append(delay)
         label = createLabel("Cycles:", cycles.name);
         element.append(label);
@@ -98,10 +101,12 @@ function add(item){
     }
     else if(item === "disco"){
         element.innerText = "Disco";
+        element.name = "disco";
         element.append(brightness);
         element.append(colorPicker);
         label = createLabel("Delay:", delay.name);
         element.append(label);
+        delay.setAttribute("value", 50);
         element.append(delay);
         label = createLabel("Cycles:", cycles.name);
         element.append(label);
@@ -109,9 +114,6 @@ function add(item){
         deleteBtn.onclick = function() { removeElement(element.id); };
         element.prepend(deleteBtn);
     }
-    
-    
-
     htmlList.appendChild(element);
 }
 
@@ -129,6 +131,7 @@ function createObject(list){
     
     for(var i = 0; i < items.length; i++){
         console.log(items[i]);  
+        console.log(items[i].innerText);
         for(var j = 0; j < items[i].children.length; j++){
             console.log(items[i].children[j]);
             if(items[i].children[j].name === "brightness"){
@@ -138,13 +141,22 @@ function createObject(list){
                 color1 = items[i].children[j].value;
             }
             if(items[i].children[j].name === "delay"){
+                if(items[i].children[j].value < 0){
+                    items[i].children[j].value = 0;
+                }
                 delay = items[i].children[j].value;
             }
+            if(items[i].children[j].name === "cycles"){
+                if(items[i].children[j].value < 1){
+                    items[i].children[j].value = 1;
+                }
+                cycles = items[i].children[j].value;
+            }
         }
-        if(items[i].innerText === "Color Wipe"){
+        if(items[i].name === "colorWipe"){
             console.log("creating colorWipe object")
             elem = {
-                name: items[i].innerText,
+                name: items[i].name,
                 method: "color_wipe",
                 brightness: brightness,
                 color1: color1,
@@ -156,9 +168,9 @@ function createObject(list){
                 }
             }
         }
-        else if(items[i].innerText === "Color Fill"){
+        else if(items[i].name === "colorFill"){
             elem = {
-                name: items[i].innerText,
+                name: items[i].name,
                 method: "color_fill",
                 brightness: brightness,
                 color1: color1,
@@ -167,9 +179,9 @@ function createObject(list){
                 }
             }
         }
-        else if(items[i].innerText === "Reverse Color Wipe"){
+        else if(items[i].name === "rColorWipe"){
             elem = {
-                name: items[i].innerText,
+                name: items[i].name,
                 method: "reverse_color_wipe",
                 brightness: brightness,
                 color1: color1,
@@ -181,9 +193,9 @@ function createObject(list){
                 }
             }
         }
-        else if(items[i].innerText === "Dot Fill"){
+        else if(items[i].name === "dotFill"){
             elem = {
-                name: items[i].innerText,
+                name: items[i].name,
                 method: "dot_fill",
                 brightness: brightness,
                 color1: color1,
@@ -192,9 +204,9 @@ function createObject(list){
                 }
             }
         }
-        else if(items[i].innerText === "Fade"){
+        else if(items[i].name === "fade"){
             elem = {
-                name: items[i].innerText,
+                name: items[i].name,
                 method: "fade",
                 brightness: brightness,
                 color1: color1,
@@ -206,10 +218,63 @@ function createObject(list){
                 }
             }
         }
+        else if(items[i].name === "theaterChase"){
+            elem = {
+                name: items[i].name,
+                method: "theater_chase",
+                brightness: brightness,
+                color1: color1,
+                options: {
+                    option3: {
+                        choice: "cycles",
+                        value: cycles
+                    }
+                }
+            }
+        }
+        else if(items[i].name === "twinkle"){
+            elem = {
+                name: items[i].name,
+                method: "twinkle_disco",
+                brightness: brightness,
+                color1: color1,
+                options: {
+                    function: "twinkle",
+                    option1: {
+                        choice: "delay",
+                        value: delay
+                    },
+                    option3: {
+                        choice: "cycles",
+                        value: cycles
+                    }
+                }
+            }
+        }
+        else if(items[i].name === "disco"){
+            elem = {
+                name: items[i].name,
+                method: "twinkle_disco",
+                brightness: brightness,
+                color1: color1,
+                options: {
+                    function: "disco",
+                    option1: {
+                        choice: "delay",
+                        value: delay
+                    },
+                    option3: {
+                        choice: "cycles",
+                        value: cycles
+                    }
+                }
+            }
+        }
 
         console.log(elem);
         addToSequence(elem);
     }
+    console.log(sequence);
 
     // sequence = JSON.stringify(sequence);
     
@@ -277,17 +342,12 @@ function createDelay(){
 }
 
 function createCycles(){
-    var label = document.createElement("label");
-    label.innerText = "Cycles:"
     var cycles = document.createElement("input");
     cycles.setAttribute("type", "text");
     cycles.setAttribute("value", 1);
     cycles.setAttribute("maxLength", 4);
     cycles.setAttribute("size", 1);
     cycles.setAttribute("name", "cycles");
-    label.setAttribute("for", cycles.name);
-    console.log(label);
-    // cycles.appendChild(label);
     return cycles;
 }
 

@@ -69,8 +69,6 @@ def controlsChange():
         if(form["functions"] == "colorWipe"):               #Color wipe
             task = color_wipe.delay(color, options, brightness, False)
             tasks.append(task)
-            #TODO: In case any light function throws an exception, use task.traceback to see. Add in try/except with this?
-            # print(f'task.ready(): {task.ready()}')
         if(form["functions"] == "rColorWipe"):              #Reverse Color wipe
             task = color_wipe.delay(color, options, brightness, True)
             tasks.append(task)
@@ -81,7 +79,7 @@ def controlsChange():
             task = fade.delay(color, options, brightness)
             tasks.append(task)
         if(form["functions"] == "theaterChase"):            #Theater Chase
-            task = theaterChase.delay(color, options, brightness, True)
+            task = theater_chase.delay(color, options, brightness, True)
             tasks.append(task)
         if(form['functions'] == 'twinkle'):
             task = twinkle_disco.delay(color, options, brightness, True)
@@ -141,9 +139,9 @@ def fade(color, options, brightness=100, repeat=True):
     # print(task_id)
     return lights.fade(color, options, brightness, repeat)
 
-@celery.task(name='app.theaterChase')
-def theaterChase(color, options, brightness=100, repeat=True):
-    return lights.theaterChase(color, options, brightness, repeat)
+@celery.task(name='app.theater_chase')
+def theater_chase(color, options, brightness=100, repeat=True):
+    return lights.theater_chase(color, options, brightness, repeat)
 
 @celery.task(name='app.twinkle_disco')
 def twinkle_disco(color, options, brightness=100, repeat=True):
