@@ -18,81 +18,78 @@
         </div>
         
         <div class="row">
-            <!-- <form action="{{url_for('playlistsChange')}}" method="post"> -->
-                <div class="column" id="functionsColumn">
-                    <!--=============================================================-->
-                    <!--                                                             -->
-                    <!--                           BASIC                             -->
-                    <!--                                                             -->
-                    <!--=============================================================-->
-                    <h4>Basic</h4>
-                    <ul id="basic">
-                        <!-- <li id="colorWipe" value="Color Wipe">Color Wipe <input type="button" id="colorWipeAdd" value="Add" onclick="addItem('colorWipe')"></li> -->
-                        <li id="colorFill" value="Color Fill">Color Fill <button class="addBtn" onclick="add('colorFill')"><i class="material-icons">add</i></button></li>
-                        <li id="colorWipe" value="Color Wipe">Color Wipe <button class="addBtn" onclick="add('colorWipe')"><i class="material-icons">add</i></button></li>
-                        <li id="rColorWipe" value="Reverse Color Wipe">Reverse Color Wipe <button class="addBtn" onclick="add('rColorWipe')"><i class="material-icons">add</i></button></li>
-                        <li id="dotFill" value="Dot Fill">Dot Fill <button class="addBtn" onclick="add('dotFill')"><i class="material-icons">add</i></button><!--<input type="button" class="addBtn" id="dotFillAdd" value="Add" onclick="add('dotFill')"></li>-->
-                    </ul>
+            <div class="column" id="functionsColumn">
+                <!--=============================================================-->
+                <!--                                                             -->
+                <!--                           BASIC                             -->
+                <!--                                                             -->
+                <!--=============================================================-->
+                <h4>Basic</h4>
+                <ul id="basic">
+                    <!-- <li id="colorWipe" value="Color Wipe">Color Wipe <input type="button" id="colorWipeAdd" value="Add" onclick="addItem('colorWipe')"></li> -->
+                    <li id="colorFill" value="Color Fill">Color Fill <button class="addBtn" onclick="add('colorFill')"><i class="material-icons">add</i></button></li>
+                    <li id="colorWipe" value="Color Wipe">Color Wipe <button class="addBtn" onclick="add('colorWipe')"><i class="material-icons">add</i></button></li>
+                    <li id="rColorWipe" value="Reverse Color Wipe">Reverse Color Wipe <button class="addBtn" onclick="add('rColorWipe')"><i class="material-icons">add</i></button></li>
+                    <li id="dotFill" value="Dot Fill">Dot Fill <button class="addBtn" onclick="add('dotFill')"><i class="material-icons">add</i></button><!--<input type="button" class="addBtn" id="dotFillAdd" value="Add" onclick="add('dotFill')"></li>-->
+                </ul>
 
-                    <!--=============================================================-->
-                    <!--                                                             -->
-                    <!--                        REPEATING                            -->
-                    <!--                                                             -->
-                    <!--=============================================================-->
+                <!--=============================================================-->
+                <!--                                                             -->
+                <!--                        REPEATING                            -->
+                <!--                                                             -->
+                <!--=============================================================-->
 
-                    <h4>Repeating</h4>
-                    <ul id="repeating">
-                        <li id="fade" value="Fade">Fade <button class="addBtn" onclick="add('fade')"><i class="material-icons">add</i></button></li>
-                        <li id="theaterChase" value="Theater Chase">Theater Chase <button class="addBtn" onclick="add('theaterChase')"><i class="material-icons">add</i></button></li>
-                        <li id="twinkle" value="Twinkle">Twinkle <button class="addBtn" onclick="add('twinkle')"><i class="material-icons">add</i></button></li>
-                        <li id="disco" value="Disco">Disco <button class="addBtn" onclick="add('disco')"><i class="material-icons">add</i></button></li>
-                    </ul>
+                <h4>Repeating</h4>
+                <ul id="repeating">
+                    <li id="fade" value="Fade">Fade <button class="addBtn" onclick="add('fade')"><i class="material-icons">add</i></button></li>
+                    <li id="theaterChase" value="Theater Chase">Theater Chase <button class="addBtn" onclick="add('theaterChase')"><i class="material-icons">add</i></button></li>
+                    <li id="twinkle" value="Twinkle">Twinkle <button class="addBtn" onclick="add('twinkle')"><i class="material-icons">add</i></button></li>
+                    <li id="disco" value="Disco">Disco <button class="addBtn" onclick="add('disco')"><i class="material-icons">add</i></button></li>
+                </ul>
 
-                </div>
-                
-                <!-- <form action="{{url_for('playlistsChange')}}" method="post"> -->
-                    <div class="column" id="playlistColumn">
-                        <h4>Playlist</h4>
-                        <ul id="playlistList" name="playlist">
-
-                        </ul>
-                        <!-- <input type="button" value="Play" onclick="createObject('playlistList')"> -->
-                        <button type="submit" value="Play" title="Play the sequence" id="playBtn" onclick="createObject('playlistList')">Play   <i class="material-icons">&#xe038;</i></button>
-                        <!-- <button type="submit">Play</button> -->
-                    </div>
-                <!-- </form> -->
-
-                <div class="column" id="presetsColumn">
-                    <h4>Presets</h4>
-                    <input type="radio" id="classic" name="functions" value="classic">
-                    <label for="classic">Classic</label>
-                    <button type="submit" title="Play the sequence" id="playPresetBtn">Play   <i class="material-icons">&#xe038;</i></button>
-                </div>
-
-                <div class="controlBtns">
-                    <form action="{{url_for('playlistsChange')}}" method="post">
-                        <!-- <button type="submit" title="Light up the lights" id="applyBtn">Play   <i class="material-icons">&#xe038;</i></button> -->
-                        <!-- <button type="submit" title="Turn off the lights" id="offBtn" name="btnOff" value="off">Turn Off   <i class="material-icons">&#xe8f5;</i></button> -->
-                        <button type="submit" title="Stop a repeating function" id="cancelBtn" name="cancel" value="cancelTask">Stop   <i class="material-icons">&#xe5c9;</i></button>
-                        <!-- <i class="material-icons">&#xe047;</i> -->
-                    </form>
-                </div>
-
-                
-            
-
-                    <script>
-                        // var checkboxes = document.getElementsByName("color2CB");
-                        // var secondColors = document.getElementsByName("secondColor")
-                        // for(var i = 0; i < color2CB.length; i++){
-                        //     if(checkboxes[i].checked){
-
-                        //     }
-                        // }
-
-                    </script>
-                <!-- </form> -->
             </div>
+            
+            <!--=============================================================-->
+            <!--                                                             -->
+            <!--                        PLAYLISTS                            -->
+            <!--                                                             -->
+            <!--=============================================================-->
+            <div class="column" id="playlistColumn">
+                <h4>Playlist</h4>
+                <ul id="playlistList" name="playlist">
+
+                </ul>
+                <button type="submit" value="Play" title="Play the sequence" id="playBtn" onclick="createObject('playlistList')">Play   <i class="material-icons">&#xe038;</i></button>
+            </div>
+
+            <!--=============================================================-->
+            <!--                                                             -->
+            <!--                          PRESETS                            -->
+            <!--                                                             -->
+            <!--=============================================================-->
+            <div class="column" id="presetsColumn">
+                <h4>Presets</h4>
+                <input type="radio" id="classic" name="functions" value="classic">
+                <label for="classic">Classic</label>
+                <button type="submit" title="Play the sequence" id="playPresetBtn">Play   <i class="material-icons">&#xe038;</i></button>
+            </div>
+
+            <div class="controlBtns">
+                <button type="submit" title="Stop a repeating function" id="cancelBtn" name="cancel" value="cancelTask" onclick="cancelSequence()">Stop   <i class="material-icons">&#xe5c9;</i></button>
+            </div>
+
+                
+            <script>
+                // var checkboxes = document.getElementsByName("color2CB");
+                // var secondColors = document.getElementsByName("secondColor")
+                // for(var i = 0; i < color2CB.length; i++){
+                //     if(checkboxes[i].checked){
+
+                //     }
+                // }
+
+            </script>
+        </div>
         {% endblock %}
     </body>
 </html>

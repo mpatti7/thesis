@@ -375,3 +375,20 @@ function removeElement(id){
         list.children[i].setAttribute("id", i+1)
     }
 }
+
+function cancelSequence(){
+    cancelTask = {
+        cancel: "cancelTask"
+    }
+    $.ajax({
+        type: "POST",
+        url: "/playlists/playlistsChange",
+        data: JSON.stringify(cancelTask),
+        contentType: "application/json",
+        dataType: 'json',
+        success: function(result) {
+            console.log("Result:");
+            console.log(result);
+        }  
+    });
+}

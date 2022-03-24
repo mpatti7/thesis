@@ -98,8 +98,16 @@ def playlists():
 def playlistsChange():
     form = request.get_json()
     print(f"form = {form}")
-    task = play_sequence.delay(form)
-    tasks.append(task)
+    if('cancel' in form):                   #check if any repeating function needs to be canceled before doing anything else
+        if(len(tasks) > 0):
+            tasks[0].revoke(terminate=True, signal='SIGKILL')
+            turn_off.delay()
+            print(f'killed task')
+            tasks.pop(0)
+        # return render_template('playlists.html')
+    else:
+        task = play_sequence.delay(form)
+        tasks.append(task)
     return render_template('playlists.html')
 
 @app.route('/musicSync/')
