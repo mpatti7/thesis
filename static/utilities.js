@@ -6,6 +6,7 @@ function add(item){
     element.setAttribute("id", num);
 
     var brightness = createBrightness();
+    // brightness.innerHTML = '<i class="material-icons">brightness_medium</i>';
     var colorPicker = createColorPicker();
     var delay = createDelay();
     var cycles = createCycles();
@@ -16,6 +17,7 @@ function add(item){
     if(item === "colorWipe"){
         element.innerText = "Color Wipe";
         element.name = "colorWipe";
+        // bLabel = createLabel('<i class="material-icons">brightness_medium</i>', brightness.name);
         element.append(brightness);
         element.append(colorPicker);
         //need 2 colors
