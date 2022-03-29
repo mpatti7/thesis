@@ -28,7 +28,7 @@ black = (0,0,0)
 #         2Colors: enables the use of two colors    
 # '''
 def color_fill(color, options, brightness = 100):
-    if('option4' in options):
+    if('option4' in options and options["option4"]["color2"] != "None"):
         color1 = options["option4"]["color1"]
         color2 = options["option4"]["color2"]
 
@@ -75,12 +75,13 @@ def color_fill(color, options, brightness = 100):
 def color_wipe(color, options, brightness = 100, reverse = False):
     # pixels.fill(black)
     delay = 0.0
+    print(f'Options: {options}')
 
     if('option1' in options):
         delay = float(options['option1']['value']) / 1000.0
         print(f'delay {delay}')
         
-    if('option4' in options):
+    if('option4' in options and options["option4"]["color2"] != "None"):
         print(f"Double color wipe")
 
         color1 = options["option4"]["color1"]
@@ -317,7 +318,7 @@ def twinkle_disco(color, options, brightness=100, repeat=True):
         delay = float(options['option1']['value']) / 1000
     if('option3' in options):
         cycles = int(options['option3']['value'])
-    if('option4' in options):
+    if('option4' in options and options['option4']['color2'] != 'None'):
         color2 = options['option4']['color2']
     else:
         color1 = black
