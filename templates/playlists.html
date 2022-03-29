@@ -59,7 +59,11 @@
                 <ul id="playlistList" name="playlist">
 
                 </ul>
-                <button type="submit" value="Play" title="Play the sequence" id="playBtn" onclick="createObject('playlistList')">Play   <i class="material-icons">&#xe038;</i></button>
+                <!-- <button type="submit" value="Play" title="Play the sequence" id="playBtn" onclick="createObject('playlistList')">Play   <i class="material-icons">&#xe038;</i></button> -->
+                <div class="controlBtns">
+                    <button type="submit" value="Play" title="Play the sequence" id="playBtn" onclick="createObject('playlistList')">Play   <i class="material-icons">&#xe038;</i></button>
+                    <button type="submit" title="Stop a repeating function" id="cancelBtn" name="cancel" value="cancelTask" onclick="cancelSequence()">Stop   <i class="material-icons">&#xe5c9;</i></button>
+                </div>
             </div>
 
             <!--=============================================================-->
@@ -71,12 +75,21 @@
                 <h4>Presets</h4>
                 <input type="radio" id="classic" name="functions" value="classic">
                 <label for="classic">Classic</label>
+
+                <br>
+
+                <input type="radio" id="basic" name="functions" value="basic">
+                <label for="basic">Basic</label>
+                
+                <br>
+
                 <button type="submit" title="Play the sequence" id="playPresetBtn">Play   <i class="material-icons">&#xe038;</i></button>
             </div>
 
-            <div class="controlBtns">
+            
+            <!-- <div class="controlBtns">
                 <button type="submit" title="Stop a repeating function" id="cancelBtn" name="cancel" value="cancelTask" onclick="cancelSequence()">Stop   <i class="material-icons">&#xe5c9;</i></button>
-            </div>
+            </div> -->
 
                 
             <script>

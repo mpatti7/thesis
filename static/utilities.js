@@ -139,7 +139,6 @@ function createObject(list){
         console.log(items[i]);  
         for(var j = 0; j < items[i].children.length; j++){
             console.log(items[i].children[j]);
-            console.log("ID: " + items[i].children[j].id);
             if(items[i].children[j].name === "brightness"){
                 brightness = items[i].children[j].value;
             }
@@ -148,15 +147,9 @@ function createObject(list){
             }
             if(items[i].children[j].name == "color2CB"){
                 if(items[i].children[j].checked){
-                    console.log("2 colors checked");
-                    console.log(items[i].children[j].checked);
-                    console.log(items[i].children[j].id);
                     color2 = items[i].children[j+1].value;
                 }
                 if(items[i].children[j].checked == false){
-                    console.log("2 colors NOT checked");
-                    console.log(items[i].children[j].checked);
-                    console.log(items[i].children[j].id);
                     color2 = "None";
                 }
             }

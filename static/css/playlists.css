@@ -64,39 +64,71 @@
 	font-size: 200%;
 }
 #playBtn{
-	font-size: 125%;
+	/* font-size: 125%;
 	text-align: center;
 	border: 1px solid black;
 	border-radius: 8px;
-	width: 26%;
+	width: 17%;
 	margin: 13px 8px;
-	color: white;
+	color: white; */
 	background-color: rgb(12, 143, 112);
 }
 #playBtn:hover{
 	background-color: rgb(41, 233, 159);
 }
-#playBtn .material-icons{
+/* #playBtn .material-icons{
 	font-size: 125%;
 	margin-bottom: 10px;
-}
+} */
 
-.controlBtns button{
+#playPresetBtn{
 	font-size: 125%;
 	text-align: center;
 	border: 1px solid black;
 	border-radius: 8px;
-	width: 26%;
+	width: 17%;
+	height: 37px;
 	margin: 13px 8px;
-	background-color: rgb(12, 143, 112);
 	color: white;
+	background-color: rgb(12, 143, 112);
+}
+#playPresetBtn:hover{
+	background-color: rgb(41, 233, 159);
+}
+
+.controlBtns button{
+	/* font-size: 125%;
+	text-align: center;
+	border: 1px solid black;
+	border-radius: 8px;
+	width: 5%;
+	margin: 13px 8px;
+	background-color: rgb(29, 64, 128);
+	color: white; */
+	font-size: 125%;
+	text-align: center;
+	border: 1px solid black;
+	border-radius: 8px;
+	width: 17%;
+	margin: 13px 8px;
+	color: white;
+	background-color: rgb(12, 143, 112);
 }
 .controlBtns button .material-icons{
 	font-size: 125%;
 	margin-bottom: 10px;
 	/* margin-bottom: 15px; */
-
 }
+
+#cancelBtn{
+	background-color: rgb(29, 64, 128);
+}
+#cancelBtn:hover{
+	background-color: rgb(21, 181, 221);
+}
+/* .controlBtns button:hover{
+	background-color: rgb(21, 181, 221);
+} */
 
 #presetsColumn h4{
 	font-size: 200%;
