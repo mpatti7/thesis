@@ -153,8 +153,6 @@ def fade(color, options, brightness=100, repeat=True):
 
     if('option3' in options):
         cycles = int(options['option3']['value'])
-    if(cycles > 0):
-        repeat = False
 
     #color is a tuple, so the values can't be changed, so it's rgb values are copied into a list where they can be changed
     fade_color.append(color[0])
@@ -176,7 +174,13 @@ def fade(color, options, brightness=100, repeat=True):
     # elif(speed == 'fast'):
     #     speed_rate == 50
 
+    current_cycle = 0
     while repeat:
+        if(cycles > 0):
+            current_cycle += 1
+            if(current_cycle == cycles):
+                turn_off()
+                break
         #Prevent each value from going below 0
         if(fade_color[0] < 0):
             fade_color[0] = 0
@@ -207,40 +211,7 @@ def fade(color, options, brightness=100, repeat=True):
                 fade_color[2] -= 1
             print(fade_color)
             pixels.fill(fade_color)
-            pixels.show()   
-    
-    if(not repeat):
-        for i in range(cycles):
-            if(fade_color[0] < 0):
-                fade_color[0] = 0
-            if(fade_color[1] < 0):
-                fade_color[1] = 0
-            if(fade_color[2] < 0):
-                fade_color[2] = 0
-
-            while (fade_color[0] < r_max or fade_color[1] < g_max or fade_color[2] < b_max):
-                #Fade up
-                if(fade_color[0] < r_max):
-                    fade_color[0] += 1
-                if(fade_color[1] < g_max):
-                    fade_color[1] += 1
-                if(fade_color[2] < b_max):
-                    fade_color[2] += 1
-                print(fade_color)
-                pixels.fill(fade_color)
-                pixels.show()
-            
-            while (fade_color[0] != 0 or fade_color[1] != 0 or fade_color[2] != 0):
-                #Fade down
-                if(fade_color[0] != 0):
-                    fade_color[0] -= 1
-                if(fade_color[1] != 0):
-                    fade_color[1] -= 1
-                if(fade_color[2] != 0):
-                    fade_color[2] -= 1
-                print(fade_color)
-                pixels.fill(fade_color)
-                pixels.show() 
+            pixels.show()    
 
 # '''Flashes every third LED in a theater chase style animation
 #     color(tuple): color of the LEDs
@@ -255,7 +226,6 @@ def fade(color, options, brightness=100, repeat=True):
 #             it will not stop unless canceled. 
 # '''
 def theater_chase(color, options, brightness=100, repeat=True):
-    print('turn off lights')
     print(f'options: {options}')
     delay = 50
     cycles = 0
@@ -265,14 +235,18 @@ def theater_chase(color, options, brightness=100, repeat=True):
         delay = float(options['option1']['value'])
     if('option3' in options):
         cycles = int(options['option3']['value'])
-    if(cycles > 0):
-        repeat = False
 
     if('#' in color):
         color = convert_hex_to_rgb(color)
     color = change_brightness(brightness, color)
 
+    current_cycle = 0
     while repeat:
+        if(cycles > 0):
+            current_cycle += 1
+            if(current_cycle == cycles):
+                turn_off()
+                break
         for j in range(3):
             for k in range(0, NUM_LEDS, 3):
                 pixels[k+j] = color
@@ -280,17 +254,6 @@ def theater_chase(color, options, brightness=100, repeat=True):
             time.sleep(delay/1000.0)
             for q in range(0, NUM_LEDS, 3):
                 pixels[q+j] = black
-    
-    if(not repeat):
-        for i in range(cycles):
-            for j in range(3):
-                for k in range(0, NUM_LEDS, 3):
-                    pixels[k+j] = color
-                pixels.show()
-                time.sleep(delay/1000.0)
-                for q in range(0, NUM_LEDS, 3):
-                    pixels[q+j] = black
-        turn_off()
 
 # ''' Flashes a random set of LEDS on the strip. Twinkle is the slower version
 #     while Disco is a much faster version. Each version has their own default 
@@ -323,8 +286,8 @@ def twinkle_disco(color, options, brightness=100, repeat=True):
     else:
         color1 = black
         color2 = color
-    if(cycles > 0):
-        repeat = False
+    # if(cycles > 0):
+    #     repeat = False
 
     print(f'delay = {delay}')
     
@@ -340,8 +303,14 @@ def twinkle_disco(color, options, brightness=100, repeat=True):
     print(f'num_dots = {num_dots}')
     dots = list()
 
+    current_cycle = 0
     pixels.fill(color1)
     while repeat:
+        if(cycles > 0):
+            current_cycle += 1
+            if(current_cycle == cycles):
+                # turn_off()
+                break
         for i in range(0, num_dots):
             dots.append(random.randint(0, NUM_LEDS-1))
         for j in dots:
@@ -350,17 +319,6 @@ def twinkle_disco(color, options, brightness=100, repeat=True):
         time.sleep(delay)
         pixels.fill(color1)
         dots.clear()
-    if(not repeat):
-        for i in range(cycles):
-            for idx in range(0, num_dots):
-                dots.append(random.randint(0, NUM_LEDS-1))
-            for j in dots:
-                pixels[j] = color2
-            pixels.show()
-            time.sleep(delay)
-            pixels.fill(color1)
-            dots.clear()
-
 
 # '''Lights up each LED one by one in a random order. If 2 colors are not
 #     specified, color1(the base) becomes black and color becomes color2.

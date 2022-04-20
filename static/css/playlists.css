@@ -119,19 +119,35 @@
 	margin-bottom: 10px;
 	/* margin-bottom: 15px; */
 }
+.controlBtns button:hover{
+	background-color: rgb(41, 233, 159);
+}
 
-#cancelBtn{
+#offBtn{
+	width: 19%;
 	background-color: rgb(29, 64, 128);
 }
-#cancelBtn:hover{
+#offBtn:hover{
 	background-color: rgb(21, 181, 221);
 }
-/* .controlBtns button:hover{
-	background-color: rgb(21, 181, 221);
-} */
 
+#cancelBtn{
+	background-color: rgb(12, 143, 112);
+}
+#cancelBtn:hover{
+	background-color: rgb(41, 233, 159);
+}
+
+#presetsColumn label{
+	font-size: 150%;
+}
 #presetsColumn h4{
 	font-size: 200%;
+}
+#presetsColumn input{
+	border: 0px;
+	width: 20px;
+	height: 20px;
 }
 
 .row:after{
@@ -178,7 +194,7 @@
 	}
 
 	#playlistColumn h4{
-		font-size: 110%;
+		font-size: 105%;
 		margin-bottom: 3%;
 		/* text-align: center; */
 	}
@@ -197,15 +213,49 @@
 		padding: .25em .25em .25em .25em;
 		margin-right: 5em;
 	}
-	#playBtn{
+	.controlBtns button{
 		font-size: 100%;
 		text-align: center;
 		border: 1px solid black;
 		border-radius: 8px;
 		width: 26%;
-		height: 40px;
 		margin: 13px 8px;
 		color: white;
+		background-color: rgb(12, 143, 112);
+	}
+	.controlBtns button .material-icons{
+		font-size: 100%;
+		margin-bottom: 10px;
+		/* margin-bottom: 15px; */
+	}
+	#offBtn{
+		width: 32%;
+	}
+
+	#presetsColumn label{
+		font-size: 125%;
+	}
+	#presetsColumn h4{
+		font-size: 150%;
+		margin-top: 3%;
+
+	}
+	#presetsColumn input{
+		border: 0px;
+		width: 15px;
+		height: 15px;
+	}
+
+	#playPresetBtn{
+		font-size: 125%;
+		text-align: center;
+		border: 1px solid black;
+		border-radius: 8px;
+		width: 26%;
+		height: 37px;
+		margin: 13px 8px;
+		color: white;
+		background-color: rgb(12, 143, 112);
 	}
 	
 	.row:after{

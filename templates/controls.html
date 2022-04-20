@@ -4,6 +4,8 @@
         <title>Control</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/controls.css') }}">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"> <!--Google Icons-->
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='utilities.js')}}"></script>
 
     </head>
     {% extends "layout.html" %}
@@ -149,8 +151,8 @@
                         <br>
 
                         <div class="controlBtns">
-                            <form action="{{url_for('controlsChange')}}" method="post">
-                                <button type="submit" title="Light up the lights" id="applyBtn">Apply   <i class="material-icons">&#xe038;</i></button>
+                            <form action="{{url_for('controlsChange')}}" method="post" name="controlsForm">
+                                <button type="submit" title="Light up the lights" id="applyBtn" onclick="sendFormData()">Apply   <i class="material-icons">&#xe038;</i></button>
                                 <button type="submit" title="Turn off the lights" id="offBtn" name="btnOff" value="off">Turn Off   <i class="material-icons">&#xe8f5;</i></button>
                                 <button type="submit" title="Stop a repeating function" id="cancelBtn" name="cancel" value="cancelTask">Stop   <i class="material-icons">&#xe5c9;</i></button>
                                 <!-- <i class="material-icons">&#xe047;</i> -->

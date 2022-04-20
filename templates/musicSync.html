@@ -3,6 +3,8 @@
     <head>
         <title>Music Sync</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/music.css') }}">
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script type="text/javascript" src="{{ url_for('static', filename='utilities.js')}}"></script>
     </head>
         <body>
         {% extends "layout.html" %}
@@ -12,7 +14,7 @@
             </div>
 
             <div class="row">
-                <form action="{{url_for('musicChange')}}" method="post">
+                <!-- <form method="post"> -->
                     <div class="column" id="colorColumn">
                         <h4>Color</h4>
                         <br>
@@ -30,12 +32,37 @@
                         <!--=============================================================-->
                         <h4>Songs</h4>
                         <br>
-                        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DX5KpP2LN299J?utm_source=generator&theme=0" width="100%" 
+                        <!-- <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DX5KpP2LN299J?utm_source=generator&theme=0" width="100%" 
                             height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
-                        </iframe>
+                        </iframe> -->
+
+                        <!-- <input type="radio" class="songs" id="jazz" name="smooth_jazz.wav" value="smooth_jazz">
+                        <label for="jazz">Smooth Jazz</label> -->
+
+                        <br>
+                        <label for="jazz">Smooth Jazz</label>
+                            
+                        <!-- <div id="audio"> -->
+                            <audio controls id="audio">
+                                <source src="../static/songs/smooth_jazz.wav" type="audio/wav" id="jazz" name="smooth_jazz.wav">
+                            </audio>
+                        <!-- </div> -->
+
+                        <!-- <button type="submit" value="Play" title="Play" id="playBtn" onclick="getSong()">Play   <i class="material-icons">&#xe038;</i></button> -->
 
                     </div>
+                <!-- </form> -->
+            </div>
 
+            <script>
+
+                //play song through browser and when something is playing, have jaavscript constantly get the time position and send it to flask
+                var audio = document.getElementById("audio")
+                audio.ontimeupdate = function(){
+                    sendAudioTimeStamps(audio)
+                }
+                
+            </script>
             {% endblock %}
         </body>
 </html>

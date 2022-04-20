@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, jsonify
 from celery import Celery
 import lights
 import utils
+import music
 
 #start celery with this: sudo celery -A app.celery worker --loglevel=info
 
@@ -16,8 +17,7 @@ app.config['result_backend'] = 'rpc://results.db'
 celery = Celery(app.name, broker=app.config['CELERY_BROKER_URL'])
 celery.conf.update(app.config)
 
-# tasks = dict()          #A dictionary to hold looping task ids
-tasks = list()
+tasks = list()      #A list to hold task ids
 
 blue = (0,0,255)
 red = (255,0,0)
@@ -36,6 +36,13 @@ def controlsChange():
     print(f"form = {form}")
     options = dict()
     brightness = int()
+
+    #Check if there was another task running already if the user selects another animation and doesn't cancel it first
+    if(len(tasks) > 0):
+        tasks[0].revoke(terminate=True, signal='SIGKILL')
+        turn_off.delay()
+        print(f'killed task')
+        tasks.pop(0)
 
     if('cancel' in form):                   #check if any repeating function needs to be canceled before doing anything else
         if(len(tasks) > 0):
@@ -98,6 +105,13 @@ def playlists():
 def playlistsChange():
     form = request.get_json()
     print(f"form = {form}")
+
+    if(len(tasks) > 0):
+        tasks[0].revoke(terminate=True, signal='SIGKILL')
+        turn_off.delay()
+        print(f'killed task')
+        tasks.pop(0)
+
     if('cancel' in form):                   #check if any repeating function needs to be canceled before doing anything else
         if(len(tasks) > 0):
             tasks[0].revoke(terminate=True, signal='SIGKILL')
@@ -114,8 +128,12 @@ def playlistsChange():
 def musicSync():
     return render_template('musicSync.html')
 
-@app.route('/musicSync/musicChange/')
+@app.route('/musicSync/musicChange', methods = ["POST"])
 def musicChange():
+    song = request.get_json()   #put this in a celery task?
+    print(f'Song: {song}')
+    # process_song.delay(song)
+    
     return render_template('musicSync.html')
 
 @app.route('/info/')
@@ -143,8 +161,6 @@ def turn_off():
 
 @celery.task(name='app.fade')
 def fade(color, options, brightness=100, repeat=True):
-    # task_id = fade.request.id
-    # print(task_id)
     return lights.fade(color, options, brightness, repeat)
 
 @celery.task(name='app.theater_chase')
@@ -159,9 +175,14 @@ def twinkle_disco(color, options, brightness=100, repeat=True):
 def play_sequence(form):
     return lights.play_sequence(form)
 
-# @celery.task(name='app.disco')
-# def disco(color, options, brightness=100, repeat=True):
-#     return lights.twinkle_disco(color, options, brightness, repeat)
+@celery.task(name='app.process_song')
+def process_song(song):
+    song_path = music.get_song(song)
+    beats = music.get_beats(song_path)
+    # onset_timestamps = music.get_onset_times(song_path)
+    # beat_intensity = music.get_file_bpm(song_path)
+    # print(len(onset_timestamps))
+    # print(len(beat_intensity))
 
 
 #CELERY TEST

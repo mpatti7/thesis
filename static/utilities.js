@@ -4,6 +4,8 @@ function add(item){
     var element = document.createElement("li");
     num = htmlList.children.length + 1;
     element.setAttribute("id", num);
+    element.setAttribute("class", "playlistItems");
+    element.setAttribute("draggable", "true");
 
     var brightness = createBrightness();
     // brightness.innerHTML = '<i class="material-icons">brightness_medium</i>';
@@ -16,6 +18,7 @@ function add(item){
     colorCB.onclick = function() { displayColor2(colorCB, secondColor); };
     var deleteBtn = createDeleteBtn();
     deleteBtn.onclick = function() { removeElement(element.id); };
+    console.log(deleteBtn.onclick);
 
     if(item === "colorWipe"){
         element.innerText = "Color Wipe";
@@ -120,6 +123,8 @@ function add(item){
         element.prepend(deleteBtn);
     }
     htmlList.appendChild(element);
+
+    makeDraggable();
 }
 
 function createObject(list){
@@ -414,6 +419,7 @@ function createDeleteBtn(){
     btn.style.color = "white";
     btn.style.borderRadius = "15%";
     btn.style.border = "1px solid black";
+    btn.setAttribute("name", "delBtn");
     btn.addEventListener("mouseenter", function( event ) {   
         event.target.style.backgroundColor = "rgb(41, 233, 159)";
     }, false);
@@ -453,19 +459,6 @@ function cancelSequence(){
     });
 }
 
-// function displayColor2(cb, element){
-//     if(cb.checked == false){
-//         // color2.style.display = "none";
-//         //delete color picker 2
-//     }
-//     if(cb.checked){
-//         // color2.style.display = "inline-block";   
-//         console.log("creating second color");
-//         element.append(createSecondColor(element.id));   
-                      
-//     }
-// }
-
 function displayColor2(cb, color2){
     if(cb.checked == false){
         color2.style.display = "none";
@@ -474,3 +467,146 @@ function displayColor2(cb, color2){
         color2.style.display = "inline-block";                    
     }
 }
+
+function getControlsData(){
+    // var form = new FormData();
+    // form.get("controlsForm");
+    // console.log(form);
+
+}
+
+function sendSong(songName){
+    $.ajax({
+        type: "POST",
+        url: "/musicSync/musicChange/",
+        data: JSON.stringify(songName),
+        contentType: "application/json",
+        dataType: 'json',
+        success: function(result) {
+            console.log("Result:");
+            console.log(result);
+        }  
+    });
+}
+
+function sendAudioTimeStamps(audio){
+    console.log("Sending song");
+    currentTime = audio.currentTime;
+    src = audio.children[0].src
+    console.log(currentTime)
+
+    song = {
+        name: src,
+        currentTime: currentTime 
+    }
+
+    $.ajax({
+        type: "POST",
+        url: "/musicSync/musicChange",
+        data: JSON.stringify(song),
+        contentType: "application/json",
+        dataType: 'json',
+        success: function(result) {
+            console.log("Result:");
+            console.log(result);
+        }  
+    });
+}
+
+// function playMusic(songName){
+//     console.log("Playing music")
+//     sequence = [];
+
+//     $.ajax({
+//         type: "POST",
+//         url: "/musicSync/musicChange",
+//         data: JSON.stringify(sequence),
+//         contentType: "application/json",
+//         dataType: 'json',
+//         success: function(result) {
+//             console.log("Result:");
+//             console.log(result);
+//         }  
+//     });
+// }
+
+// The following code was taken from https://web.dev/drag-and-drop/
+// It enables the ability to drag and drop playlist items in order
+// to reorganize them in the list. It was altered slightly to be 
+// compatible with my code.
+// function handleDragStart(e) {
+//     this.style.opacity = '0.4';
+
+//     dragSrcEl = this;
+
+//     e.dataTransfer.effectAllowed = 'move';
+//     e.dataTransfer.setData('text/html', this.innerHTML);
+// }
+
+// function handleDragEnd(e) {
+//     this.style.opacity = '1';
+//     let items = document.querySelectorAll('.playlistItems');
+//     items.forEach(function (item) {
+//         item.classList.remove('over');
+//     });
+
+//     var list = document.getElementById("playlistList");
+//     var li = list.getElementsByTagName("li")
+//     for(var i = 0; i < li.length; i++){
+//         // console.log("list = " + list);
+//         // console.log("li[i]" = + li[i]);
+//         // console.log("li[i].id = " + li[i].id);  
+//         for(var j = 0; j < li[i].children.length; j++){
+//             if(li[i].children[j].name === "delBtn"){
+//                 li[i].children[j].removeAttribute("onclick");
+//                 e = document.getElementById(li[i].id);
+//                 console.log("e = " + e);
+//                 console.log("li[i].children[j] = " + li[i].children[j]);
+//                 console.log(li[i].getAttribute("id"));
+//                 li[i].children[j].onclick = function() { removeElement(e.id); };
+//                 console.log(li[i].children[j].onclick);
+//             }
+//         }
+//     }
+// }
+
+// function handleDragOver(e) {
+//     if (e.preventDefault) {
+//         e.preventDefault();
+//     }
+//     return false;
+// }
+
+// function handleDragEnter(e) {
+//     this.classList.add('over');
+// }
+
+// function handleDragLeave(e) {
+//     this.classList.remove('over');
+// }
+
+// function handleDrop(e) {
+//     e.stopPropagation();
+//     // console.log(e);
+
+//     if (dragSrcEl !== this) {
+//         dragSrcEl.innerHTML = this.innerHTML;
+//         this.innerHTML = e.dataTransfer.getData('text/html');
+//     }
+
+//     return false;
+// }
+
+// function makeDraggable(){
+//     let items = document.querySelectorAll('.playlistItems');
+//     // console.log(items);
+//     items.forEach(function(item) {
+//         item.addEventListener('dragstart', handleDragStart);
+//         item.addEventListener('dragover', handleDragOver);
+//         item.addEventListener('dragenter', handleDragEnter);
+//         item.addEventListener('dragleave', handleDragLeave);
+//         item.addEventListener('dragend', handleDragEnd);
+//         item.addEventListener('drop', handleDrop);
+//     });
+// }
+//END code from https://web.dev/drag-and-drop/
