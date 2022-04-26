@@ -5,7 +5,7 @@ function add(item){
     num = htmlList.children.length + 1;
     element.setAttribute("id", num);
     element.setAttribute("class", "playlistItems");
-    element.setAttribute("draggable", "true");
+    // element.setAttribute("draggable", "true");
 
     var brightness = createBrightness();
     // brightness.innerHTML = '<i class="material-icons">brightness_medium</i>';
