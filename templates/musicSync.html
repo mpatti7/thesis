@@ -58,8 +58,10 @@
 
                 //play song through browser and when something is playing, have jaavscript constantly get the time position and send it to flask
                 var audio = document.getElementById("audio")
+                // var color = document.getElementById("favcolor").value
                 audio.ontimeupdate = function(){
-                    sendAudioTimeStamps(audio)
+                    var color = document.getElementById("favcolor").value
+                    sendAudioTimeStamps(audio, color)
                 }
                 
             </script>

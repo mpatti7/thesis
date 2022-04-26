@@ -475,29 +475,16 @@ function getControlsData(){
 
 }
 
-function sendSong(songName){
-    $.ajax({
-        type: "POST",
-        url: "/musicSync/musicChange/",
-        data: JSON.stringify(songName),
-        contentType: "application/json",
-        dataType: 'json',
-        success: function(result) {
-            console.log("Result:");
-            console.log(result);
-        }  
-    });
-}
-
-function sendAudioTimeStamps(audio){
+function sendAudioTimeStamps(audio, color){
     console.log("Sending song");
-    currentTime = audio.currentTime;
+    currentTime = Math.round(audio.currentTime * 10)/10;
     src = audio.children[0].src
     console.log(currentTime)
 
     song = {
         name: src,
-        currentTime: currentTime 
+        currentTime: currentTime,
+        color: color
     }
 
     $.ajax({

@@ -4,6 +4,7 @@ from aubio import source, onset, tempo
 import numpy
 import os
 import lights
+import csv
 
 TEST_WAV = 'static/songs/smooth_jazz.wav'
 SONGS_FOLDER_PATH = 'static/songs/'
@@ -44,11 +45,9 @@ def get_beats(song_path):
         samples, read = s()
         is_beat = o(samples)
         if o(samples):
-            print('onset')
             print("%f" % o.get_last_s())
             onsets.append(o.get_last_s())
             if is_beat:
-                print('beat')
                 this_beat = o.get_last_s()
                 beats.append(this_beat)
         total_frames += read
@@ -68,19 +67,33 @@ def get_onset_times(file_path):
     o = onset("default", win_s, hop_s, samplerate)
 
     # list of onsets, in samples
-    onsets = []
+    # onsets = []
+    onsets = {}
 
     # total number of frames read
     total_frames = 0
+    i = 0
     while True:
         samples, read = s()
         if o(samples):
-            print("%f" % o.get_last_s())
-            onsets.append(o.get_last_s())
+            # print("%f" % o.get_last_s())
+            # onsets[str(i)] = round(o.get_last_s(), 1)
+            onsets[round(o.get_last_s(), 1)] = i
+            i += 1
+            # onsets.append(o.get_last_s())
             # onsets.append(o.get_last())
         total_frames += read
         if read < hop_s: 
             break
+    # print(f'onsets: {onsets}')
+
+    # write the dictionary to a csv  
+    try:
+        with open('static/songs/csv/smooth_jazz_onsets.csv', 'w') as csv:
+            for key in onsets.keys():
+                csv.write("%s,%s\n"%(key, onsets[key]))
+    except IOError as error:
+        print(f'Error: {error}')
     return onsets
 
 #This gives me a float value representing a beat. this can probably be used to judge the intensity of the lights 
@@ -147,7 +160,7 @@ def get_song(song_name):
                 return song_path 
 
 # test = get_file_bpm(TEST_WAV)
-# test = get_onset_times(TEST_WAV)
+# get_onset_times(TEST_WAV)
 # print(test)
 # test = play_song(TEST_WAV)
 # print(test)

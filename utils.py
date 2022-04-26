@@ -1,4 +1,5 @@
 import subprocess
+import csv
 
 def create_options(form):
     options = dict()
@@ -32,3 +33,17 @@ def shutdown_pi():
 def reboot_pi():
     print(f'Rebooting Pi...')
     subprocess.call('sudo reboot', shell=True)
+
+def read_onset_csv(csv_path):
+    print(f'Reading in onsets...')
+    onsets = {}
+
+    try:
+        with open(csv_path, 'r') as infile:
+            reader = csv.reader(infile)
+            onsets = {float(rows[0]):rows[1] for rows in reader}
+    except IOError as error:
+        print(f'Error: {error}')
+
+    print('Complete')
+    return onsets 
