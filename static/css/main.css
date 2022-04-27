@@ -140,11 +140,11 @@ header{
   }
   
   .rpiControls form #rpiOff .material-icons{
-    font-size: 65%;
+    font-size: 70%;
   } 
   
   .rpiControls form #rpiReboot .material-icons{
-    font-size: 65%;
+    font-size: 70%;
   }
 }
 

@@ -163,7 +163,7 @@
 	}
 
 	.playlists{
-		margin-top: 75px;
+		margin-top: 60px;
 		margin-left: 35px;
 		font-size: 150%;
 	}
@@ -187,46 +187,42 @@
 		margin-top: 3%;
 	}
 	.addBtn{
-		font-size: 15px;
+		font-size: 12px;
 		text-align: center;
-		height: 24px;
-		width: 24px;
+		height: 20px;
+		width: 20px;
 	}
 
 	#playlistColumn h4{
 		font-size: 105%;
 		margin-bottom: 3%;
-		/* text-align: center; */
 	}
 	#playlistColumn{
-		/* padding-bottom: 2em; */
 		font-size: 150%;
-		/* margin-top: 5%; */
 		column-width: 275px;
 	}
 	#playlistColumn ul li{
 		list-style-type: none;
 		font-size: 80%;
-		/* background-color: white; */
 		border: 1px solid black;
 		border-radius: 10px;
 		padding: .25em .25em .25em .25em;
 		margin-right: 5em;
 	}
 	.controlBtns button{
-		font-size: 100%;
+		font-size: 85%;
 		text-align: center;
 		border: 1px solid black;
 		border-radius: 8px;
 		width: 26%;
+		height: 37px;
 		margin: 13px 8px;
 		color: white;
 		background-color: rgb(12, 143, 112);
 	}
 	.controlBtns button .material-icons{
 		font-size: 100%;
-		margin-bottom: 10px;
-		/* margin-bottom: 15px; */
+		margin-bottom: 5px;
 	}
 	#offBtn{
 		width: 32%;
@@ -237,7 +233,7 @@
 	}
 	#presetsColumn h4{
 		font-size: 150%;
-		margin-top: 3%;
+		/* margin-top: 3%; */
 
 	}
 	#presetsColumn input{
@@ -252,10 +248,127 @@
 		border: 1px solid black;
 		border-radius: 8px;
 		width: 26%;
+		/* height: 37px; */
+		margin: 13px 8px;
+		color: white;
+		background-color: rgb(12, 143, 112);
+	}
+	#playPresetBtn .material-icons{
+		font-size: 100%;
+		margin-bottom: 5px;
+	}
+	
+	.row:after{
+		content: "";
+		display: table;
+		clear: both;
+	}
+}
+
+@media only screen and (max-width: 767px){
+	* {
+		margin: 0;
+		padding: 0;
+	}
+
+	.playlists{
+		margin-top: 4em;
+		margin-right: 7%;
+		font-size: 150%;
+	}
+
+	.playlists h2{
+		text-align: center;
+	}
+	
+	.column{
+		float: left;
+		width: 100%;
+		margin-left: 3%;
+	}
+
+	#functionsColumn h4{
+		font-size: 150%;
+		margin-top: 5%;
+	}
+	#basic{
+		font-size: 125%;
+		margin-top: 3%;
+	}
+	#repeating{
+		font-size: 125%;
+		margin-top: 3%;
+	}
+	.addBtn{
+		font-size: 12px;
+		text-align: center;
+		height: 20px;
+		width: 20px;
+	}
+
+	#playlistColumn h4{
+		font-size: 105%;
+		margin-bottom: 3%;
+	}
+	#playlistColumn{
+		font-size: 150%;
+		column-width: 275px;
+	}
+	#playlistColumn ul li{
+		list-style-type: none;
+		font-size: 80%;
+		border: 1px solid black;
+		border-radius: 10px;
+		padding: .25em .25em .25em .25em;
+		margin-right: 5em;
+	}
+	.controlBtns button{
+		font-size: 85%;
+		text-align: center;
+		border: 1px solid black;
+		border-radius: 8px;
+		width: 26%;
 		height: 37px;
 		margin: 13px 8px;
 		color: white;
 		background-color: rgb(12, 143, 112);
+	}
+	.controlBtns button .material-icons{
+		font-size: 100%;
+		margin-bottom: 5px;
+	}
+	#offBtn{
+		width: 32%;
+	}
+
+	#presetsColumn label{
+		font-size: 125%;
+	}
+	#presetsColumn h4{
+		font-size: 150%;
+		/* margin-top: 3%; */
+
+	}
+	#presetsColumn input{
+		border: 0px;
+		width: 15px;
+		height: 15px;
+	}
+
+	#playPresetBtn{
+		font-size: 125%;
+		text-align: center;
+		border: 1px solid black;
+		border-radius: 8px;
+		width: 26%;
+		/* height: 37px; */
+		margin: 13px 8px;
+		color: white;
+		background-color: rgb(12, 143, 112);
+	}
+	#playPresetBtn .material-icons{
+		font-size: 100%;
+		margin-bottom: 5px;
 	}
 	
 	.row:after{

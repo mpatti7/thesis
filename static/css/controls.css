@@ -153,7 +153,7 @@
 	}
 	
 	.controls{
-		margin-top: 75px;
+		margin-top: 60px;
 		margin-left: 35px;
 		font-size: 150%;
 	}
@@ -285,14 +285,45 @@
 	#cancelBtn{
 		background-color: rgb(12, 143, 112);
 	}
-	/* #cancelBtn .material-icons{
-		color: red;
-	} */
+
 	#cancelBtn:hover{
 		background-color: rgb(41, 233, 159);
 	}
 	
 	.speedDiv .subSpeedDiv label{
 		padding-left: 40px;
+	}
+}
+
+@media only screen and (max-width: 767px){
+	* {
+		margin: 0;
+		padding: 0;
+	}
+	
+	.controls{
+		margin-top: 4em;
+		margin-right: 7%;
+		font-size: 150%;
+	}
+
+	.controls h2{
+		text-align: center;
+	}
+	
+	.column{
+		float: left;
+		width: 100%;
+		margin-left: 3%;
+	}
+	
+	#optionsColumn h4{
+		margin-top: 5%;
+	}
+
+	.row:after{
+		content: "";
+		display: table;
+		clear: both;
 	}
 }

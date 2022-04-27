@@ -1,6 +1,12 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
 .musicClass{
 	margin-top: 75px;
 	margin-left: 40px;
+	font-size: 200%;
 }
 
 .column{
@@ -13,8 +19,110 @@
 	padding-bottom: 2em;
 }
 
+#colorColumn h4{
+	font-size: 150%;
+	margin-top: 5%;
+}
+#colorColumn label{
+	font-size: 150%;
+}
+
+#favcolor{
+	width: 100px;
+	height: 50px;
+}
+
+#musicColumn h4{
+	font-size: 200%;
+	margin-top: 5%;
+}
+
 .row:after{
 	content: "";
 	display: table;
 	clear: both;
+}
+
+@media only screen and (max-width: 1280px){
+	* {
+		margin: 0;
+		padding: 0;
+	}
+
+	.musicClass{
+		margin-top: 60px;
+		margin-left: 35px;
+		font-size: 150%;
+	}
+
+	.column{
+		float: left;
+		width: 30%;
+		margin-left: 3%;
+	}
+
+	#colorColumn h4{
+		font-size: 150%;
+		margin-top: 5%;
+	}
+	#colorColumn label{
+		font-size: 125%;
+	}
+	
+	#favcolor{
+		width: 75px;
+		height: 35px;
+	}
+
+	#musicColumn h4{
+		font-size: 150%;
+		margin-top: 5%;
+	}
+
+	.row:after{
+		content: "";
+		display: table;
+		clear: both;
+	}
+}
+
+@media only screen and (max-width: 767px){
+	* {
+		margin: 0;
+		padding: 0;
+	}
+
+	.musicClass{
+		margin-top: 4em;
+		margin-right: 7%;
+		font-size: 150%;
+	}
+
+	.musicClass h2{
+		text-align: center;
+	}
+
+	.column{
+		float: left;
+		width: 100%;
+		margin-left: 3%;
+	}
+
+	#colorColumn h4{
+		font-size: 150%;
+		margin-top: 5%;
+	}
+	#colorColumn label{
+		font-size: 125%;
+	}
+	
+	#favcolor{
+		width: 75px;
+		height: 35px;
+	}
+
+	#musicColumn h4{
+		font-size: 150%;
+		margin-top: 5%;
+	}
 }
