@@ -33,7 +33,16 @@ sudo pip3 install celery
 sudo apt-get install rabbitmq-server
 sudo pip3 install rabbitmq
 ```
-4. Install Adafruit Neopixels 
+4. Install numpy
+```bash
+sudo apt install python3-numpy
+```
+5. Install Aubio
+    - https://aubio.org/manual/latest/installing.html
+```bash
+pip install git+https://git.aubio.org/aubio/aubio/
+```
+6. Install Adafruit Neopixels 
     - https://learn.adafruit.com/neopixels-on-raspberry-pi/python-usage 
 ```bash
 sudo pip3 install rpi_ws281x adafruit-circuitpython-neopixel
@@ -46,7 +55,7 @@ sudo python3 -m pip install --force-reinstall adafruit-blinka
 ```bash
 git clone https://github.com/rpi-ws281x/rpi-ws281x-python.git
 ```
-3. There should be a folder called rpi-WS281x-python somewhere on the pi
+3. There should be a folder called rpi-ws281x-python somewhere on the pi
 ```bash
 cd rpi-ws281x-python/examples
 sudo python3 strandtest.py
