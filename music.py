@@ -1,31 +1,14 @@
 import subprocess
 # import aubio
-from aubio import source, onset, tempo
-import numpy
+from aubio import source, onset, tempo, pitch
+import numpy as np
 import os
 import lights
 import csv
 
-TEST_WAV = 'static/songs/smooth_jazz.wav'
+SMOOTH_JAZZ = 'static/songs/smooth_jazz.wav'
+DRUM_BEAT = 'static/songs/drum_beat.wav'
 SONGS_FOLDER_PATH = 'static/songs/'
-
-# def get_commands():
-#     print("getting commands")
-#     commands = list()
-#     return commands
-
-
-# def run_ffmpeg():
-#     print("running ffmpeg")
-#     subprocess.Popen(["sudo", "ffmpeg", "-listen", "1", "-i", "http://10.184.128.24:80",  "-c", "copy", "somefile.ogg"])
-#     #sudo ffmpeg -listen 1 -i http://10.184.128.24:80 -c copy somefile.ogg
-
-def play_song(song_path):
-    with source(song_path) as src:
-        test = tempo()
-        print(test)
-        for frames in src:
-            print(frames)
 
 def get_beats(song_path):
     win_s = 1024                # fft size
@@ -88,15 +71,14 @@ def get_onset_times(file_path):
     # print(f'onsets: {onsets}')
 
     # write the dictionary to a csv  
-    try:
-        with open('static/songs/csv/smooth_jazz_onsets.csv', 'w') as csv:
-            for key in onsets.keys():
-                csv.write("%s,%s\n"%(key, onsets[key]))
-    except IOError as error:
-        print(f'Error: {error}')
+    # try:
+    #     with open('static/songs/csv/smooth_jazz_onsets.csv', 'w') as csv:
+    #         for key in onsets.keys():
+    #             csv.write("%s,%s\n"%(key, onsets[key]))
+    # except IOError as error:
+    #     print(f'Error: {error}')
     return onsets
 
-#This gives me a float value representing a beat. this can probably be used to judge the intensity of the lights 
 def get_file_bpm(path, params=None):
     """ Calculate the beats per minute (bpm) of a given file.
         path: path to the file
@@ -149,18 +131,88 @@ def get_file_bpm(path, params=None):
             break
     return beats
 
-def get_song(song_name):
-    song_path = ''
+def get_onsets_beats(file_path):
+    print(f'Gettings onsets and beats...')
 
-    for root, dirs, file in os.walk(SONGS_FOLDER_PATH):
-        for f in file:
-            if(song_name in f):
-                print('found song')
-                song_path = os.path.join(root, f)
-                return song_path 
+    win_s = 1024                # fft size
+    hop_s = win_s // 2          # hop size
+    samplerate = 0
+
+    s = source(file_path, samplerate, hop_s)
+    samplerate = s.samplerate
+
+    o = onset("default", win_s, hop_s, samplerate)
+
+    # s = source(file_path, samplerate, hop_s)
+    # samplerate = s.samplerate
+    b = tempo("default", win_s, hop_s, samplerate)
+
+    onsets = {}
+
+    # total number of frames read
+    total_frames = 0
+    beat_value = 0
+    onset_time = 0
+    delay = 4. * hop_s
+
+    while True:
+        samples, read = s()
+        if o(samples):
+            # samples, read = s()
+            onset_time = o.get_last_s()
+        is_beat = b(samples)
+        if is_beat:
+            this_beat = int(total_frames - delay + is_beat[0] * hop_s)
+            print(this_beat)
+            print("%f" % (this_beat / float(samplerate)))
+            # beat_value = b.get_last_s()
+        onsets[round(onset_time, 1)] = round(beat_value, 1)
+        total_frames += read
+        if read < hop_s: 
+            break
+    return onsets
+
+def get_pitches(file_path):
+    downsample = 1
+    samplerate = 44100 // downsample
+    win_s = 4096 // downsample # fft size
+    hop_s = 512  // downsample # hop size
+
+    s = source(file_path, samplerate, hop_s)
+    samplerate = s.samplerate
+
+    tolerance = 0.8
+
+    pitch_o = pitch("yin", win_s, hop_s, samplerate)
+    pitch_o.set_unit("midi")
+    pitch_o.set_tolerance(tolerance)
+
+    pitches = []
+    confidences = []
+
+    total_frames = 0
+    while True:
+        samples, read = s()
+        this_pitch = pitch_o(samples)[0]
+        print(this_pitch)
+        pitches += [this_pitch]
+        confidence = pitch_o.get_confidence()
+        confidences += [confidence]
+        total_frames += read
+        if read < hop_s: 
+            break
+
+    print("Average frequency = " + str(np.array(pitches).mean()) + " hz")
+
+
+# test = get_onsets_beats(TEST_WAV)
+# print(test)
+
+# test = get_pitches(TEST_WAV)
+# print(test)
 
 # test = get_file_bpm(TEST_WAV)
-# get_onset_times(TEST_WAV)
+# test = get_onset_times(DRUM_BEAT)
 # print(test)
 # test = play_song(TEST_WAV)
 # print(test)

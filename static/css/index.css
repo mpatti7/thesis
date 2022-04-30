@@ -95,6 +95,7 @@
 		max-width: 500px;
 		width: 75%;
 		/* margin-left: 5%; */
+		text-align: center;
 	}
 	
 	#left h3{
@@ -113,6 +114,7 @@
 		width: 75%;
 		margin-right: 5%;
 		margin-top: 2em; 
+		text-align: center;
 	} 
 	
 	#right h3{

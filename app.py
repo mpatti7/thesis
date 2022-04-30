@@ -2,7 +2,8 @@ from flask import Flask, render_template, request, jsonify
 from celery import Celery
 # import sqlalchemy
 from flask_sqlalchemy import SQLAlchemy
-from onsets import smooth_jazz_onsets
+# from onsets import smooth_jazz_onsets
+import onsets 
 import lights
 import utils
 import music
@@ -151,31 +152,57 @@ def musicSync():
 
 @app.route('/musicSync/musicChange', methods = ["POST"])
 def musicChange():
-    song = request.get_json()   
+    song = request.get_json()   # Request the song data
     print(f'Song: {song}')
-    currentTime = song['currentTime']
-    brightness = 100
-    color = song['color']
-    options = {}
+    beats = {}
+    if('onsets' in song):
+        beats = onsets.get(song['onsets'])
 
-    if(len(tasks) > 0):
+    if(len(tasks) > 0):       # Cancel any tasks already running before starting this next one
         tasks[0].revoke(terminate=True, signal='SIGKILL')
         lights.turn_off()
         print(f'killed task')
         tasks.pop(0)
-
-    if(currentTime in smooth_jazz_onsets):
-        print(f'yes')
-        color_fill.delay(color, options, brightness)
-        time.sleep(.25)
-        color_fill.delay(black, options, brightness)
-        time.sleep(.25)
+    if("btnOff" in song):     # Turn off the lights if the off button was clicked
+        print("turn off")
+        turn_off.delay()
+        celery.control.purge()
+    else:                     # Otherwise, the song is playing so flash the lights accordingly
+        time.sleep(.5)
+        if('color' in song):
+            light_evens.delay(song['color'], song['brightness'])
+        if('currentTime' in song):
+            if(song['currentTime'] in beats):
+                print(f'yes')
+                light_odds.delay(song['color'], song['brightness'])
+                time.sleep(.40)
+                light_odds.delay(black, song['brightness'])
     
     return render_template('musicSync.html')
 
-@app.route('/info/')
+@app.route('/info/', methods = ["GET", "POST"])
 def info():
-    return render_template('info.html')
+    form = {}
+    ip = utils.get_ip_address()
+    pin = utils.get_gpio()
+    temp = utils.check_cpu_temp()
+    ram = utils.check_memory_usage()
+    model = utils.get_light_model()
+    num_leds = utils.get_num_leds()
+
+    if(request.method == 'POST'):
+        form = request.form.to_dict()
+        print(f'form: {form}')
+
+    if(form):   
+        if(form['num_lights'] != num_leds):
+            print(f'Changing the amount of LEDs')
+        if(form['pin'] != pin):
+            print(f'Changing pin number')
+        if(form['light_model'] != model):
+            print(f'Changing model')
+
+    return render_template('info.html', ip=ip, pin=pin, temp=temp, ram=ram, model=model, num_leds=num_leds)
 
 ######################################
 ########### CELERY TASKS #############
@@ -212,20 +239,13 @@ def twinkle_disco(color, options, brightness=100, repeat=True):
 def play_sequence(form):
     return lights.play_sequence(form)
 
-@celery.task(name='app.read_csv')
-def read_csv():
-    # global smooth_jazz_onsets
-    # smooth_jazz_onsets = utils.read_onset_csv('static/songs/csv/smooth_jazz_onsets.csv')
-    utils.read_onset_csv('static/songs/csv/smooth_jazz_onsets.csv')
+@celery.task(name='app.light_evens')
+def light_evens(color, brightness=100):
+    return lights.light_evens(color, brightness)
 
-@celery.task(name='app.process_song')
-def process_song(song):
-    song_path = music.get_song(song)
-    beats = music.get_beats(song_path)
-    # onset_timestamps = music.get_onset_times(song_path)
-    # beat_intensity = music.get_file_bpm(song_path)
-    # print(len(onset_timestamps))
-    # print(len(beat_intensity))
+@celery.task(name='app.light_odds')
+def light_odds(color, brightness=100):
+    return lights.light_odds(color, brightness)
 
 @celery.task(name='app.insert')
 def insert_async(data):
@@ -241,8 +261,5 @@ def insert(data):
     return 'Done'
 
 if __name__ == '__main__':
-    # read_csv.delay()
-    # smooth_jazz_onsets = utils.read_onset_csv('static/songs/csv/smooth_jazz_onsets.csv')
-    # print(len(smooth_jazz_onsets))
     app.run(debug=True, host='0.0.0.0', port=80)
     # app.run(debug=True)

@@ -20,7 +20,7 @@
 }
 
 #colorColumn h4{
-	font-size: 150%;
+	font-size: 200%;
 	margin-top: 5%;
 }
 #colorColumn label{
@@ -35,6 +35,44 @@
 #musicColumn h4{
 	font-size: 200%;
 	margin-top: 5%;
+}
+#musicColumn label{
+	font-size: 150%;
+}
+
+#optionsColumn h4{
+	font-size: 200%;
+}
+
+.sliderDiv input{
+	width: 50%;
+	background: rgb(29, 64, 128);
+}
+.sliderDiv::-webkit-slider-thumb{
+	border-radius: 50%;
+}
+.sliderDiv label{
+	font-size: 150%;
+}
+
+#offBtn{
+	font-size: 150%;
+	text-align: center;
+	border: 1px solid black;
+	border-radius: 8px;
+	width: 28%;
+	margin: 15px 10px;
+	color: white;
+	background-color: rgb(29, 64, 128);
+}
+
+#offBtn .material-icons{
+	font-size: 125%;
+	margin-bottom: 10px;
+}
+
+#offBtn:hover{
+	background-color: rgb(21, 181, 221);
 }
 
 .row:after{
@@ -77,6 +115,39 @@
 	#musicColumn h4{
 		font-size: 150%;
 		margin-top: 5%;
+	}
+	#musicColumn label{
+		font-size: 125%;
+	}
+
+	#optionsColumn h4{
+		font-size: 150%;
+	}
+	
+	.sliderDiv input{
+		width: 50%;
+		background: rgb(29, 64, 128);
+	}
+	.sliderDiv::-webkit-slider-thumb{
+		border-radius: 50%;
+	}
+	.sliderDiv label{
+		font-size: 125%;
+	}
+
+	#offBtn{
+		font-size: 125%;
+		text-align: center;
+		border: 1px solid black;
+		border-radius: 8px;
+		width: 28%;
+		margin: 13px 8px;
+		color: white;;
+	}
+	
+	#offBtn .material-icons{
+		font-size: 125%;
+		margin-bottom: 10px;
 	}
 
 	.row:after{

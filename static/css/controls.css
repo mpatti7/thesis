@@ -48,11 +48,8 @@
 	/* margin-top: 3%; */
 }
 .sliderDiv input{
-	width: 25%;
-	/* opacity: 0.7; */
+	width: 50%;
 	background: rgb(29, 64, 128);
-	/* height: 50px; */
-	/* background: url("icons/brightness_medium.png"); */
 }
 .sliderDiv::-webkit-slider-thumb{
 	border-radius: 50%;
@@ -97,11 +94,6 @@
 	clear: both;
 }
 
-/* .controlBtns {
-	/* margin-left: 35px; */
-	/* margin-right: 100px; */
-	/* padding-right: 2em; 
-} */
 .controlBtns button{
 	font-size: 150%;
 	text-align: center;
@@ -135,9 +127,7 @@
 #cancelBtn{
 	background-color: rgb(12, 143, 112);
 }
-/* #cancelBtn .material-icons{
-	color: red;
-} */
+
 #cancelBtn:hover{
 	background-color: rgb(41, 233, 159);
 }
@@ -198,10 +188,7 @@
 	}
 	.sliderDiv input{
 		width: 50%;
-		/* opacity: 0.7; */
 		background: rgb(29, 64, 128);
-		/* height: 50px; */
-		/* background: url("icons/brightness_medium.png"); */
 	}
 	.sliderDiv::-webkit-slider-thumb{
 		border-radius: 50%;
@@ -246,11 +233,6 @@
 		clear: both;
 	}
 	
-	/* .controlBtns {
-		/* margin-left: 35px; */
-		/* margin-right: 100px; */
-		/* padding-right: 2em; 
-	} */
 	.controlBtns button{
 		font-size: 125%;
 		text-align: center;
@@ -262,9 +244,7 @@
 	}
 	.controlBtns button .material-icons{
 		font-size: 125%;
-		margin-bottom: 10px;
-		/* margin-bottom: 15px; */
-	
+		margin-bottom: 10px;	
 	}
 	
 	#applyBtn{

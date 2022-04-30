@@ -380,7 +380,7 @@ function createBrightness(){
     brightness.setAttribute("type", "range");
     brightness.setAttribute("min", 1);
     brightness.setAttribute("max", 100);
-    brightness.setAttribute("value", 100);
+    brightness.setAttribute("value", 15);
     brightness.setAttribute("name", "brightness");
     return brightness;
 }
@@ -472,11 +472,11 @@ function getControlsData(){
     // var form = new FormData();
     // form.get("controlsForm");
     // console.log(form);
-
 }
 
-function sendAudioTimeStamps(audio, color){
+function sendAudioTimeStamps(audio, color, brightness){
     console.log("Sending song");
+    console.log(audio)
     currentTime = Math.round(audio.currentTime * 10)/10;
     src = audio.children[0].src
     console.log(currentTime)
@@ -484,7 +484,9 @@ function sendAudioTimeStamps(audio, color){
     song = {
         name: src,
         currentTime: currentTime,
-        color: color
+        color: color,
+        onsets: audio.id,
+        brightness: brightness
     }
 
     $.ajax({

@@ -14,54 +14,105 @@
             </div>
 
             <div class="row">
-                <!-- <form method="post"> -->
-                    <div class="column" id="colorColumn">
-                        <h4>Color</h4>
-                        <br>
-                        <label for="favcolor">Choose a color</label>
-                        <br>        
-                        <input type="color" id="favcolor" name="favcolor" value="#ff0000"> 
-                        <br>
-                    </div>
-                    
-                    <div class="column" id="musicColumn">
-                        <!--=============================================================-->
-                        <!--                                                             -->
-                        <!--                           MUSIC                             -->
-                        <!--                                                             -->
-                        <!--=============================================================-->
-                        <h4>Songs</h4>
-                        <br>
-                        <!-- <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DX5KpP2LN299J?utm_source=generator&theme=0" width="100%" 
-                            height="380" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture">
-                        </iframe> -->
-
-                        <!-- <input type="radio" class="songs" id="jazz" name="smooth_jazz.wav" value="smooth_jazz">
-                        <label for="jazz">Smooth Jazz</label> -->
-
-                        <br>
+                <div class="column" id="colorColumn">
+                    <h4>Color</h4>
+                    <br>
+                    <label for="favcolor">Choose a color</label>
+                    <br>        
+                    <input type="color" id="favcolor" name="favcolor" value="#ff0000"> 
+                    <br>
+                </div>
+                
+                <div class="column" id="musicColumn">
+                    <!--=============================================================-->
+                    <!--                                                             -->
+                    <!--                           MUSIC                             -->
+                    <!--                                                             -->
+                    <!--=============================================================-->
+                    <h4>Songs</h4>
+                    <br>
+                        
+                    <div id="audio">
                         <label for="jazz">Smooth Jazz</label>
-                            
-                        <!-- <div id="audio"> -->
-                            <audio controls id="audio">
-                                <source src="../static/songs/smooth_jazz.wav" type="audio/wav" id="jazz" name="smooth_jazz.wav">
-                            </audio>
-                        <!-- </div> -->
+                        <audio controls id="smooth_jazz_onsets" class="songs">
+                            <source src="../static/songs/smooth_jazz.wav" type="audio/wav" id="jazzSrc" name="smooth_jazz.wav">
+                        </audio>
 
-                        <!-- <button type="submit" value="Play" title="Play" id="playBtn" onclick="getSong()">Play   <i class="material-icons">&#xe038;</i></button> -->
-
+                        <br>
+                        <br>
+                        <label for="jazz">Drum Beat</label>
+                        <audio controls id="drum_beat_onsets" class="songs">
+                            <source src="../static/songs/drum_beat.wav" type="audio/wav" id="drumSrc" name="drum_beat.wav">
+                        </audio>
                     </div>
-                <!-- </form> -->
+                </div>
+
+                <div class="column" id="optionsColumn">
+                    <h4>Options</h4>
+                    <br>
+                    <div class="sliderDiv">
+                        <label for="slider">Brightness:</label>
+                        <input type="range" min="1" max="100" value="15" name="brightness" id="brightness">
+                        <label for="brightness"><span id="value"></span>%</label>
+                    </div>
+                    <button type="submit" title="Turn off the lights" id="offBtn" name="btnOff" value="off" onclick="turnOff()">Turn Off   <i class="material-icons">&#xe8f5;</i></button>
+                </div>
+
             </div>
 
             <script>
 
-                //play song through browser and when something is playing, have jaavscript constantly get the time position and send it to flask
-                var audio = document.getElementById("audio")
-                // var color = document.getElementById("favcolor").value
-                audio.ontimeupdate = function(){
-                    var color = document.getElementById("favcolor").value
-                    sendAudioTimeStamps(audio, color)
+                var slider = document.getElementById("brightness");
+                var output = document.getElementById("value");
+                output.innerHTML = slider.value; // Display the default slider value
+    
+                // Update the current slider value (each time you drag the slider handle)
+                slider.oninput = function() {
+                    output.innerHTML = this.value;
+                }
+
+                off = {
+                    btnOff: "off"
+                }
+
+                function turnOff(){
+                    $.ajax({
+                        type: "POST",
+                        url: "/musicSync/musicChange",
+                        data: JSON.stringify(off),
+                        contentType: "application/json",
+                        dataType: 'json',
+                        success: function(result) {
+                            console.log("Result:");
+                            console.log(result);
+                        }  
+                    });
+                }
+
+                // For each audio element, add an ontimeupdate, onpause and onend function
+                audio = document.getElementById("audio")
+                console.log(audio)
+                for(var i = 0; i < this.audio.children.length; i++){
+                    this.audio.children[i].ontimeupdate = function(){
+                        var color = document.getElementById("favcolor").value
+                        sendAudioTimeStamps(this, color, slider.value)
+                    }
+                    this.audio.children[i].onpause = function(){
+                        $.ajax({
+                            type: "POST",
+                            url: "/musicSync/musicChange",
+                            data: JSON.stringify(off),
+                            contentType: "application/json",
+                            dataType: 'json',
+                            success: function(result) {
+                                console.log("Result:");
+                                console.log(result);
+                            }  
+                        });
+                    }
+                    this.audio.children[i].onended = function(){
+                        turnOff()
+                    }
                 }
                 
             </script>

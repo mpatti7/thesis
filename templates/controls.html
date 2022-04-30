@@ -18,6 +18,7 @@
 
             <div class="row">
                 <form action="{{url_for('controlsChange')}}" method="post">
+                <!-- <form method="post" id="form"> -->
                     <div class="column" id="colorColumn">
                         <h4>Color</h4>
                         <br>
@@ -97,7 +98,7 @@
                         
                         <div class="sliderDiv">
                             <label for="slider">Brightness:</label>
-                            <input type="range" min="1" max="100" value="100" name="brightness" id="brightness">
+                            <input type="range" min="1" max="100" value="15" name="brightness" id="brightness">
                             <label for="brightness"><span id="value"></span>%</label>
                             <!-- <p>Value: <span id="value"></span></p> -->
                         </div>
@@ -152,7 +153,7 @@
 
                         <div class="controlBtns">
                             <form action="{{url_for('controlsChange')}}" method="post" name="controlsForm">
-                                <button type="submit" title="Light up the lights" id="applyBtn" onclick="sendFormData()">Apply   <i class="material-icons">&#xe038;</i></button>
+                                <button type="submit" title="Light up the lights" id="applyBtn">Apply   <i class="material-icons">&#xe038;</i></button>
                                 <button type="submit" title="Turn off the lights" id="offBtn" name="btnOff" value="off">Turn Off   <i class="material-icons">&#xe8f5;</i></button>
                                 <button type="submit" title="Stop a repeating function" id="cancelBtn" name="cancel" value="cancelTask">Stop   <i class="material-icons">&#xe5c9;</i></button>
                                 <!-- <i class="material-icons">&#xe047;</i> -->

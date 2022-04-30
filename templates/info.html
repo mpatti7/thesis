@@ -10,6 +10,27 @@
             <div class="infoClass">
                 <h2>Info</h2>
             </div>
+
+            <div class="table">
+                <form action="{{url_for('info')}}" method="post">
+                    <table style="width:100%">
+                        <tr>
+                            <td>IP Address: {{ip}}</td>
+                            <td>Memory Usage: {{ram}}</td>
+                            <td>CPU Temperature: {{temp}}</td>
+                        </tr>
+                        <tr>
+                            <td>Light Model: <input type="text" id="lightModel" value="{{model}}" name="light_model"> </td>
+                            <td>Number of Lights: <input type="text" id="numLights" value="{{num_leds}}" name="num_lights"></td>
+                            <td>Pin: <input type="text" id="pin" value="{{pin}}" name="pin"></td>
+                        </tr>
+                        <tr>
+                            <td><button type="submit" title="Apply Changes" id="applyBtn">Apply</button></td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+
             {% endblock %}
         </body>
 </html>

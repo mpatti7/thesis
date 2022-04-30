@@ -1,5 +1,7 @@
 import subprocess
 import csv
+import psutil
+import lights
 
 def create_options(form):
     options = dict()
@@ -47,3 +49,27 @@ def read_onset_csv(csv_path):
 
     print('Complete')
     return onsets 
+
+def get_ip_address():
+    ip = subprocess.check_output(['hostname', '-I'])
+    return str(ip.decode("UTF-8"))
+
+#Returns the pin the lights are wired to
+def get_gpio():
+    return str(lights.pin)
+
+#Returns CPU temperature in Celsius
+def check_cpu_temp():
+    temp = subprocess.check_output(['vcgencmd', 'measure_temp'])
+    return str(temp.decode('UTF-8')).split('=')[1]
+    
+#Returns amount of used memory in mega bytes
+def check_memory_usage():
+    memory = psutil.virtual_memory()
+    return str(round(memory.used / 1024.0 / 1024.0, 1)) + 'mb out of ' + str(round(memory.total / 1024.0 / 1024.0, 1)) + 'mb'
+
+def get_light_model():
+    return str(lights.model)
+
+def get_num_leds():
+    return str(lights.NUM_LEDS)

@@ -9,8 +9,9 @@ from functools import partial
  # Author: Marissa Patti
 
 NUM_LEDS = 300
-brightness = 50
+brightness = 15
 pin = board.D18
+model = 'WS2812b'
 pixels = neopixel.NeoPixel(pin, NUM_LEDS, auto_write = False)
 
 blue = 0,0,255
@@ -27,7 +28,7 @@ black = (0,0,0)
 #     options(dict): A dictionary of options to alter this animation
 #         2Colors: enables the use of two colors    
 # '''
-def color_fill(color, options, brightness = 100):
+def color_fill(color, options, brightness = brightness):
     if('option4' in options and options["option4"]["color2"] != "None"):
         color1 = options["option4"]["color1"]
         color2 = options["option4"]["color2"]
@@ -72,7 +73,7 @@ def color_fill(color, options, brightness = 100):
 #                     default is 1, medium is 10, fast is 25
 #         delay(int): default is 0. The time between when each LED is lit up in seconds.
 # '''
-def color_wipe(color, options, brightness = 100, reverse = False):
+def color_wipe(color, options, brightness = brightness, reverse = False):
     # pixels.fill(black)
     delay = 0.0
     print(f'Options: {options}')
@@ -141,7 +142,7 @@ def color_wipe(color, options, brightness = 100, reverse = False):
 #     repeat: Default is True. If cycles is greater than 0, this function will 
 #             repeat that many times. Otherwise, it will not stop unless canceled.
 # '''
-def fade(color, options, brightness=100, repeat=True):
+def fade(color, options, brightness=brightness, repeat=True):
     # turn_off()
     fade_color = list()
     # speed_rate = 1
@@ -225,7 +226,7 @@ def fade(color, options, brightness=100, repeat=True):
 #             function will repeat that many times. Otherwise,
 #             it will not stop unless canceled. 
 # '''
-def theater_chase(color, options, brightness=100, repeat=True):
+def theater_chase(color, options, brightness=brightness, repeat=True):
     print(f'options: {options}')
     delay = 50
     cycles = 0
@@ -266,7 +267,7 @@ def theater_chase(color, options, brightness=100, repeat=True):
 #                for Twinkle is 1000 and default for Disco is 50.
 #     brightness: Default is 100. The brightness of the lights.
 # '''
-def twinkle_disco(color, options, brightness=100, repeat=True):
+def twinkle_disco(color, options, brightness=brightness, repeat=True):
     delay = 0
     cycles = 0
     color1 = color
@@ -327,7 +328,7 @@ def twinkle_disco(color, options, brightness=100, repeat=True):
 #         color2: the color to light up with
 #     brightness: Default is 100. The brightness of the lights
 # '''
-def dot_fill(color, options, brightness=100):
+def dot_fill(color, options, brightness=brightness):
     color1 = color
     color2 = ''
     # turn_off()
@@ -392,6 +393,43 @@ def play_sequence(sequence):
             print(f'Performing {methods[str(i)]}')
             methods[str(i)]()
 
+def light_evens(color, brightness=brightness):
+    if("#" in color):
+        color = convert_hex_to_rgb(color)
+    color = change_brightness(brightness, color)
+
+    for i in range(0, NUM_LEDS, 2):
+        pixels[i] = color
+    pixels.show()
+
+def light_odds(color, brightness=brightness):
+    if("#" in color):
+        color = convert_hex_to_rgb(color)
+    color = change_brightness(brightness, color)
+
+    for i in range(1, NUM_LEDS-1, 2):
+        pixels[i] = color
+    pixels.show()
+
+
+
+def flash_every_other(color, options, brightness=brightness):
+    if('option4' in options and options["option4"]["color2"] != "None"):
+        color1 = options["option4"]["color1"]
+        color2 = options["option4"]["color2"]
+
+        print(f"Double color fill: {color1}, {color2}")
+
+        if("#" in color1):
+            color1 = convert_hex_to_rgb(color1)
+        if("#" in color2):
+            color2 = convert_hex_to_rgb(color2)
+
+        color1 = change_brightness(brightness, color1)
+        color2 = change_brightness(brightness, color2)
+
+
+
 def pause(wait):
     wait = float(wait) / 1000
     print(f'wait time: {wait}')
@@ -419,6 +457,18 @@ def turn_off():
 def convert_hex_to_rgb(hex):
     rgb = ImageColor.getcolor(hex, "RGB")
     return rgb
+
+def main():
+    print(f'Initializing Neopixels...')
+    NUM_LEDS = 300
+    brightness = 50
+    pin = board.D18
+    model = 'WS2812b'
+    global pixels
+    pixels = neopixel.NeoPixel(pin, NUM_LEDS, auto_write = False)
+    print(pixels)
+
+
 
 # while True:
 #     try:
