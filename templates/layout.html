@@ -4,13 +4,13 @@
         <title>Layout</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"> <!--Google Icons-->
+        <script type="text/javascript" src="{{ url_for('static', filename='utilities.js')}}"></script>
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 
         <link rel="stylesheet" href="{{ url_for('static', filename='css/slicknav.css') }}">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-        <!-- <script src="js/jquery.slicknav.min.js"></script> -->
         <script src="{{ url_for('static', filename='css/jquery.slicknav.min.js') }}"></script>
         <script type="text/javascript">
           $(document).ready(function () {
@@ -40,10 +40,10 @@
         <nav id="mobilemenu"></nav>
         
         <div class="rpiControls">
-          <form action="{{url_for('index')}}" method="post">
-              <button id="rpiOff" type="submit" title="Shutdown the Pi" name="rpiOff" value="rpiOff"><i class="material-icons">power_settings_new</i></button>
-              <button id="rpiReboot" type="submit" title="Reboot the Pi" name="rpiReboot" value="rpiReboot"><i class="material-icons">loop</i></button>
-          </form>
+          <!-- <form action="{{url_for('index')}}" method="post"> -->
+              <button id="rpiOff" type="submit" title="Shutdown the Pi" name="rpiOff" value="rpiOff" onclick="shutdownRebootAlert('shutdown')"><i class="material-icons">power_settings_new</i></button>
+              <button id="rpiReboot" type="submit" title="Reboot the Pi" name="rpiReboot" value="rpiReboot" onclick="shutdownRebootAlert('reboot')"><i class="material-icons">loop</i></button>
+          <!-- </form> -->
         </div>
       </div>
     </header>

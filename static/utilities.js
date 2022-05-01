@@ -502,22 +502,45 @@ function sendAudioTimeStamps(audio, color, brightness){
     });
 }
 
-// function playMusic(songName){
-//     console.log("Playing music")
-//     sequence = [];
+function shutdownRebootAlert(choice){
+    if(choice === "shutdown"){
+        if(confirm("Shutdown the Pi?")){
+            console.log("yes")
+            sendPiCommand("shutdown")
+        }
+        else{
+            console.log("no")
+        }
+    }
+    else if(choice === "reboot"){
+        if(confirm("Reboot the Pi?")){
+            console.log("yes")
+            sendPiCommand("reboot")
+        }
+        else{
+            console.log("no")
+        }
+    }
+}
 
-//     $.ajax({
-//         type: "POST",
-//         url: "/musicSync/musicChange",
-//         data: JSON.stringify(sequence),
-//         contentType: "application/json",
-//         dataType: 'json',
-//         success: function(result) {
-//             console.log("Result:");
-//             console.log(result);
-//         }  
-//     });
-// }
+function sendPiCommand(choice){
+    piControl = {
+        choice: choice
+    }
+
+    $.ajax({
+        type: "POST",
+        url: window.location.pathname,
+        data: JSON.stringify(piControl),
+        contentType: "application/json",
+        dataType: 'json',
+        success: function(result) {
+            console.log("Result:");
+            console.log(result);
+        }  
+    });
+}
+
 
 // The following code was taken from https://web.dev/drag-and-drop/
 // It enables the ability to drag and drop playlist items in order

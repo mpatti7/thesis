@@ -46,14 +46,23 @@ class Results(db.Model):
  
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    form = request.get_json()
+    print(f'form: {form}')
+
     return render_template('index.html')
 
-@app.route('/controls/')
+@app.route('/controls/', methods=['GET', 'POST'])
 def controls():
+    form = request.get_json()
+    print(f'form: {form}')
+
     return render_template('controls.html')
 
-@app.route('/controls/controlsChange', methods = ["POST"])
+@app.route('/controls/controlsChange', methods=['GET', 'POST'])
 def controlsChange():
+    rpiControls = request.get_json()
+    print(f'rpiControls: {rpiControls}')
+
     form = request.form.to_dict()       #request the form data as a dictionary
     print(f"form = {form}")
     options = dict()
@@ -119,11 +128,19 @@ def controlsChange():
 
     return render_template('controls.html')
 
-@app.route('/playlists/')
+@app.route('/playlists/', methods = ["GET", "POST"])
 def playlists():
+    form = request.get_json()
+    print(f'form: {form}')
+
+    # if(form['choice'] == 'shutdown'):
+    #     utils.shutdown_pi()
+    # elif(form['choice'] == 'reboot'):
+    #     utils.reboot_pi()
+
     return render_template('playlists.html')
 
-@app.route('/playlists/playlistsChange', methods = ["POST"])
+@app.route('/playlists/playlistsChange', methods = ["GET", "POST"])
 def playlistsChange():
     form = request.get_json()
     print(f"form = {form}")
@@ -140,17 +157,19 @@ def playlistsChange():
             turn_off.delay()
             print(f'killed task')
             tasks.pop(0)
-        # return render_template('playlists.html')
     else:
         task = play_sequence.delay(form)
         tasks.append(task)
     return render_template('playlists.html')
 
-@app.route('/musicSync/')
-def musicSync():   
+@app.route('/musicSync/', methods = ["GET", "POST"])
+def musicSync():  
+    form = request.get_json()
+    print(f'form: {form}')
+
     return render_template('musicSync.html')
 
-@app.route('/musicSync/musicChange', methods = ["POST"])
+@app.route('/musicSync/musicChange', methods = ["GET", "POST"])
 def musicChange():
     song = request.get_json()   # Request the song data
     print(f'Song: {song}')
@@ -182,6 +201,9 @@ def musicChange():
 
 @app.route('/info/', methods = ["GET", "POST"])
 def info():
+    rpiControls = request.get_json()
+    print(f'rpiControls: {rpiControls}')
+
     form = {}
     ip = utils.get_ip_address()
     pin = utils.get_gpio()
