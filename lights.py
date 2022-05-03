@@ -20,6 +20,13 @@ pixels = neopixel.NeoPixel(pin, NUM_LEDS, auto_write = False)
 
 blue = (0, 0, 255)
 black = (0, 0, 0)
+red = (255, 0, 0)
+pink = (255, 0, 234)
+light_blue = (0, 255, 255)
+green = (0, 255, 0)
+yellow = (255, 255, 0)
+orange = (255, 100, 0)
+
 
 # '''Sets the light strip to a solid color.
 #     color: the color to set the lights to. fill()
@@ -397,6 +404,21 @@ def light_odds(color, brightness=brightness):
     for i in range(1, NUM_LEDS-1, 2):
         pixels[i] = color
     pixels.show()
+
+# '''This a preset light show on the Playlist screen showcasing 
+#    each basic function with multiple colors.'''
+def basic_light_show():
+    options = {}
+    while True:
+        color_wipe(red, options, 10, False)
+        color_wipe(pink, options, 10, True)
+        dot_fill(blue, options, 10)
+        color_wipe(light_blue, options, 10, False)
+        color_wipe(green, options, 10, True)
+        dot_fill(yellow, options, 10)
+        color_wipe(orange, options, 10, False)
+        color_fill(black, options, 10)
+        pause(1000)
 
 # Simply pauses for a specified amount of time in milliseconds
 def pause(wait):

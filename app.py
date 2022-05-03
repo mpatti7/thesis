@@ -180,6 +180,10 @@ def playlistsChange():
             turn_off.delay()
             print(f'killed task')
             tasks.pop(0)
+    elif('preset' in form):
+        if(form['preset'] == 'basic'):
+            task = basic_light_show.delay()
+            tasks.append(task)
     else:
         task = play_sequence.delay(form)
         tasks.append(task)
@@ -308,6 +312,10 @@ def light_evens(color, brightness=100):
 @celery.task(name='app.light_odds')
 def light_odds(color, brightness=100):
     return lights.light_odds(color, brightness)
+
+@celery.task(name='app.basic_light_show')
+def basic_light_show():
+    return lights.basic_light_show()
 
 # Run the app in debug mode
 if __name__ == '__main__':

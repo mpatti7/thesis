@@ -80,7 +80,7 @@
                 
                 <br>
 
-                <button type="submit" title="Play the sequence" id="playPresetBtn">Play   <i class="material-icons">&#xe038;</i></button>
+                <button type="submit" title="Play the sequence" id="playPresetBtn" onclick="getPreset()">Play   <i class="material-icons">&#xe038;</i></button>
             </div>
 
             
@@ -89,6 +89,43 @@
             </div> -->
 
         </div>
+
+        <script>
+            function getPreset(){
+                var preset = document.getElementById("presetsColumn")
+
+                for(var i = 0; i < preset.children.length; i++){
+                    console.log(preset.children[i])
+                    if(preset.children[i].checked){
+                        id = preset.children[i].getAttribute("id")
+                        console.log("playing " + id)
+                        playPreset(preset.children[i].id)
+                        break
+                    }
+                }
+            }
+
+            function playPreset(id){
+                form = {
+                    preset: id
+                }
+                $.ajax({
+                    type: "POST",
+                    url: "/playlists/playlistsChange",
+                    data: JSON.stringify(form),
+                    contentType: "application/json",
+                    dataType: 'json',
+                    success: function(result) {
+                        console.log("Result:");
+                        console.log(result);
+                    }  
+                });
+            }
+
+
+        </script>
+
+
         {% endblock %}
     </body>
 </html>
