@@ -5,9 +5,6 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='css/playlists.css') }}">
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
         <script type="text/javascript" src="{{ url_for('static', filename='utilities.js')}}"></script>
-        <!-- <script>
-            $SCRIPT_ROOT = "{{ request.script_root|tojson }}";
-        </script> -->
     </head>
     {% extends "layout.html" %}
     <body>
@@ -59,7 +56,6 @@
                 <ul id="playlistList" name="playlist">
 
                 </ul>
-                <!-- <button type="submit" value="Play" title="Play the sequence" id="playBtn" onclick="createObject('playlistList')">Play   <i class="material-icons">&#xe038;</i></button> -->
                 <div class="controlBtns">
                     <button type="submit" value="Play" title="Play the sequence" id="playBtn" onclick="createObject('playlistList')">Play   <i class="material-icons">&#xe038;</i></button>
                     <button type="submit" title="Turn off the lights" id="offBtn" name="btnOff" value="off">Turn Off   <i class="material-icons">&#xe8f5;</i></button>
@@ -92,19 +88,6 @@
                 <button type="submit" title="Stop a repeating function" id="cancelBtn" name="cancel" value="cancelTask" onclick="cancelSequence()">Stop   <i class="material-icons">&#xe5c9;</i></button>
             </div> -->
 
-                
-            <script>
-                // var checkboxes = document.getElementsByClassName("color2CB");
-                // var secondColors = document.getElementsByClassName("color2");
-                // console.log(checkboxes);
-                // console.log(secondColors);
-                // for(var i = 0; i < color2CB.length; i++){
-                //     if(checkboxes[i].checked){
-
-                //     }
-                // }
-
-            </script>
         </div>
         {% endblock %}
     </body>

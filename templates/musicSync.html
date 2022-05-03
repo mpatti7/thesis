@@ -44,15 +44,30 @@
                         <audio controls id="drum_beat_onsets" class="songs">
                             <source src="../static/songs/drum_beat.wav" type="audio/wav" id="drumSrc" name="drum_beat.wav">
                         </audio>
+
+                        <br>
+                        <br>
+                        <label for="jellyfish">Jellyfish Jam</label>
+                        <audio controls id="jellyfish_jam_onsets" class="songs">
+                            <source src="../static/songs/jellyfish_jam.wav" type="audio/wav" id="jellyfishSrc" name="jellyfish_jam.wav">
+                        </audio>
                     </div>
                 </div>
+
+                <!--=============================================================================-->
+                <!--====                                                                     ====-->
+                <!--====                                                                     ====-->
+                <!--====                             OPTIONS                                 ====-->
+                <!--====                                                                     ====-->
+                <!--====                                                                     ====-->
+                <!--=============================================================================-->
 
                 <div class="column" id="optionsColumn">
                     <h4>Options</h4>
                     <br>
                     <div class="sliderDiv">
                         <label for="slider">Brightness:</label>
-                        <input type="range" min="1" max="100" value="15" name="brightness" id="brightness">
+                        <input type="range" min="1" max="100" value="10" name="brightness" id="brightness">
                         <label for="brightness"><span id="value"></span>%</label>
                     </div>
                     <button type="submit" title="Turn off the lights" id="offBtn" name="btnOff" value="off" onclick="turnOff()">Turn Off   <i class="material-icons">&#xe8f5;</i></button>

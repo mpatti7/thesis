@@ -1,3 +1,13 @@
+/*
+    File name: utilities.js
+    Author: Marissa Patti
+    Description: Helper functions for the UI 
+*/
+
+/**
+ * Adds the selected item to the playlist in the UI
+ * @param {1} item: the id of the element to add to the list 
+ */
 function add(item){
     console.log(item);
     var htmlList = document.getElementById("playlistList");
@@ -5,8 +15,9 @@ function add(item){
     num = htmlList.children.length + 1;
     element.setAttribute("id", num);
     element.setAttribute("class", "playlistItems");
-    // element.setAttribute("draggable", "true");
+    // element.setAttribute("draggable", "true");           // disabled until I get it to work properly
 
+    // Create all the customization options 
     var brightness = createBrightness();
     // brightness.innerHTML = '<i class="material-icons">brightness_medium</i>';
     var colorPicker = createColorPicker();
@@ -20,6 +31,7 @@ function add(item){
     deleteBtn.onclick = function() { removeElement(element.id); };
     console.log(deleteBtn.onclick);
 
+    // Create the list element with the proper attributes depending on what item is 
     if(item === "colorWipe"){
         element.innerText = "Color Wipe";
         element.name = "colorWipe";
@@ -124,9 +136,13 @@ function add(item){
     }
     htmlList.appendChild(element);
 
-    makeDraggable();
+    // makeDraggable();
 }
 
+/**
+ * Creates takes the playlist and converts each item to JSON objects and sends it through AJAX to the Flask backend
+ * @param {1} list: the HTML list  
+ */
 function createObject(list){
     sequence = [];
     var list = document.getElementById("playlistList");
@@ -140,6 +156,7 @@ function createObject(list){
     pause = 0;
     // elem = {};
     
+    // Grab the values of eachcustomization option
     for(var i = 0; i < items.length; i++){
         console.log(items[i]);  
         for(var j = 0; j < items[i].children.length; j++){
@@ -174,6 +191,8 @@ function createObject(list){
                 pause = items[i].children[j].value;
             }
         }
+
+        // Create the objects 
         if(items[i].name === "colorWipe"){
             elem = {
                 name: items[i].name,
@@ -344,6 +363,9 @@ function createObject(list){
 }
 
 sequence = [];
+
+// Helper functions
+
 function addToSequence(elem){
     sequence.push(elem);
     // console.log(sequence);
@@ -380,7 +402,7 @@ function createBrightness(){
     brightness.setAttribute("type", "range");
     brightness.setAttribute("min", 1);
     brightness.setAttribute("max", 100);
-    brightness.setAttribute("value", 15);
+    brightness.setAttribute("value", 10);
     brightness.setAttribute("name", "brightness");
     return brightness;
 }
@@ -474,6 +496,12 @@ function getControlsData(){
     // console.log(form);
 }
 
+/**
+ * Sends the current timestamp of the audio that is playing in the browser
+ * @param {1} audio: the audio element
+ * @param {2} color: the color from the color picker 
+ * @param {3} brightness: the brightness 
+ */
 function sendAudioTimeStamps(audio, color, brightness){
     console.log("Sending song");
     console.log(audio)
@@ -502,27 +530,33 @@ function sendAudioTimeStamps(audio, color, brightness){
     });
 }
 
+/**
+ * Determines if shutdown or reboot command should be sent or not
+ * @param {1} choice: shutdown or reboot
+ */
 function shutdownRebootAlert(choice){
     if(choice === "shutdown"){
         if(confirm("Shutdown the Pi?")){
-            console.log("yes")
             sendPiCommand("shutdown")
         }
         else{
-            console.log("no")
+            //do nothing
         }
     }
     else if(choice === "reboot"){
         if(confirm("Reboot the Pi?")){
-            console.log("yes")
             sendPiCommand("reboot")
         }
         else{
-            console.log("no")
+            //do nothing
         }
     }
 }
 
+/**
+ * Actually sends the shutdown or reboot command
+ * @param {1} choice 
+ */
 function sendPiCommand(choice){
     piControl = {
         choice: choice

@@ -8,7 +8,13 @@
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
+        <!--=============================================================================-->
+        <!--====                                                                     ====-->
+        <!--====                                                                     ====-->
+        <!--====                          Mobile Menu                                ====-->
+        <!--====                                                                     ====-->
+        <!--====                                                                     ====-->
+        <!--=============================================================================-->
         <link rel="stylesheet" href="{{ url_for('static', filename='css/slicknav.css') }}">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="{{ url_for('static', filename='css/jquery.slicknav.min.js') }}"></script>
@@ -20,8 +26,6 @@
 
     </head>
   <body>
-
-    
 
     <header>
       <div class="container">
@@ -40,10 +44,8 @@
         <nav id="mobilemenu"></nav>
         
         <div class="rpiControls">
-          <!-- <form action="{{url_for('index')}}" method="post"> -->
-              <button id="rpiOff" type="submit" title="Shutdown the Pi" name="rpiOff" value="rpiOff" onclick="shutdownRebootAlert('shutdown')"><i class="material-icons">power_settings_new</i></button>
-              <button id="rpiReboot" type="submit" title="Reboot the Pi" name="rpiReboot" value="rpiReboot" onclick="shutdownRebootAlert('reboot')"><i class="material-icons">loop</i></button>
-          <!-- </form> -->
+            <button id="rpiOff" type="submit" title="Shutdown the Pi" name="rpiOff" value="rpiOff" onclick="shutdownRebootAlert('shutdown')"><i class="material-icons">power_settings_new</i></button>
+            <button id="rpiReboot" type="submit" title="Reboot the Pi" name="rpiReboot" value="rpiReboot" onclick="shutdownRebootAlert('reboot')"><i class="material-icons">loop</i></button>
         </div>
       </div>
     </header>

@@ -18,7 +18,6 @@
 
             <div class="row">
                 <form action="{{url_for('controlsChange')}}" method="post">
-                <!-- <form method="post" id="form"> -->
                     <div class="column" id="colorColumn">
                         <h4>Color</h4>
                         <br>
@@ -38,7 +37,6 @@
                         <!--=============================================================-->
                         <h4>Basic</h4>
                         <br>
-                        <!-- <p>Select one and hit "Apply"</p> -->
 
                         <!--Change Function-->
                         <input type="radio" id="colorWipe" name="functions" value="colorWipe">
@@ -98,17 +96,11 @@
                         
                         <div class="sliderDiv">
                             <label for="slider">Brightness:</label>
-                            <input type="range" min="1" max="100" value="15" name="brightness" id="brightness">
+                            <input type="range" min="1" max="100" value="10" name="brightness" id="brightness">
                             <label for="brightness"><span id="value"></span>%</label>
-                            <!-- <p>Value: <span id="value"></span></p> -->
                         </div>
 
                         <br>
-
-                        <!-- <div class="intensityDiv">
-                            <label for="intensity">Intensity:</label>
-                            <input type="range" min="1" max="75" value="12" name="intensity" id="intensity">
-                        </div> -->
 
                         <div class="delayDiv">
                             <input type="checkbox" id="delayCheck" name="delayCheck" value="delayCheck">
@@ -117,23 +109,6 @@
                         </div>
 
                         <br>
-
-                        <!-- <div class="speedDiv" id="speedDivID">
-                            <label for="speed">Fade Speed:</label>
-                            <br>
-                            <div class="subSpeedDiv">
-                                <label for="speed1">Default</label>
-                                <input type="radio" id="speed1" name="speed" value="default">
-                                <br>
-                                <label for="speed2">Medium</label>
-                                <input type="radio" id="speed2" name="speed" value="medium">
-                                <br>
-                                <label for="speed3">Fast</label>
-                                <input type="radio" id="speed3" name="speed" value="fast">
-                            </div>
-                        </div> -->
-
-                        <!-- <br> -->
 
                         <div class="cyclesDiv" id="cyclesDivID">
                             <label for="cycles">Cycles:</label>
@@ -156,7 +131,6 @@
                                 <button type="submit" title="Light up the lights" id="applyBtn">Apply   <i class="material-icons">&#xe038;</i></button>
                                 <button type="submit" title="Turn off the lights" id="offBtn" name="btnOff" value="off">Turn Off   <i class="material-icons">&#xe8f5;</i></button>
                                 <button type="submit" title="Stop a repeating function" id="cancelBtn" name="cancel" value="cancelTask">Stop   <i class="material-icons">&#xe5c9;</i></button>
-                                <!-- <i class="material-icons">&#xe047;</i> -->
                             </form>
                         </div>
 
@@ -201,49 +175,6 @@
                                 delayTxt.disabled = false;              
                             }
                         }
-
-                        var fadeBtn = document.getElementById("fade");
-                        var fadeSpeed = document.getElementById("speedDivID");
-                        // fadeSpeed.style.display = "none";
-                        // fadeBtn.oninput = function(){
-                        //     if(fadeBtn.checked == false){
-                        //         fadeSpeed.style.display = "none"
-                        //         twoColors.disable = false;
-                        //     }                           
-                        //     if(fadeBtn.checked){
-                        //         fadeSpeed.style.display = "block";
-                        //         twoColors.disable = true;
-                        //     }
-                        //     if(fadeBtn.checked){
-                        //         cycles.style.display = "block";
-                        //     }
-                        // }
-
-                        var theaterBtn = document.getElementById("theaterChase");
-                        var twinkleBtn = document.getElementById("twinkle");
-                        var cycles = document.getElementById("cyclesDivID");
-                        // cycles.style.display = "none";
-                        // theaterBtn.oninput = function(){
-                        //     if(theaterBtn.checked == false || fadeBtn.checked == false || twinkleBtn.checked == false){
-                        //         cycles.style.display = "none"
-                        //         // twoColors.disable = false;
-                        //     }                           
-                        //     if(theaterBtn.checked || twinkleBtn.checked){
-                        //         cycles.style.display = "block";
-                        //         // twoColors.disable = true;
-                        //     }
-                        // }
-
-                        // var twinkleBtn = document.getElementById("twinkle");
-                        // var color2 = document.getElementById("favColor2");
-                        // twinkleBtn.oninput = function(){
-                        //     if(twinkleBtn.checked == false){
-                        //         color2.checked = false;
-                        //     }
-                        //     if(twinkleBtn.checked){
-                        //         color2.checked = true;
-                        //     }
-                        // }
 
                     </script>
 

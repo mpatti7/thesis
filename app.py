@@ -1,8 +1,13 @@
+# '''
+#     File name: app.py
+#     Author: Marissa Patti
+#     Python Version: 3.9.2
+#     Description: The main Flask application
+# '''
+
 from flask import Flask, render_template, request, jsonify
 from celery import Celery
-# import sqlalchemy
 from flask_sqlalchemy import SQLAlchemy
-# from onsets import smooth_jazz_onsets
 import onsets 
 import lights
 import utils
@@ -13,28 +18,24 @@ import time
 
 broker_url = 'amqp://localhost'
 
+# Flask app configurations
 app = Flask(__name__)
 app.config['CELERY_BROKER_URL'] = 'amqp://localhost//'
 app.config['CELERY_BACKEND_URL'] = "db+sqlite:///results.sqlite"
-# app.config['CELERY_BACKEND_URL'] = 'sqla+sqlite:///celerydb.sqlite'
-# app.config['result_backend'] = 'db+sqlite:///results.db'
-# app.config['result_backend'] = 'amqp://guest@localhost//'
-# app.config['result_backend'] = 'rpc://results.db'
-# app.config['result_backend'] = "db+sqlite:///results.sqlite"
 app.config ['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///results.sqlite3'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+# Initializing Celery
 celery = Celery(app.name, broker=app.config['CELERY_BROKER_URL'], backend=app.config['CELERY_BACKEND_URL'])
 celery.conf.update(app.config)
 
-tasks = list()      #A list to hold task ids
+tasks = list()      #A list to hold celery task ids
 
 blue = (0,0,255)
 red = (255,0,0)
 black = '#000000'
 
-# smooth_jazz_onsets = {}
-
+# Creates the database
 db = SQLAlchemy(app)
 
 class Results(db.Model):
@@ -44,17 +45,31 @@ class Results(db.Model):
     def __init__(self, onset):
         self.onset = onset
  
+# The Welcome Screen Route
 @app.route('/', methods=['GET', 'POST'])
 def index():
     form = request.get_json()
     print(f'form: {form}')
 
+    if(form):
+        if(form['choice'] == 'shutdown'):
+            utils.shutdown_pi()
+        elif(form['choice'] == 'reboot'):
+            utils.reboot_pi()
+
     return render_template('index.html')
 
+# Controls
 @app.route('/controls/', methods=['GET', 'POST'])
 def controls():
     form = request.get_json()
     print(f'form: {form}')
+
+    if(form):
+        if(form['choice'] == 'shutdown'):
+            utils.shutdown_pi()
+        elif(form['choice'] == 'reboot'):
+            utils.reboot_pi()
 
     return render_template('controls.html')
 
@@ -62,6 +77,12 @@ def controls():
 def controlsChange():
     rpiControls = request.get_json()
     print(f'rpiControls: {rpiControls}')
+
+    if(rpiControls):
+        if(rpiControls['choice'] == 'shutdown'):
+            utils.shutdown_pi()
+        elif(rpiControls['choice'] == 'reboot'):
+            utils.reboot_pi()
 
     form = request.form.to_dict()       #request the form data as a dictionary
     print(f"form = {form}")
@@ -104,39 +125,41 @@ def controlsChange():
     #If a function was selected, then call it
     elif('functions' in form):
         color = form["favcolor"]
-        if(form["functions"] == "colorWipe"):               #Color wipe
+        if(form["functions"] == "colorWipe"):               
             task = color_wipe.delay(color, options, brightness, False)
             tasks.append(task)
-        if(form["functions"] == "rColorWipe"):              #Reverse Color wipe
+        elif(form["functions"] == "rColorWipe"):              
             task = color_wipe.delay(color, options, brightness, True)
             tasks.append(task)
-        if(form['functions'] == 'dotFill'):
+        elif(form['functions'] == 'dotFill'):
             task = dot_fill.delay(color, options, brightness)
             tasks.append(task)
-        if(form["functions"] == "fade"):                    #Fade
+        elif(form["functions"] == "fade"):                    
             task = fade.delay(color, options, brightness)
             tasks.append(task)
-        if(form["functions"] == "theaterChase"):            #Theater Chase
+        elif(form["functions"] == "theaterChase"):            
             task = theater_chase.delay(color, options, brightness, True)
             tasks.append(task)
-        if(form['functions'] == 'twinkle'):
+        elif(form['functions'] == 'twinkle'):
             task = twinkle_disco.delay(color, options, brightness, True)
             tasks.append(task)
-        if(form['functions'] == 'disco'):
+        elif(form['functions'] == 'disco'):
             task = twinkle_disco.delay(color, options, brightness, True)
             tasks.append(task)
 
     return render_template('controls.html')
 
+# Playlists 
 @app.route('/playlists/', methods = ["GET", "POST"])
 def playlists():
     form = request.get_json()
     print(f'form: {form}')
 
-    # if(form['choice'] == 'shutdown'):
-    #     utils.shutdown_pi()
-    # elif(form['choice'] == 'reboot'):
-    #     utils.reboot_pi()
+    if(form):
+        if(form['choice'] == 'shutdown'):
+            utils.shutdown_pi()
+        elif(form['choice'] == 'reboot'):
+            utils.reboot_pi()
 
     return render_template('playlists.html')
 
@@ -162,10 +185,17 @@ def playlistsChange():
         tasks.append(task)
     return render_template('playlists.html')
 
+# Music Sync
 @app.route('/musicSync/', methods = ["GET", "POST"])
 def musicSync():  
     form = request.get_json()
     print(f'form: {form}')
+
+    if(form):
+        if(form['choice'] == 'shutdown'):
+            utils.shutdown_pi()
+        elif(form['choice'] == 'reboot'):
+            utils.reboot_pi()
 
     return render_template('musicSync.html')
 
@@ -199,23 +229,32 @@ def musicChange():
     
     return render_template('musicSync.html')
 
+# Info
 @app.route('/info/', methods = ["GET", "POST"])
 def info():
     rpiControls = request.get_json()
     print(f'rpiControls: {rpiControls}')
 
+    if(rpiControls):
+        if(rpiControls['choice'] == 'shutdown'):
+            utils.shutdown_pi()
+        elif(rpiControls['choice'] == 'reboot'):
+            utils.reboot_pi()
+
+    # Get system information
     form = {}
     ip = utils.get_ip_address()
     pin = utils.get_gpio()
-    temp = utils.check_cpu_temp()
-    ram = utils.check_memory_usage()
+    temp = utils.get_cpu_temp()
+    ram = utils.get_memory_usage()
     model = utils.get_light_model()
     num_leds = utils.get_num_leds()
 
-    if(request.method == 'POST'):
+    if(request.method == 'POST'):       # Request the stuff entered in the text fields on the UI
         form = request.form.to_dict()
         print(f'form: {form}')
 
+    # If the form is not empty, check if anything changed and change it if it did
     if(form):   
         if(form['num_lights'] != num_leds):
             print(f'Changing the amount of LEDs')
@@ -224,6 +263,7 @@ def info():
         if(form['light_model'] != model):
             print(f'Changing model')
 
+    # Return the HTML template, with the system information to display
     return render_template('info.html', ip=ip, pin=pin, temp=temp, ram=ram, model=model, num_leds=num_leds)
 
 ######################################
@@ -269,19 +309,7 @@ def light_evens(color, brightness=100):
 def light_odds(color, brightness=100):
     return lights.light_odds(color, brightness)
 
-@celery.task(name='app.insert')
-def insert_async(data):
-    print(f'Inserting data...')
-    db.session.add(data)
-    db.session.commit()
-    return 'Done'
-
-def insert(data):
-    print(f'Inserting data...')
-    db.session.add(data)
-    db.session.commit()
-    return 'Done'
-
+# Run the app in debug mode
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=80)
     # app.run(debug=True)

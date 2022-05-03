@@ -1,3 +1,10 @@
+# '''
+#     File name: lights.py
+#     Author: Marissa Patti
+#     Python Version: 3.9.2
+#     Description: A module for light functions
+# '''
+
 import board
 import neopixel
 from PIL import ImageColor
@@ -5,17 +12,14 @@ import time
 import random
 from functools import partial
 
- # A module for all light functions
- # Author: Marissa Patti
-
 NUM_LEDS = 300
-brightness = 15
+brightness = 100
 pin = board.D18
 model = 'WS2812b'
 pixels = neopixel.NeoPixel(pin, NUM_LEDS, auto_write = False)
 
-blue = 0,0,255
-black = (0,0,0)
+blue = (0, 0, 255)
+black = (0, 0, 0)
 
 # '''Sets the light strip to a solid color.
 #     color: the color to set the lights to. fill()
@@ -35,11 +39,13 @@ def color_fill(color, options, brightness = brightness):
 
         print(f"Double color fill: {color1}, {color2}")
 
-        if("#" in color1):
+        # Check if this is a hex number or not. if it is, convert it to an RGB value
+        if("#" in color1):                              
             color1 = convert_hex_to_rgb(color1)
         if("#" in color2):
             color2 = convert_hex_to_rgb(color2)
 
+        # Change the brightness accordingly
         color1 = change_brightness(brightness, color1)
         color2 = change_brightness(brightness, color2)
 
@@ -50,7 +56,7 @@ def color_fill(color, options, brightness = brightness):
         pixels.show()
     else:
         print(color)
-        if("#" in color):                           #check if this is a hex number or not. if it is, convert it to an RGB value
+        if("#" in color):                           
             color = convert_hex_to_rgb(color)
         print(color)
         color = change_brightness(brightness, color)
@@ -74,7 +80,6 @@ def color_fill(color, options, brightness = brightness):
 #         delay(int): default is 0. The time between when each LED is lit up in seconds.
 # '''
 def color_wipe(color, options, brightness = brightness, reverse = False):
-    # pixels.fill(black)
     delay = 0.0
     print(f'Options: {options}')
 
@@ -120,7 +125,7 @@ def color_wipe(color, options, brightness = brightness, reverse = False):
 
         if(reverse):
             print(f"Reverse Color wipe: {color}")
-            for i in range(NUM_LEDS-1, -1, -1):      #technically counting down from 299, not 300 
+            for i in range(NUM_LEDS-1, -1, -1):       
                 pixels[i] = color
                 pixels.show()
                 time.sleep(delay)
@@ -135,17 +140,13 @@ def color_wipe(color, options, brightness = brightness, reverse = False):
 #     color(tuple): the color of the lights
 #     brightness(int): default is 100. the brightness of the lights
 #     options(dict): A dictionary of options to alter this animation
-#         speed(str): the rate of which each RGB value increases or decreases by.
-#                     default is 1, medium is 10, fast is 25
 #         cycles(int): Default is 0. Number of times this function will loop
 #                      If greater than 0, repeat is set to False
 #     repeat: Default is True. If cycles is greater than 0, this function will 
 #             repeat that many times. Otherwise, it will not stop unless canceled.
 # '''
 def fade(color, options, brightness=brightness, repeat=True):
-    # turn_off()
     fade_color = list()
-    # speed_rate = 1
     cycles = 0
 
     if('#' in color):
@@ -155,26 +156,18 @@ def fade(color, options, brightness=brightness, repeat=True):
     if('option3' in options):
         cycles = int(options['option3']['value'])
 
-    #color is a tuple, so the values can't be changed, so it's rgb values are copied into a list where they can be changed
+    # color is a tuple, so the values can't be changed, so it's rgb values are copied into a list where they can be changed
     fade_color.append(color[0])
     fade_color.append(color[1])
     fade_color.append(color[2])
 
+    # Keep track of the max value of each value
     r_max = color[0]
     g_max = color[1]
     b_max = color[2]
 
     pixels.fill(fade_color)
     
-    #TODO: Add in speed options. May need to add logic if the speed rate won't add or subtract to an even 0 or 255, based on rgb value
-    # if(speed == 'default'):
-    #     speed_rate = 1
-    # print(f'speed: {speed}')
-    # if(speed == 'medium'):
-    #     speed_rate == 25
-    # elif(speed == 'fast'):
-    #     speed_rate == 50
-
     current_cycle = 0
     while repeat:
         if(cycles > 0):
@@ -182,6 +175,7 @@ def fade(color, options, brightness=brightness, repeat=True):
             if(current_cycle == cycles):
                 turn_off()
                 break
+
         #Prevent each value from going below 0
         if(fade_color[0] < 0):
             fade_color[0] = 0
@@ -220,7 +214,7 @@ def fade(color, options, brightness=brightness, repeat=True):
 #         cycles(int): Default is 0. Number of times this function will loop
 #                      If greater than 0, repeat is set to False
 #         delay(float): a time delay to alter the speed of this animation
-#                       in millisecons. Default is 0.
+#                       in millisecons. Default is 0
 #     brightness(int): the brightness of the LEDs
 #     repeat(bool): Default is True. If cycles is greater than 0, this 
 #             function will repeat that many times. Otherwise,
@@ -230,7 +224,6 @@ def theater_chase(color, options, brightness=brightness, repeat=True):
     print(f'options: {options}')
     delay = 50
     cycles = 0
-    # turn_off()
 
     if('option1' in options):
         delay = float(options['option1']['value'])
@@ -260,19 +253,18 @@ def theater_chase(color, options, brightness=brightness, repeat=True):
 #     while Disco is a much faster version. Each version has their own default 
 #     delays for how each is intended to be used. The user may specify their own
 #     or not.
-#     color: the base color of the lights.
-#     options: a dictionary of options to alter the animation.
+#     color: the base color of the lights
+#     options: a dictionary of options to alter the animation
 #         color2: the color to light up with.
 #         delay: the delay in milliseconds to alter the speed of the LEDs. Default
-#                for Twinkle is 1000 and default for Disco is 50.
-#     brightness: Default is 100. The brightness of the lights.
+#                for Twinkle is 1000 and default for Disco is 50
+#     brightness: Default is 100. The brightness of the lights
 # '''
 def twinkle_disco(color, options, brightness=brightness, repeat=True):
     delay = 0
     cycles = 0
     color1 = color
     color2 = ''
-    # turn_off()
 
     if(options['function'] == 'twinkle'):       #default values for twinkle and disco if a delay was not specified
         delay = 1000 / 1000
@@ -285,10 +277,9 @@ def twinkle_disco(color, options, brightness=brightness, repeat=True):
     if('option4' in options and options['option4']['color2'] != 'None'):
         color2 = options['option4']['color2']
     else:
+        # If a second color was not specified, the base color is black 
         color1 = black
         color2 = color
-    # if(cycles > 0):
-    #     repeat = False
 
     print(f'delay = {delay}')
     
@@ -300,7 +291,7 @@ def twinkle_disco(color, options, brightness=brightness, repeat=True):
     color1 = change_brightness(brightness, color1)
     color2 = change_brightness(brightness, color2)
 
-    num_dots = int(NUM_LEDS * .125)                 #flash 1/8 of the total lights
+    num_dots = int(NUM_LEDS * .125)                 # flash 1/8 of the total lights
     print(f'num_dots = {num_dots}')
     dots = list()
 
@@ -310,20 +301,18 @@ def twinkle_disco(color, options, brightness=brightness, repeat=True):
         if(cycles > 0):
             current_cycle += 1
             if(current_cycle == cycles):
-                # turn_off()
                 break
         for i in range(0, num_dots):
-            dots.append(random.randint(0, NUM_LEDS-1))
+            dots.append(random.randint(0, NUM_LEDS-1))      # Choose random pixels from 1/8 of the total lights
         for j in dots:
-            pixels[j] = color2
+            pixels[j] = color2      # assign the color to the actual pixels based on the random ones
         pixels.show()
         time.sleep(delay)
         pixels.fill(color1)
-        dots.clear()
+        dots.clear()                # clear out the random pixels to get new ones
 
-# '''Lights up each LED one by one in a random order. If 2 colors are not
-#     specified, color1(the base) becomes black and color becomes color2.
-#     color: the base color of the lights
+# '''Lights up each LED one by one in a random order. 
+#     color: the color of the lights
 #     options: a dictionary of options to alter the animation
 #         color2: the color to light up with
 #     brightness: Default is 100. The brightness of the lights
@@ -331,42 +320,31 @@ def twinkle_disco(color, options, brightness=brightness, repeat=True):
 def dot_fill(color, options, brightness=brightness):
     color1 = color
     color2 = ''
-    # turn_off()
-
-    # if('option4' in options):
-    #     color2 = options['option4']['color2']
-    # else:                                        #if a second color wasn't chosen, fill pixels with black and use color1 as color2
-    #     color1 = black
-    #     color2 = color
     
     if("#" in color1):
         color1 = convert_hex_to_rgb(color1)
-    # if("#" in color2):
-    #     color2 = convert_hex_to_rgb(color2)
 
     color1 = change_brightness(brightness, color1)
-    # color2 = change_brightness(brightness, color2)
-
-    # pixels.fill(color1)
 
     num_pixels = list()
-    for i in range(0, NUM_LEDS):
+    for i in range(0, NUM_LEDS):        # add all pixels from the acutal strip to a separate list
         num_pixels.append(i)
 
     while len(num_pixels) != 0:
-        idx = num_pixels.pop(random.randint(0, len(num_pixels)-1))
-        # pixels[idx] = color2
+        idx = num_pixels.pop(random.randint(0, len(num_pixels)-1))      # pop off a random pixel from the separate list
         pixels[idx] = color1
         pixels.show()
 
+# '''Plays out each selected function in a sequence specified by the user.
+#     sequence: a dictionary of functions and their customization options
+# '''
 def play_sequence(sequence):
     print(f'playing sequence')
     methods = dict()
     count = 0
 
+    # Create a partial function for each item in the sequence
     for item in sequence:
-        print(item)
-        # print(item['options'])
         if(item['method'] == "color_wipe"):
             methods[str(count)] = partial(color_wipe, item['color1'], item['options'], int(item['brightness']), False)
         if(item['method'] == 'dot_fill'):
@@ -388,11 +366,16 @@ def play_sequence(sequence):
         count += 1
     print(f'methods: {methods}')
     
+    # Execute each function one by one 
     while True:
         for i in range(len(methods)):
             print(f'Performing {methods[str(i)]}')
             methods[str(i)]()
 
+# '''Lights the even pixels in the strip
+#     color: the color of the lights
+#     brightness: the brightness of the lights
+# '''
 def light_evens(color, brightness=brightness):
     if("#" in color):
         color = convert_hex_to_rgb(color)
@@ -402,6 +385,10 @@ def light_evens(color, brightness=brightness):
         pixels[i] = color
     pixels.show()
 
+# '''Lights the odd pixels in the strip
+#     color: the color of the lights
+#     brightness: the brightness of the lights
+# '''
 def light_odds(color, brightness=brightness):
     if("#" in color):
         color = convert_hex_to_rgb(color)
@@ -411,25 +398,7 @@ def light_odds(color, brightness=brightness):
         pixels[i] = color
     pixels.show()
 
-
-
-def flash_every_other(color, options, brightness=brightness):
-    if('option4' in options and options["option4"]["color2"] != "None"):
-        color1 = options["option4"]["color1"]
-        color2 = options["option4"]["color2"]
-
-        print(f"Double color fill: {color1}, {color2}")
-
-        if("#" in color1):
-            color1 = convert_hex_to_rgb(color1)
-        if("#" in color2):
-            color2 = convert_hex_to_rgb(color2)
-
-        color1 = change_brightness(brightness, color1)
-        color2 = change_brightness(brightness, color2)
-
-
-
+# Simply pauses for a specified amount of time in milliseconds
 def pause(wait):
     wait = float(wait) / 1000
     print(f'wait time: {wait}')
@@ -437,8 +406,9 @@ def pause(wait):
 
 # '''Adjusts the brightness of the lights. Multiplies the percentage 
 #     by the RGB values to get a less intense version of the same color.
-#     val: the percentage from the slider. 
-#     color: the color chosen for the lights.'''
+#     val: the percentage from the slider
+#     color: the color chosen for the lights
+# '''
 def change_brightness(val, color):
     if("#" in color):
         color = convert_hex_to_rgb(color)
@@ -447,26 +417,16 @@ def change_brightness(val, color):
     print(f"brightness = {brightness}")
     return brightness
 
-# '''Simply turns off the lights.'''
+# Simply turns off the lights
 def turn_off():
     print("turning off lights")
     pixels.fill(black)
     pixels.show()
 
-# '''Converts a hexadecimal value to an RGB value.'''
+# Converts a hexadecimal value to an RGB value
 def convert_hex_to_rgb(hex):
     rgb = ImageColor.getcolor(hex, "RGB")
     return rgb
-
-def main():
-    print(f'Initializing Neopixels...')
-    NUM_LEDS = 300
-    brightness = 50
-    pin = board.D18
-    model = 'WS2812b'
-    global pixels
-    pixels = neopixel.NeoPixel(pin, NUM_LEDS, auto_write = False)
-    print(pixels)
 
 
 

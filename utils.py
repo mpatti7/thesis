@@ -1,8 +1,18 @@
+# '''
+#     File name: utils.py
+#     Author: Marissa Patti
+#     Python Version: 3.9.2
+#     Description: A module for helper functions
+# '''
+
 import subprocess
-import csv
 import psutil
 import lights
 
+# '''Creates a separate dictionary holding the options specified 
+#     form: the form received from the frontend containing customization options
+#     return: a dictionary
+# '''
 def create_options(form):
     options = dict()
 
@@ -28,48 +38,39 @@ def create_options(form):
 
     return options
 
+# Executes a shutdown command for the Pi
 def shutdown_pi():
     print(f'Shutting down Pi...')
     subprocess.call('sudo shutdown now', shell=True)
 
+# Executes a reboot command for the Pi
 def reboot_pi():
     print(f'Rebooting Pi...')
     subprocess.call('sudo reboot', shell=True)
 
-def read_onset_csv(csv_path):
-    print(f'Reading in onsets...')
-    onsets = {}
-
-    try:
-        with open(csv_path, 'r') as infile:
-            reader = csv.reader(infile)
-            onsets = {float(rows[0]):rows[1] for rows in reader}
-    except IOError as error:
-        print(f'Error: {error}')
-
-    print('Complete')
-    return onsets 
-
+# Returns the current IP address of the Pi
 def get_ip_address():
     ip = subprocess.check_output(['hostname', '-I'])
     return str(ip.decode("UTF-8"))
 
-#Returns the pin the lights are wired to
+# Returns the pin the lights are wired to
 def get_gpio():
     return str(lights.pin)
 
-#Returns CPU temperature in Celsius
-def check_cpu_temp():
+# Returns CPU temperature in Celsius
+def get_cpu_temp():
     temp = subprocess.check_output(['vcgencmd', 'measure_temp'])
     return str(temp.decode('UTF-8')).split('=')[1]
     
-#Returns amount of used memory in mega bytes
-def check_memory_usage():
+# Returns amount of used memory in mega bytes
+def get_memory_usage():
     memory = psutil.virtual_memory()
     return str(round(memory.used / 1024.0 / 1024.0, 1)) + 'mb out of ' + str(round(memory.total / 1024.0 / 1024.0, 1)) + 'mb'
 
+# Returns the model of the LED strip
 def get_light_model():
     return str(lights.model)
 
+# Returns the number of lights in the LED strip
 def get_num_leds():
     return str(lights.NUM_LEDS)

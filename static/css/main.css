@@ -74,15 +74,6 @@ header{
   margin-left: 60px;
 }
 
-/* .rpiControls form button{
-  text-decoration: none;
-  margin: 22px 5px;
-  display: inline;
-  width: 60px;
-  border: 1px solid black;
-  border-radius: 15%;
-  font-size: 145%;
-} */
 .rpiControls button{
   text-decoration: none;
   margin: 22px 5px;
@@ -92,16 +83,6 @@ header{
   border-radius: 15%;
   font-size: 145%;
 }
-
-/* .rpiControls form #rpiOff .material-icons{
-  font-size: 75%;
-  color: white;
-} 
-
-.rpiControls form #rpiReboot .material-icons{
-  font-size: 75%;
-  color: white;
-}  */
 
 .rpiControls #rpiOff .material-icons{
   font-size: 75%;
